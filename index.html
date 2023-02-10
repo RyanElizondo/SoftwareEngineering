@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Coffee Website</title>
+  </head>
+  <body>
+    <h1>Customer Login</h1>
+    <form>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+
+    <h1>Menu</h1>
+    <ul>
+      <li>Cappucinno</li>
+      <li>Espresso</li>
+      <li>Americano</li>
+      <li>Latte</li>
+      <li>Mocha</li>
+      <li>White Chocolate</li>
+    </ul>
+
+    <h1>Add Order</h1>
+    <form>
+      <label for="item">Item:</label>
+      <select id="item" name="item">
+        <option value="Cappucinno">Cappucinno</option>
+        <option value="Espresso">Espresso</option>
+        <option value="Americano">Americano</option>
+        <option value="White Chocolate">White Chocolate</option>
+        <option value = "Mocha"> Mocha </option>
+      </select><br><br>
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity"><br><br>
+      <input type="submit" value="Add to Cart">
+    </form>
+
+    <h1>Customize Order</h1>
+    <form>
+      <label for="topping">Topping:</label>
+      <input type="checkbox" id="topping1" name="topping" value="Whole Milk">Whole Milk<br>
+      <input type="checkbox" id="topping2" name="topping" value="Almond Milk">Almond Milk<br>
+      <input type="checkbox" id="topping3" name="topping" value="Sugar">Sugar<br>
+      <input type="checkbox" id="topping4" name="topping" value="Cream">Anchovies<br><br>
+      <label for="drink">Drink:</label>
+      <input type="submit" value="Customize">
+    </form>
+
+    <h1>Place Order</h1>
+    <form>
+      <label for="address">Order:</label>
+      <select id="item" name="item">
+          <option value ="To Go">To Go </option>
+          <option value ="Dine In">Dine In </option>
+          
+     <label for="payment">Payment Method:</label>
+      <input type="radio" id="card" name="payment" value="card">Card
+      <input type="radio" id="cash" name="payment" value="ApplePay">ApplePay
+     <input type="radio" id="cash" name="payment" value="Cash">ApplePay
+          
