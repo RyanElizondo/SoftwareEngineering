@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Coffee Website</title>
-  </head>
-  <body>
-    <h1>Customer Login</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expresso</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    </head>
+<body> 
+<section class= "header">
+    <h1>
+        Expresso Login
+    </h1>
+
     <form>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username"><br><br>
+        
+     <label for="username">Phone Number:</label>
+     <input type="text" id="username" name="username"><br><br>
+
+        
       <label for="password">Password:</label>
       <input type="password" id="password" name="password"><br><br>
-      <input type="submit" value="Submit">
+      <input type="submit" value="Login">
     </form>
-
+    
+    
+    <nav>
+        <div class= "menu">  
     <h1>Menu</h1>
     <ul>
       <li>Cappucinno</li>
@@ -23,7 +37,8 @@
       <li>Mocha</li>
       <li>White Chocolate</li>
     </ul>
-
+            </div>
+        </nav>
     <h1>Add Order</h1>
     <form>
       <label for="item">Item:</label>
@@ -39,6 +54,7 @@
       <input type="submit" value="Add to Cart">
     </form>
 
+
     <h1>Customize Order</h1>
     <form>
       <label for="topping">Topping:</label>
@@ -49,16 +65,26 @@
       <label for="drink">Drink:</label>
       <input type="submit" value="Customize">
     </form>
-
-    <h1>Place Order</h1>
+</section>
+    <section class= "h1">
+    <h1>Place Order
+    
     <form>
       <label for="address">Order:</label>
       <select id="item" name="item">
           <option value ="To Go">To Go </option>
           <option value ="Dine In">Dine In </option>
+        </select>
+        </form>
+    </h1>
+    <label for="payment">Payment Method:</label>
+    <input type="radio" id="card" name="payment" value="card">Card
+    <input type="radio" id="cash" name="payment" value="ApplePay">ApplePay
+    <input type="radio" id="cash" name="payment" value="Cash">ApplePay
+    </section>   
+     
           
-     <label for="payment">Payment Method:</label>
-      <input type="radio" id="card" name="payment" value="card">Card
-      <input type="radio" id="cash" name="payment" value="ApplePay">ApplePay
-     <input type="radio" id="cash" name="payment" value="Cash">ApplePay
+     
+        
+    
           
