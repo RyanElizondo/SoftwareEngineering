@@ -1,0 +1,148 @@
+{
+  "submenus": [
+    {
+      "Sandwiches": [
+        {
+          "name": "Bacon egg and cheese croissant",
+          "customizations": [
+            {
+              "name": "Bacon",
+              "type": "boolean"
+            },
+            {
+              "name": "Cheese",
+              "type": "boolean"
+            },
+            {
+              "name": "Egg",
+              "type": "boolean"
+            }
+          ],
+          "price": 5
+        },
+        {
+          "name": "Grilled cheese on white bread",
+          "price": 5
+        },
+        {
+          "name": "BBQ Chicken Sandwich",
+          "customizations": [
+            {
+              "name": "BBQ Sauce",
+              "type": "boolean"
+            },
+            {
+              "name": "Chicken",
+              "type": "boolean"
+            }
+          ],
+          "price": 8
+        },
+        {
+          "name": "Avocado BLT on white bread",
+          "customizations": [
+            {
+              "name": "Avocado",
+              "type": "boolean"
+            },
+            {
+              "name": "Bacon",
+              "type": "boolean"
+            },
+            {
+              "name": "Lettuce",
+              "type": "boolean"
+            },
+            {
+              "name": "Tomato",
+              "type": "boolean"
+            }
+          ],
+          "price": 7
+        },
+        {
+          "name": "Turkey breast",
+          "customizations": [
+            {
+              "name": "Turkey breast",
+              "type": "boolean"
+            },
+            {
+              "name": "Mayonnaise",
+              "type": "boolean"
+            },
+            {
+              "name": "Lettuce",
+              "type": "boolean"
+            }
+          ],
+          "price": 6
+        },
+        {
+          "name": "Cheesesteak",
+          "customizations": [
+            {
+              "name": "Cheese",
+              "type": "boolean"
+            },
+            {
+              "name": "Steak",
+              "type": "boolean"
+            }
+          ],
+          "price": 5
+        },
+        {
+          "name": "Pulled pork",
+          "customizations": [
+            {
+              "name": "Pulled pork",
+              "type": "boolean"
+            },
+            {
+              "name": "Bread type",
+              "type": "radiobutton",
+              "options": ["White bread", "Roll"]
+            }
+          ],
+          "price": 5
+        }
+      ]
+    },
+    {
+      "Bakery": [
+        {
+          "name": "Plain bagel",
+          "customizationSchema": "bagelCustomization",
+          "price": 2
+        }
+      ]
+    },
+    {
+      "Beverages": [
+
+      ]
+    }
+
+  ],
+  "customizations": {
+    "bagelCustomization": [
+      {
+        "name": "Type"
+      },
+      {
+        "name": "Spread",
+        "type": "checkbox",
+        "options": ["Butter", "Cream cheese", "Blueberry jam"]
+      },
+      {
+        "name": "Toasted",
+        "type": "boolean"
+      },
+      {
+        "name": "Sliced",
+        "type": "boolean"
+      }
+    ]
+  }
+}
