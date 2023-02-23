@@ -1,0 +1,31 @@
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 12vmin;
+  height: 50vmin;
+  width: 100%;
+  max-width: 60vmax;
+}
+
+.bg-image {
+  background-image: url('../public/landingpage.webp');
+  max-width: 100%;
+  min-height: 60vh;
+  height: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+
+div.page {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  min-height: 25vh;
+  max-width: 60vmax;
+  margin: auto;
+  padding-top: 4vh;
+}
