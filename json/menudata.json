@@ -1,25 +1,29 @@
 {
   "submenus": [
-
     {
-      "Sandwiches": [
+      "name": "Sandwiches",
+      "items": [
         {
           "name": "Bacon Egg and Cheese",
           "customizations": [
             {
               "name": "Bacon",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             {
               "name": "Cheese",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             {
               "name": "Egg",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             }
           ],
-          "price": 5
+          "price": 5,
+          "inventory": 50
         },
         {
           "name": "Grilled Cheese",
@@ -30,68 +34,88 @@
           "customizations": [
             {
               "name": "BBQ Sauce",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             {
               "name": "Chicken",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             }
           ],
-          "price": 8
+          "price": 8,
+          "inventory": 50
         },
         {
           "name": "Avocado BLT",
           "customizations": [
             {
               "name": "Avocado",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             {
               "name": "Bacon",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             {
               "name": "Lettuce",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             {
               "name": "Tomato",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "name": "Chipotle Mayo Sauce",
+              "type": "boolean",
+              "default": true
             }
           ],
-          "price": 7
+          "price": 7,
+          "inventory": 50
         },
         {
           "name": "Turkey Breast",
           "customizations": [
             {
               "name": "Turkey breast",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             {
               "name": "Mayonnaise",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             {
               "name": "Lettuce",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             }
           ],
-          "price": 6
+          "price": 6,
+          "inventory": 50
         },
         {
           "name": "Cheesesteak",
           "customizations": [
             {
               "name": "Cheese",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             {
               "name": "Steak",
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             }
           ],
-          "price": 5
+          "price": 5,
+          "inventory": 50
         },
         {
           "name": "Pulled Pork Sandwich",
@@ -107,21 +131,154 @@
               "options": ["White bread", "Roll"]
             }
           ],
-          "price": 5
+          "price": 5,
+          "inventory": 50
         }
       ]
     },
-
     {
-      "Bakery": [
+      "name": "Bakery",
+      "items": [
         {
-          "name": "Plain bagel",
-          "customizationSchema": "bagelCustomization",
-          "price": 2
+          "name": "Plain Bagel",
+          "customizations": [
+            {
+              "name": "Spread",
+              "type": "checkbox",
+              "options": ["Butter", "Cream cheese", "Blueberry jam"]
+            },
+            {
+              "name": "Toasted",
+              "type": "boolean",
+              "default": false
+            },
+            {
+              "name": "Sliced",
+              "type": "boolean",
+              "default": false
+            }
+          ],
+          "price": 3,
+          "inventory": 100
+        },
+        {
+          "name": "Blueberry Bagel",
+          "customizations": [
+            {
+              "name": "Spread",
+              "type": "checkbox",
+              "options": ["Butter", "Cream cheese", "Blueberry jam"]
+            },
+            {
+              "name": "Toasted",
+              "type": "boolean",
+              "default": false
+            },
+            {
+              "name": "Sliced",
+              "type": "boolean",
+              "default": false
+            }
+          ],
+          "price": 4,
+          "inventory": 50
+        },
+        {
+          "name": "Cinnamon Raisin Bagel",
+          "customizations": [
+            {
+              "name": "Spread",
+              "type": "checkbox",
+              "options": ["Butter", "Cream cheese", "Blueberry jam"]
+            },
+            {
+              "name": "Toasted",
+              "type": "boolean",
+              "default": false
+            },
+            {
+              "name": "Sliced",
+              "type": "boolean",
+              "default": false
+            }
+          ],
+          "price": 3,
+          "inventory": 50
+        },
+        {
+          "name": "Chocolate Chip Cookies",
+          "customizations": [
+            {
+              "name": "Quantity",
+              "type": "radiobutton",
+              "options": [1, 6, 12]
+            }
+          ],
+          "price": [2,10,20],
+          "inventory": 200
+        },
+        {
+          "name": "Oatmeal Raisin Cookies",
+          "customizations": [
+            {
+              "name": "Quantity",
+              "type": "radiobutton",
+              "options": [1, 6, 12]
+            }
+          ],
+          "price": [2,10,20],
+          "inventory": 200
+        },
+        {
+          "name": "Sugar Cookies",
+          "customizations": [
+            {
+              "name": "Quantity",
+              "type": "radiobutton",
+              "options": [1, 6, 12]
+            }
+          ],
+          "price": [2,10,20],
+          "inventory": 200
+        },
+        {
+          "name": "Brownies",
+          "customizations": [
+            {
+              "name": "Quantity",
+              "type": "radiobutton",
+              "options": [1, 6, 12]
+            }
+          ],
+          "price": [3,15,30],
+          "inventory": 200
+        },
+        {
+          "name": "Blueberry Muffin",
+          "customizations": [
+            {
+              "name": "Quantity",
+              "type": "radiobutton",
+              "options": [1, 6, 12]
+            }
+          ],
+          "price": [3,15,30],
+          "inventory": 200
+        },
+        {
+          "name": "Pumpkin Muffin",
+          "customizations": [
+            {
+              "name": "Quantity",
+              "type": "radiobutton",
+              "options": [1, 6, 12]
+            }
+          ],
+          "price": [3,15,30],
+          "inventory": 200
         }
       ]
     },
-
     {
       "name": "Beverages",
       "items": [
@@ -141,8 +298,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -152,14 +308,12 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             }
           ],
           "price": [2,3,4],
           "inventory": 300
         },
-
         {
           "name": "Light Roast Coffee",
           "customizations": [
@@ -176,8 +330,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -187,14 +340,12 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             }
           ],
           "price": [2,3,4],
           "inventory": 300
         },
-
         {
           "name": "Dark Roast Coffee",
           "customizations": [
@@ -211,8 +362,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -222,8 +372,7 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             }
           ],
           "price": [2,3,4],
@@ -245,8 +394,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -256,8 +404,7 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             }
           ],
           "price": [2,3,4],
@@ -279,8 +426,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -290,8 +436,7 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             },
             {
               "name": "Whipped cream",
@@ -312,7 +457,6 @@
           "price": [3,4,5],
           "inventory": 200
         },
-
         {
           "name": "Cinnamon Croissant Latte",
           "customizations": [
@@ -329,8 +473,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -340,8 +483,7 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             },
             {
               "name": "Whipped cream",
@@ -362,7 +504,6 @@
           "price": [3,4,5],
           "inventory": 100
         },
-
         {
           "name": "Mocha Marshmallow Latte",
           "customizations": [
@@ -379,8 +520,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -390,8 +530,7 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             },
             {
               "name": "Whipped cream",
@@ -412,7 +551,6 @@
           "price": [3,4,5],
           "inventory": 100
         },
-
         {
           "name": "Oatmeal Raisin Latte",
           "customizations": [
@@ -429,8 +567,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -440,8 +577,7 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             },
             {
               "name": "Whipped cream",
@@ -462,7 +598,6 @@
           "price": [3,4,5],
           "inventory": 100
         },
-
         {
           "name": "Oreo Swirl Latte",
           "customizations": [
@@ -479,8 +614,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -490,8 +624,7 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             },
             {
               "name": "Whipped cream",
@@ -512,7 +645,6 @@
           "price": [3,4,5],
           "inventory": 100
         },
-
         {
           "name": "Jelly Donut Latte",
           "customizations": [
@@ -529,8 +661,7 @@
             {
               "name": "Dairy Amount",
               "type": "number",
-              "min": 1,
-              "max": 5
+              "options": {"min": 1,"max": 5}
             },
             {
               "name": "Sugar",
@@ -540,8 +671,7 @@
             {
               "name": "Sugar Amount",
               "type": "number",
-              "min": 0,
-              "max": 5
+              "options": {"min": 0,"max": 5}
             },
             {
               "name": "Whipped cream",
@@ -562,7 +692,6 @@
           "price": [3,4,5],
           "inventory": 100
         },
-
         {
           "name": "Coca-Cola",
           "price": 2,
@@ -595,26 +724,5 @@
         }
       ]
     }
-
-  ],
-  "customizations": {
-    "bagelCustomization": [
-      {
-        "name": "Type"
-      },
-      {
-        "name": "Spread",
-        "type": "checkbox",
-        "options": ["Butter", "Cream cheese", "Blueberry jam"]
-      },
-      {
-        "name": "Toasted",
-        "type": "boolean"
-      },
-      {
-        "name": "Sliced",
-        "type": "boolean"
-      }
-    ]
-  }
+  ]
 }
