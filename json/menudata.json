@@ -9,17 +9,17 @@
             {
               "name": "Bacon",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Cheese",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Egg",
               "type": "boolean",
-              "default": true
+              "options": true
             }
           ],
           "price": 5,
@@ -35,12 +35,12 @@
             {
               "name": "BBQ Sauce",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Chicken",
               "type": "boolean",
-              "default": true
+              "options": true
             }
           ],
           "price": 8,
@@ -52,27 +52,27 @@
             {
               "name": "Avocado",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Bacon",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Lettuce",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Tomato",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Chipotle Mayo Sauce",
               "type": "boolean",
-              "default": true
+              "options": true
             }
           ],
           "price": 7,
@@ -84,17 +84,17 @@
             {
               "name": "Turkey breast",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Mayonnaise",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Lettuce",
               "type": "boolean",
-              "default": true
+              "options": true
             }
           ],
           "price": 6,
@@ -106,12 +106,12 @@
             {
               "name": "Cheese",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Steak",
               "type": "boolean",
-              "default": true
+              "options": true
             }
           ],
           "price": 5,
@@ -123,7 +123,7 @@
             {
               "name": "BBQ Sauce",
               "type": "boolean",
-              "default": true
+              "options": true
             },
             {
               "name": "Bread type",
@@ -150,12 +150,12 @@
             {
               "name": "Toasted",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Sliced",
               "type": "boolean",
-              "default": false
+              "options": false
             }
           ],
           "price": 3,
@@ -172,12 +172,12 @@
             {
               "name": "Toasted",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Sliced",
               "type": "boolean",
-              "default": false
+              "options": false
             }
           ],
           "price": 4,
@@ -194,12 +194,12 @@
             {
               "name": "Toasted",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Sliced",
               "type": "boolean",
-              "default": false
+              "options": false
             }
           ],
           "price": 3,
@@ -441,17 +441,17 @@
             {
               "name": "Whipped cream",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Decaf espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Double espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             }
           ],
           "price": [3,4,5],
@@ -488,17 +488,17 @@
             {
               "name": "Whipped cream",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Decaf espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Double espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             }
           ],
           "price": [3,4,5],
@@ -535,17 +535,17 @@
             {
               "name": "Whipped cream",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Decaf espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Double espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             }
           ],
           "price": [3,4,5],
@@ -582,17 +582,17 @@
             {
               "name": "Whipped cream",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Decaf espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Double espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             }
           ],
           "price": [3,4,5],
@@ -629,17 +629,17 @@
             {
               "name": "Whipped cream",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Decaf espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Double espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             }
           ],
           "price": [3,4,5],
@@ -676,17 +676,17 @@
             {
               "name": "Whipped cream",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Decaf espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             },
             {
               "name": "Double espresso",
               "type": "boolean",
-              "default": false
+              "options": false
             }
           ],
           "price": [3,4,5],
