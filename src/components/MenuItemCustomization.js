@@ -20,7 +20,7 @@ export default function MenuItemCustomization( {name, type, options}) {
         if(type === 'boolean') {
             return (
                 <label className="boolean-label">
-                    `${name}:`<input type="checkbox" name={`${name}Input`} defaultChecked={options}/>
+                    {`${name}:`}<input type="checkbox" name={`${name}Input`} defaultChecked={options}/>
                 </label>
             )
         } else if(type === 'radiobutton') {

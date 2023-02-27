@@ -12,14 +12,15 @@ export default function RadioButtonGroup( {options, selectedOption, onChange} ) 
 
     return (
         <div className="radiobutton-options-holder">
-            {options.map((option) => (
-                <label key={option}>
+            {options.map((option, index) => (
+                <label key={index}>
                     <input
                         type="radio"
                         name="options"
                         value={option}
                         checked={selectedOption === option}
                         onChange={handleChange}
+                        key={index}
                     />
                     {option}
                 </label>

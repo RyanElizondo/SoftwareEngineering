@@ -18,7 +18,7 @@ export default function Submenu( {name, items} ) {
                         customizations={item.customizations}
                         //menuId={item.menuId}
                         price={item.price}
-                        quantity={item.quantity}
+                        inventory={item.inventory}
                         key={index}
                     />
                 ) )}

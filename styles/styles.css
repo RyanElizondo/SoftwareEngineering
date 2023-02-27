@@ -1,3 +1,8 @@
+body {
+  font-size: 100%;
+  margin: 0;
+}
+
 .flex-container {
   display: flex;
   flex-wrap: wrap;
@@ -6,6 +11,67 @@
   height: 50vmin;
   width: 100%;
   max-width: 60vmax;
+}
+
+.menu-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 50vmin;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.submenu-holder {
+  display: block;
+  min-width: 80vmin;
+  padding: 4vmin;
+}
+
+.submenu-list {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.menu-item {
+  max-width: 50vw;
+  min-width: max(200px, 33vw);
+  background-color: blanchedalmond;
+  border-radius: 4vmin;
+  padding: 3%;
+  margin: 1vmin;
+}
+
+.submenu-title {
+  background-color: rgb(97, 86, 67);
+  color: white;
+  padding: 2vmin;
+  font-size: 2em;
+  margin: 0 2.5vmin 2.5vmin 2.5vmin;
+  text-align: center;
+  border-radius: 2vmin;
+  font-family: Gloria+Hallelujah, serif;
+  text-emphasis: none;
+}
+
+h5.menu-item-title {
+  font-size: 1.2em;
+}
+
+div.page {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  min-height: 25vh;
+  max-width: 60vmax;
+  margin: auto;
+  padding-top: 4vh;
 }
 
 .bg-image {
@@ -19,13 +85,20 @@
   background-position: top;
 }
 
-div.page {
+.login-links-holder {
   display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-  min-height: 25vh;
-  max-width: 60vmax;
-  margin: auto;
-  padding-top: 4vh;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 40vw;
+  margin: 25vh 0;
 }
+
+.login-link {
+  padding: 2vmin;
+  width: 100vw;
+  text-align: center;
+  background-color: blanchedalmond;
+  border-radius: 1.5vmin;
+  margin: 2vmin 0;
+}
+

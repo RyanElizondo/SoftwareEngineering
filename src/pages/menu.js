@@ -14,11 +14,12 @@ export default function Menu({menu}) {
     const submenus = menu.submenus;
 
     return (
-        <div className="menu-holder">
-            {submenus.map( (submenu) => (
+        <div className="menu-holder menu-flex">
+            {submenus.map( (submenu,index) => (
                 <Submenu
                     name={submenu.name}
                     items={submenu.items}
+                    key={index}
                 />
             ) )}
         </div>

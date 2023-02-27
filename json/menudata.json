@@ -27,7 +27,8 @@
         },
         {
           "name": "Grilled Cheese",
-          "price": 5
+          "price": 5,
+          "inventory":  50
         },
         {
           "name": "BBQ Chicken Sandwich",
