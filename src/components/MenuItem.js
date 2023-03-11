@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+
 /**
  * A flexible React component that represents a menu item
  *
@@ -11,6 +13,8 @@
 import MenuItemCustomization from "@/components/MenuItemCustomization";
 
 export default function MenuItem( {name, customizations, price, inventory} ){
+
+    const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
 
