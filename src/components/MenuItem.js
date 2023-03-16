@@ -1,5 +1,7 @@
-import { useDispatch } from 'react-redux';
-import {useId, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useId, useState } from 'react';
+import { useRouter } from 'next/router'
+import { addItem } from '../features/order/orderSlice'
 
 /**
  * A flexible React component that represents a menu item
@@ -12,9 +14,10 @@ import {useId, useState} from 'react';
  * @constructor
  */
 import MenuItemCustomization from "@/components/MenuItemCustomization";
+import {selectCartId, selectItems} from "../features/order/orderSlice";
 
 export default function MenuItem( {name, customizations, price, inventory} ){
-
+    const router = useRouter();
     const dispatch = useDispatch();
 
     const quantityInputId = useId();
@@ -49,17 +52,24 @@ export default function MenuItem( {name, customizations, price, inventory} ){
 
     const initialState = initializeCustomState();
     const [customState, setCustomState] = useState(initialState);
+    const cartId = useSelector(selectCartId);
 
     const handleAddItem = (event) => {
         //add order item object to redux store
         event.preventDefault() //possible point of error. investigate later
-        //fetch user selections from MenuItemCustomization component
+
+        const orderItem = {
+            name: name,
+            customizations: customState,
+            cartId: cartId,
+            quantity: quantity,
+            price: quantity*price
+        }
+        dispatch(addItem({item: orderItem}));
+        router.push('/order');
     }
 
     const updateCustomState = (type, customName, value) => {
-        console.log(customState);
-        console.log(value);
-        console.log(customName);
         let finalVal = value;
         if(type==="boolean") finalVal = !customState[customName];
         else if(type==="checkbox") {

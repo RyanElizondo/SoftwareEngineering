@@ -1,10 +1,10 @@
 import '../../styles/styles.css'
-import { wrapper } from '../store'
 import { Provider } from 'react-redux'
 
-function App({ Component, ...rest }) {
-  const {store, props} = wrapper.useWrappedStore(rest);
-  const {pageProps} = props;
+import store from '../store'
+
+function App({ Component, pageProps }) {
+
   return (
       <Provider store={store}>
         <Component {...pageProps} />

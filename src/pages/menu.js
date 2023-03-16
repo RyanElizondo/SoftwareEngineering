@@ -1,6 +1,7 @@
 import { loadMenu } from '../pages/lib/load-menu'
 import Submenu from '../components/Submenu'
 //import { useDispatch } from 'react-redux';
+import Link from 'next/link';
 
 /** Renders full menu and implements client-sided routing to browse through submenus.
  * This component also keeps track of a user's order
@@ -16,14 +17,18 @@ export default function Menu({menu}) {
 
 
     return (
-        <div className="menu-holder menu-flex">
-            {submenus.map( (submenu,index) => (
-                <Submenu
-                    name={submenu.name}
-                    items={submenu.items}
-                    key={index}
-                />
-            ) )}
+        <div className="menu-flex">
+            <Link href='/order' className="view-order-button grow">View Order</Link>
+            <div className="menu-holder menu-flex">
+                {submenus.map( (submenu,index) => (
+                    <Submenu
+                        name={submenu.name}
+                        items={submenu.items}
+                        key={index}
+                    />
+                ) )}
+            </div>
+
         </div>
     )
 }

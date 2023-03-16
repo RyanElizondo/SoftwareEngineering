@@ -17,7 +17,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 50vmin;
+  min-height: 50vmin;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -102,3 +102,57 @@ div.page {
   margin: 2vmin 0;
 }
 
+.order-holder {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 4vmin;
+  width: 100%;
+  align-content: center;
+}
+
+.order-item-customization {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2vmin 0vmin;
+  width: 100%;
+  max-width: 60vmax;
+}
+
+h5.order-item-customization {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2vmin 2vmin;
+  width: 80%;
+  max-width: 60vmax;
+}
+
+.order-item-holder {
+  padding: 2vmin;
+  background-color: lightgray;
+  margin: 2vmin;
+  width: inherit;
+}
+
+.view-order-button {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 90vh;
+  background-color: rgb(114, 55, 16);
+  color: white;
+  text-emphasis: none;
+  text-decoration: none;
+  padding: 2vmin;
+  border-radius: 2vmin;
+}
+
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.1); }

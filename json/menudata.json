@@ -208,73 +208,31 @@
         },
         {
           "name": "Chocolate Chip Cookies",
-          "customizations": [
-            {
-              "name": "Quantity",
-              "type": "radiobutton",
-              "options": [1, 6, 12]
-            }
-          ],
-          "price": [2,10,20],
+          "price": 2,
           "inventory": 200
         },
         {
           "name": "Oatmeal Raisin Cookies",
-          "customizations": [
-            {
-              "name": "Quantity",
-              "type": "radiobutton",
-              "options": [1, 6, 12]
-            }
-          ],
-          "price": [2,10,20],
+          "price": 2,
           "inventory": 200
         },
         {
           "name": "Sugar Cookies",
-          "customizations": [
-            {
-              "name": "Quantity",
-              "type": "radiobutton",
-              "options": [1, 6, 12]
-            }
-          ],
-          "price": [2,10,20],
+          "price": 2,
           "inventory": 200
         },
         {
           "name": "Brownies",
-          "customizations": [
-            {
-              "name": "Quantity",
-              "type": "radiobutton",
-              "options": [1, 6, 12]
-            }
-          ],
           "price": [3,15,30],
           "inventory": 200
         },
         {
           "name": "Blueberry Muffin",
-          "customizations": [
-            {
-              "name": "Quantity",
-              "type": "radiobutton",
-              "options": [1, 6, 12]
-            }
-          ],
           "price": [3,15,30],
           "inventory": 200
         },
         {
           "name": "Pumpkin Muffin",
-          "customizations": [
-            {
-              "name": "Quantity",
-              "type": "radiobutton",
-              "options": [1, 6, 12]
-            }
-          ],
           "price": [3,15,30],
           "inventory": 200
         }
