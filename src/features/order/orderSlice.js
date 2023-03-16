@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import {HYDRATE} from "next-redux-wrapper";
 
 const initialState = {
     "items": []
@@ -19,15 +18,6 @@ export const orderSlice = createSlice({
         removeItem: (state, action) => {
             state.filter(item => item.id !== action.payload.id);
         }
-    },
-    // Special reducer for hydrating the state
-    extraReducers: {
-        [HYDRATE]: (state, action) => {
-            return {
-                ...state,
-                ...action.payload.items, //possible error. change to payload
-            };
-        },
     }
 })
 

@@ -5,19 +5,21 @@
  * @returns {JSX.Element}
  * @constructor
  */
-export default function CheckboxGroup( {name, options, onChange} ) {
+export default function CheckboxGroup( {name, options, state, onChange} ) {
+
     const handleChange = (event) => {
-        onChange(event.target.value);
+        onChange(event);
     };
 
     return (
         <div className="checkbox-options-holder">
             {options.map((option) => (
-                <label key={option}>
+                <label className="checkbox-option-label" key={option}>
                     <input
                         type="checkbox"
                         name={name}
-                        checked={option}
+                        id={option}
+                        checked={state[option]}
                         onChange={handleChange}
                     />
                     {option}

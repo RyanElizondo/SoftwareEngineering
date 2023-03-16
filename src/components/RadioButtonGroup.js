@@ -5,9 +5,10 @@
  * @returns {JSX.Element}
  * @constructor
  */
-export default function RadioButtonGroup( {options, selectedOption, onChange} ) {
+export default function RadioButtonGroup( {itemName, name, options, state, onChange} ) {
+
     const handleChange = (event) => {
-        onChange(event.target.value);
+        onChange(event);
     };
 
     return (
@@ -16,9 +17,9 @@ export default function RadioButtonGroup( {options, selectedOption, onChange} ) 
                 <label key={index}>
                     <input
                         type="radio"
-                        name="options"
+                        name={`${itemName}${name}`}
                         value={option}
-                        checked={selectedOption === option}
+                        checked={state === option}
                         onChange={handleChange}
                         key={index}
                     />

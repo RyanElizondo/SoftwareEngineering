@@ -1,5 +1,5 @@
-import RadioButtonGroup from "@/components/RadioButtonGroup";
-import CheckboxGroup from "@/components/CheckboxGroup";
+import RadioButtonGroup from "../components/RadioButtonGroup";
+import CheckboxGroup from "../components/CheckboxGroup";
 import {useState} from "react";
 
 /**
@@ -9,18 +9,27 @@ import {useState} from "react";
  * @param options optional parameter for radiobutton. Varies depending on input type
  * @constructor
  */
-export default function MenuItemCustomization( {name, type, options}) {
-    const [selectedOption, setSelectedOption] = useState(options[0])
+export default function MenuItemCustomization( {itemName, name, type, options, updateHandler, customState}) {
 
-    const handleOptionChange = (value) => {
-        setSelectedOption(value)
+    const handleOptionChange = (event) => {
+        if(type === "checkbox") {
+            updateHandler(type, name, event.target.id);
+        } else {
+            updateHandler(type, name, event.target.value);
+        }
     }
 
     const generateInputType = (name, type, options) => {
         if(type === 'boolean') {
             return (
                 <label className="boolean-label">
-                    {`${name}:`}<input type="checkbox" name={`${name}Input`} defaultChecked={options}/>
+                    {`${name}:`}
+                    <input
+                        type="checkbox"
+                        name={name}
+                        defaultChecked={options}
+                        onChange={handleOptionChange}
+                    />
                 </label>
             )
         } else if(type === 'radiobutton') {
@@ -28,9 +37,10 @@ export default function MenuItemCustomization( {name, type, options}) {
                 <div className='radiobutton-holder'>
                     <h6>{`${name}: `}</h6>
                     <RadioButtonGroup
+                        itemName={itemName}
                         name={name}
                         options={options}
-                        selectedOption={options[0]}
+                        state={customState}
                         onChange={handleOptionChange}
                     />
                 </div>
@@ -43,20 +53,31 @@ export default function MenuItemCustomization( {name, type, options}) {
                     <CheckboxGroup
                         name={name}
                         options={options}
+                        state={customState}
                         onChange={handleOptionChange}
                     />
                 </div>
             )
 
         } else if(type === 'number') {
-            //Generator a number input for users to select integers between options.min and options.max
-
+            //TODO Generate a number input for users to select integers between options.min and options.max
+            return (
+                <div className="number-input-holder">
+                    <h6>{`${name}: `}</h6>
+                    <input
+                        className="number-input"
+                        type="number"
+                        min={options.min}
+                        max={options.max}
+                        defaultValue={options.min}
+                    />
+                </div>
+            )
         }
     }
 
     return (
         <div className="menu-customization-holder">
-            <h5 className="customization-title">{name}</h5>
             {generateInputType(name, type, options)}
         </div>
     )
