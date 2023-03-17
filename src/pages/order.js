@@ -10,7 +10,6 @@ import Link from 'next/link';
  */
 export default function Order( ) {
     const currentItems = useSelector(selectItems);
-
     const noItems = <h2 className="order-title">No items added to order</h2>
     const orderTitle = <h2 className="order-title">Current order</h2>
 
@@ -20,12 +19,12 @@ export default function Order( ) {
             {currentItems === undefined || currentItems.length === 0 ? noItems : orderTitle}
             <div className="order-holder">
                 {currentItems === undefined
-                    ? null : currentItems.map( (item, index) => (<OrderItem key={index} item={item.item}/>))}
+                    ? null : currentItems.map( (item, index) => (<OrderItem key={index} item={item}/>))}
             </div>
             <div className="order-details">
                 <h5 className="order-detail"></h5>
             </div>
-            <Link href="/menu" className="login-link">Back to menu</Link>
+            <Link href="/menu" className="return-button grow">Back to menu</Link>
         </div>
 
     )

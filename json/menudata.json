@@ -223,17 +223,17 @@
         },
         {
           "name": "Brownies",
-          "price": [3,15,30],
+          "price": 3,
           "inventory": 200
         },
         {
           "name": "Blueberry Muffin",
-          "price": [3,15,30],
+          "price": 3,
           "inventory": 200
         },
         {
           "name": "Pumpkin Muffin",
-          "price": [3,15,30],
+          "price": 3,
           "inventory": 200
         }
       ]

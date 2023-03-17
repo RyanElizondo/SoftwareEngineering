@@ -1,4 +1,6 @@
 import {useState} from "react";
+import { removeItem } from "../features/order/orderSlice"
+import { useDispatch } from "react-redux";
 
 /**
  *
@@ -8,7 +10,8 @@ import {useState} from "react";
  * @constructor
  */
 export default function OrderItem( {item} ) {
-    //TODO next: create order item component
+    const dispatch = useDispatch();
+
     const [cartId, setCardId] = useState(item.cartId);
 
     const generateCustomization = (pair, index) => {
@@ -27,23 +30,30 @@ export default function OrderItem( {item} ) {
         } else if(typeof pair[1] === "number") {
             displayStr = `${pair[1]} ${pair[0]}`
         }
-
-        console.log("generated display string: ", displayStr);
-
         return (
             <h5 className="order-item-customization" key={index}>{displayStr}</h5>
         )
     }
 
     const generateAllCustomizations = (itemCustoms) => {
-        console.log("generating order item customization", itemCustoms);
-
         return (
             <div className="order-item-customization-holder">
                 {itemCustoms === undefined ? null : Object.entries(itemCustoms).map(
                     (pair, index) => (generateCustomization(pair, index)) )}
             </div>
         )
+    }
+
+    const onRemoveItem = (event) => {
+        event.preventDefault();
+        //remove this item from the Redux store
+        dispatch(removeItem({"cartId": cartId}));
+    }
+
+    const onEditItem = (event) => {
+        event.preventDefault();
+        //display options to let user edit their order
+
     }
 
     return (
@@ -54,6 +64,10 @@ export default function OrderItem( {item} ) {
             </div>
             <h3 className="order-item quantity">{`Quantity: ${item.quantity}`}</h3>
             <h3 className="order-item price">{`Price: $${item.price}`}</h3>
+            <div className="order-item-button-holder">
+                <button className="order-item-button" onClick={onRemoveItem}>Remove item</button>
+                <button className="order-item-button" onClick={onRemoveItem}>Edit item</button>
+            </div>
         </div>
     )
 }

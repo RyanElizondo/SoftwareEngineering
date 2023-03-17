@@ -6,17 +6,18 @@ const initialState = {
 
 export const orderSlice = createSlice({
     name: 'order',
-    initialState: initialState,
+    initialState,
     reducers: {
         addItem: (state,action) => {
-            state.items.push(action.payload);
+            state.items.push(action.payload.item);
         },
         editItem: (state,action) => {
             //overwrite item in customer's cart
-            state.items.find( item => item.id === action.payload.id).id = action.payload.id;
+            state.items.find( item => item.cartId === action.payload.cartId).cartId = action.payload.cartId;
         },
         removeItem: (state, action) => {
-            state.items.filter(item => item.id !== action.payload.id);
+            state.items = state.items.filter(item => item.cartId !== action.payload.cartId)
+                .map( (item,index) => item = {...item, cartId: index + 1} );
         }
     }
 })

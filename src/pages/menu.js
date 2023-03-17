@@ -15,7 +15,6 @@ import Link from 'next/link';
 export default function Menu({menu}) {
     const submenus = menu.submenus;
 
-
     return (
         <div className="menu-flex">
             <Link href='/order' className="view-order-button grow">View Order</Link>
@@ -33,7 +32,7 @@ export default function Menu({menu}) {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     //Get menu from /lib/load-menu
     const menu = await loadMenu()
     return { props: { menu } }

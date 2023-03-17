@@ -140,6 +140,7 @@ h5.order-item-customization {
   background-color: lightgray;
   margin: 2vmin;
   width: inherit;
+  border-radius: 1vmin;
 }
 
 .view-order-button {
@@ -152,6 +153,15 @@ h5.order-item-customization {
   text-decoration: none;
   padding: 2vmin;
   border-radius: 2vmin;
+}
+
+.return-button {
+  padding: 2vmin;
+  max-width: 25vw;
+  text-align: center;
+  background-color: blanchedalmond;
+  border-radius: 1.5vmin;
+  margin: 2vmin 0;
 }
 
 .grow { transition: all .2s ease-in-out; }
