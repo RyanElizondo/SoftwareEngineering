@@ -79,7 +79,6 @@ div.page {
   max-width: 100%;
   min-height: 60vh;
   height: auto;
-  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
@@ -119,7 +118,7 @@ div.page {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 2vmin 0vmin;
+  margin: 2vmin 0;
   width: 100%;
   max-width: 60vmax;
 }
@@ -130,9 +129,26 @@ h5.order-item-customization {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 2vmin 2vmin;
+  margin: 0.4em 2vmin;
   width: 80%;
   max-width: 60vmax;
+  font-weight: normal;
+}
+
+.order-item {
+  font-size: 1em;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.order-detail {
+  text-align: right;
+  font-weight: normal;
+  font-size: 1em;
+}
+
+.order-item-title {
+  margin: 2vmin 0 1vmin 0;
 }
 
 .order-item-holder {

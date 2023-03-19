@@ -270,7 +270,14 @@
               "options": {"min": 0,"max": 5}
             }
           ],
-          "price": [2,3,4],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 2,
+              "Medium": 3,
+              "Large": 4
+            }
+          },
           "inventory": 300
         },
         {
@@ -302,7 +309,14 @@
               "options": {"min": 0,"max": 5}
             }
           ],
-          "price": [2,3,4],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 2,
+              "Medium": 3,
+              "Large": 4
+            }
+          },
           "inventory": 300
         },
         {
@@ -334,7 +348,14 @@
               "options": {"min": 0,"max": 5}
             }
           ],
-          "price": [2,3,4],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 2,
+              "Medium": 3,
+              "Large": 4
+            }
+          },
           "inventory": 300
         },
         {
@@ -366,7 +387,14 @@
               "options": {"min": 0,"max": 5}
             }
           ],
-          "price": [2,3,4],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 2,
+              "Medium": 3,
+              "Large": 4
+            }
+          },
           "inventory": 300
         },
         {
@@ -413,7 +441,14 @@
               "options": false
             }
           ],
-          "price": [3,4,5],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
           "inventory": 200
         },
         {
@@ -460,7 +495,14 @@
               "options": false
             }
           ],
-          "price": [3,4,5],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
           "inventory": 100
         },
         {
@@ -507,7 +549,14 @@
               "options": false
             }
           ],
-          "price": [3,4,5],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
           "inventory": 100
         },
         {
@@ -554,7 +603,14 @@
               "options": false
             }
           ],
-          "price": [3,4,5],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
           "inventory": 100
         },
         {
@@ -601,7 +657,14 @@
               "options": false
             }
           ],
-          "price": [3,4,5],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
           "inventory": 100
         },
         {
@@ -648,7 +711,14 @@
               "options": false
             }
           ],
-          "price": [3,4,5],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
           "inventory": 100
         },
         {

@@ -1,12 +1,13 @@
 import RadioButtonGroup from "../components/RadioButtonGroup";
 import CheckboxGroup from "../components/CheckboxGroup";
-import {useState} from "react";
 
 /**
- *
+ * @param itemName the name of the MenuItem
  * @param name the name of the customization such as "Size"
  * @param type the type of HTML input to generate such as boolean, radiobutton, checkbox, and number
  * @param options optional parameter for radiobutton. Varies depending on input type
+ * @param updateHandler reference to the parent's event handler to update React state
+ * @param customState the customization state passed down from the parent
  * @constructor
  */
 export default function MenuItemCustomization( {itemName, name, type, options, updateHandler, customState}) {
@@ -60,7 +61,6 @@ export default function MenuItemCustomization( {itemName, name, type, options, u
             )
 
         } else if(type === 'number') {
-            //TODO Generate a number input for users to select integers between options.min and options.max
             return (
                 <div className="number-input-holder">
                     <h6>{`${name}: `}</h6>
@@ -70,6 +70,7 @@ export default function MenuItemCustomization( {itemName, name, type, options, u
                         min={options.min}
                         max={options.max}
                         defaultValue={options.min}
+                        onChange={handleOptionChange}
                     />
                 </div>
             )

@@ -12,11 +12,9 @@ import { useDispatch } from "react-redux";
 export default function OrderItem( {item} ) {
     const dispatch = useDispatch();
 
-    const [cartId, setCardId] = useState(item.cartId);
+    const [cartId, setCartId] = useState(item.cartId);
 
     const generateCustomization = (pair, index) => {
-        console.log("received generate customization for ", pair)
-
         let displayStr = pair[1];
         if(typeof pair[1] === "boolean") { //customization is a checkbox boolean
             displayStr = pair[1] ? `${pair[0]}` : `No ${pair[0].toLowerCase()}`;
@@ -50,12 +48,6 @@ export default function OrderItem( {item} ) {
         dispatch(removeItem({"cartId": cartId}));
     }
 
-    const onEditItem = (event) => {
-        event.preventDefault();
-        //display options to let user edit their order
-
-    }
-
     return (
         <div className="order-item-holder">
             <h3 className="order-item-title">{`${cartId}. ${item.name}`}</h3>
@@ -66,7 +58,6 @@ export default function OrderItem( {item} ) {
             <h3 className="order-item price">{`Price: $${item.price}`}</h3>
             <div className="order-item-button-holder">
                 <button className="order-item-button" onClick={onRemoveItem}>Remove item</button>
-                <button className="order-item-button" onClick={onRemoveItem}>Edit item</button>
             </div>
         </div>
     )
