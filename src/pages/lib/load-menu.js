@@ -8,12 +8,28 @@ const databaseReady = false;
 export async function loadMenu() {
 
     if(databaseReady) {
-        //databases team: this is example code so feel free to delete
-
-        /* Call an external API endpoint or database to get menu JSON object
-        const res = await fetch('https://.../posts/')
-        const data = await res.json()
-        return data */
+        const { MongoClient, ServerApiVersion } = require('mongodb'); //mongoDB package
+        const fs = require('fs'); //fs package
+        const uri = "mongodb+srv://admin:64XGZkVicmKjjzQx@cluster0.khxufgh.mongodb.net/?retryWrites=true&w=majority"; //connection url with full CRUD credentials
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 }); //make connection
+        
+        async function run() {
+            try {
+                const database = client.db('Expresso'); //selecting db in cluster
+                const menu = database.collection('Menu'); //selecting collection in db
+            
+                const cursor = menu.find({}); //find all documents in collection with no filter
+            
+                let menuItemsList = [];
+                await (await cursor).forEach( obj => menuItemsList.push(obj)); // iterating through each document and putting in array of objects
+                fs.writeFileSync('out_file.json', JSON.stringify(menuItemsList, null, 2)); //converting arry of objects into json and outputting 
+            } 
+            finally {
+                await client.close(); //close connection to db
+            }
+        }
+    
+        run().catch(console.dir); //unsure what this does lol
     } else {
         //Find the absolute path of the json directory
         const jsonDirectory = path.join(process.cwd(), 'json');
