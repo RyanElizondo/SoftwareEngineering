@@ -1,0 +1,257 @@
+body {
+  font-size: 100%;
+  margin: 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 12vmin;
+  height: 50vmin;
+  width: 100%;
+  max-width: 60vmax;
+}
+
+.menu-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 50vmin;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.submenu-holder {
+  display: block;
+  min-width: 80vmin;
+  padding: 4vmin;
+}
+
+.submenu-list {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.menu-item {
+  max-width: 50vw;
+  min-width: max(200px, 33vw);
+  background-color: blanchedalmond;
+  border-radius: 4vmin;
+  padding: 3%;
+  margin: 1vmin;
+}
+
+.submenu-title {
+  background-color: rgb(97, 86, 67);
+  color: white;
+  padding: 2vmin;
+  font-size: 2em;
+  margin: 0 2.5vmin 2.5vmin 2.5vmin;
+  text-align: center;
+  border-radius: 2vmin;
+  font-family: Gloria+Hallelujah, serif;
+  text-emphasis: none;
+}
+
+h5.menu-item-title {
+  font-size: 1.2em;
+}
+
+div.page {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  min-height: 25vh;
+  max-width: 60vmax;
+  margin: auto;
+  padding-top: 4vh;
+}
+
+.bg-image {
+  background-image: url('../public/landingpage.webp');
+  background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/landingpage.webp');
+  max-width: 100%;
+  min-height: 60vh;
+  height: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+.button{
+  display: inline-block;
+  text-decoration: none;
+  color: #FFFCCC;
+  border: 1px solid #fff;
+  padding: 12px 34px;
+  font-size: 13px;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  font-family: "Franklin Gothic Book";
+  font-weight: bold;
+  transform: translate(15%, 250%);
+}
+.button:hover{
+  border: 1px solid wheat;
+  background: #996633;
+  transition: 1s;
+}
+.welcome{
+  color: white;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  transform: translate(5%, 295%);
+  font-size: 40px;
+}
+
+.login-links-holder {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 20vw;
+  margin: 25vh 0;
+  position: relative;
+  font-family: 'Roboto Slab', serif;
+}
+
+.login-link1 {
+  padding: 2vmin;
+  width: 100vw;
+  text-align: center;
+  background-color: blanchedalmond;
+  border-radius: 1.5vmin;
+  margin: 2vmin 0;
+  transition: all 0.3s;
+
+}
+
+.login-link2 {
+  padding: 2vmin;
+  width: 100vw;
+  text-align: center;
+  background-color: blanchedalmond;
+  border-radius: 1.5vmin;
+  margin: 2vmin 0;
+  transition: all 0.3s;
+}
+.login-link1:hover{
+  color: white;
+  background-color: saddlebrown;
+  transform: translateY(-10px);
+}
+.login-link2:hover{
+  color: white;
+  background-color: saddlebrown;
+  transform: translateY(-10px);
+}
+
+.order-holder {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 4vmin;
+  width: 100%;
+  align-content: center;
+}
+
+.order-item-customization {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2vmin 0;
+  width: 100%;
+  max-width: 60vmax;
+}
+
+h5.order-item-customization {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0.4em 2vmin;
+  width: 80%;
+  max-width: 60vmax;
+  font-weight: normal;
+}
+
+.order-item {
+  font-size: 1em;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.order-detail {
+  text-align: right;
+  font-weight: normal;
+  font-size: 1em;
+}
+
+.order-item-title {
+  margin: 2vmin 0 1vmin 0;
+}
+
+.order-item-holder {
+  padding: 2vmin;
+  background-color: lightgray;
+  margin: 2vmin;
+  width: inherit;
+  border-radius: 1vmin;
+}
+
+.view-order-button {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 90vh;
+  background-color: rgb(114, 55, 16);
+  color: white;
+  text-emphasis: none;
+  text-decoration: none;
+  padding: 2vmin;
+  border-radius: 2vmin;
+}
+
+.return-button {
+  padding: 2vmin;
+  max-width: 25vw;
+  text-align: center;
+  background-color: blanchedalmond;
+  border-radius: 1.5vmin;
+  margin: 2vmin 0;
+}
+
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.1); }
+
+.foodprep-order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  font-size:30px;
+  background-size: cover;
+  background-position: center;
+  height: 50%;
+  width: 50%;
+}
+.foodprep-order button{
+  margin-top: 20px;
+}
+.foodprep-order label1{
+  margin-right: 135px;
+}
