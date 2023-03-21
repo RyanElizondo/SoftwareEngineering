@@ -114,6 +114,7 @@ div.page {
   margin: 2vmin;
   transition: all 0.3s;
   font-size: 1.2em; /* add this line to make the font size slightly bigger */
+  text-decoration: none;
 }
 
 .login-link1:hover,
@@ -193,6 +194,14 @@ div.page {
   margin: 1vmin;
 }
 
+.menu-item-quantity{
+  margin: 0 1vw 0 0;
+}
+
+.menu-item-price,
+.menu-item-inventory{
+  font-size: 1em;
+}
 .submenu-title {
   background-color: rgb(97, 86, 67);
   color: white;
@@ -216,7 +225,7 @@ h5.menu-item-title {
   flex-wrap: wrap;
   justify-content: center;
   margin: 0 4vmin;
-  width: 100%;
+  width: 30vw;
   align-content: center;
 }
 
@@ -250,10 +259,18 @@ h5.order-item-customization {
 }
 
 .order-detail {
+
   text-align: right;
   font-weight: normal;
   font-size: 1em;
 }
+
+
+.order-title,
+.order-details{
+  color: beige;
+}
+
 
 .order-item-title {
   margin: 2vmin 0 1vmin 0;
@@ -265,6 +282,7 @@ h5.order-item-customization {
   margin: 2vmin;
   width: inherit;
   border-radius: 1vmin;
+
 }
 
 .view-order-button {

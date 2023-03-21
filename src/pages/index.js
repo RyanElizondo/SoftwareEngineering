@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <Head>
 
-        <title>Expresso Cafe</title>
+        <title>Expresso Café</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
           <link rel="stylesheet"
@@ -15,10 +15,10 @@ export default function Home() {
       <main>
         <div className='bg-image'>
           <div className="page">
-            <h1 className="welcome">Welcome to Expresso Cafe</h1>
+            <h1 className="welcome">Expresso Café</h1>
             <Link href="/begin" class = "button" >Begin order</Link>
           </div>
-            <h2 className="quote">Good coffee is a pleasure, good friends are a treasure, and a cozy cafe is both.</h2>
+            <h2 className="quote">Good coffee is a pleasure, good friends are a treasure, and a cozy café is both.</h2>
         </div>
       </main>
     </>
