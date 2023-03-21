@@ -124,8 +124,7 @@ export default function MenuItem( {name, customizations, price, inventory} ){
                 ) )}
             </div>
             <h6 className="menu-item-price">{`Price: $${priceState}`}</h6>
-            <h6 className="menu-item-inventory">{`${inventory} in stock`}</h6>
-            <label htmlFor={quantityInputId}>Quantity</label>
+            <label htmlFor={quantityInputId}>Quantity: </label>
             <input id={quantityInputId}
                    className="menu-item-quantity"
                    type="number"
@@ -136,9 +135,11 @@ export default function MenuItem( {name, customizations, price, inventory} ){
                    max="12"
                    pattern="\d*"
             />
+
             <button onClick={handleAddItem}>
                 {`Add to order $${priceState * quantity}`}
             </button>
+            <h6 className="menu-item-inventory">{`${inventory} in stock`}</h6>
         </div>
     )
 }
