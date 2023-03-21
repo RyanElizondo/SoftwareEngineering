@@ -17,7 +17,7 @@ export default function Order( ) {
     currentItems.forEach( item => subtotal += (item.price))
 
     subtotal = subtotal.toFixed(2);
-    const total = (subtotal * 1.06).toFixed(2);
+    const total = (subtotal * 1.06625).toFixed(2);
     const tax = (total - subtotal).toFixed(2);
 
     //render currentItems as a list of orderItems
