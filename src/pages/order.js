@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectItems } from '../features/order/orderSlice'
+import { selectItems, selectOrderSubtotal, selectOrderTotal, selectOrderTax } from '../features/order/orderSlice'
 import OrderItem from '../components/OrderItem'
 import Link from 'next/link';
 
@@ -13,12 +13,9 @@ export default function Order( ) {
     const noItems = <h2 className="order-title">No items added to order</h2>
     const orderTitle = <h2 className="order-title">Current order</h2>
 
-    let subtotal = 0;
-    currentItems.forEach( item => subtotal += (item.price))
-
-    subtotal = subtotal.toFixed(2);
-    const total = (subtotal * 1.06).toFixed(2);
-    const tax = (total - subtotal).toFixed(2);
+    const subtotal = useSelector(selectOrderSubtotal);
+    const total = useSelector(selectOrderTotal);
+    const tax = useSelector(selectOrderTax)
 
     //render currentItems as a list of orderItems
     return (
