@@ -11,7 +11,7 @@ export async function loadOrders() {
         //databases team: this is example code so feel free to delete
 
         /* Call an external API endpoint or database to get menu JSON object
-        const res = await fetch('https://.../orders/')
+        const res = await fetch('https://.../posts/')
         const data = await res.json()
         return data */
     } else {

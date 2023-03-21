@@ -68,8 +68,6 @@ div.page {
   flex-direction: column;
   align-content: center;
   align-items: center;
-  min-height: 25vh;
-  max-width: 60vmax;
   margin: auto;
   padding-top: 4vh;
 }
@@ -255,3 +253,6 @@ h5.order-item-customization {
 .foodprep-order label1{
   margin-right: 135px;
 }
+
+
+

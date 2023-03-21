@@ -17,7 +17,7 @@ const Login = () => {
         event.preventDefault();
         if (username === "foodprepEX" && password === "expresso123") {
             setLoggedIn(true)
-            router.push('/foodprep/orders')
+            router.push('/staff/foodprep/orders')
         }
         else {
             alert("Incorrect username or password, please try again!");
