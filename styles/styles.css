@@ -76,11 +76,12 @@ div.page {
   background-image: url('../public/landingpage.webp');
   background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/landingpage.webp');
   max-width: 100%;
-  min-height: 60vh;
+  min-height: 100vh;
   height: auto;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
+
 }
 .button{
   display: inline-block;
@@ -94,7 +95,11 @@ div.page {
   cursor: pointer;
   font-family: "Franklin Gothic Book";
   font-weight: bold;
-  transform: translate(15%, 250%);
+  text-align: center;
+  position: absolute;
+  top: 42.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .button:hover{
   border: 1px solid wheat;
@@ -104,49 +109,65 @@ div.page {
 .welcome{
   color: white;
   font-family: 'Yanone Kaffeesatz', sans-serif;
-  transform: translate(5%, 295%);
+  transform: translate(5%, 395%);
   font-size: 40px;
+  text-align: center;
+  position: absolute;
+  top: 25.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.quote{
+  color: white;
+  font-family: 'Fasthand', cursive;
+  font-size: 23px;
+  text-align: center;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .login-links-holder {
   display: flex;
+  flex-direction:column;
   flex-wrap: wrap;
   justify-content: center;
-  width: 20vw;
-  margin: 25vh 0;
-  position: relative;
+  align-items: center; /* add this line to center vertically */
+  width: 100%;
+  height: 100%;
   font-family: 'Roboto Slab', serif;
+  margin-top:30vh;
+}
+.page{
+  background-image: url('../public/begin.webp');
+  background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/landingpage.webp');
+  max-width: 100%;
+  min-height: 100vh;
+  height: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
 }
 
-.login-link1 {
-  padding: 2vmin;
-  width: 100vw;
-  text-align: center;
-  background-color: blanchedalmond;
-  border-radius: 1.5vmin;
-  margin: 2vmin 0;
-  transition: all 0.3s;
-
-}
-
+.login-link1,
 .login-link2 {
   padding: 2vmin;
-  width: 100vw;
+  width: 20vw; /* adjust the width to your desired size */
   text-align: center;
   background-color: blanchedalmond;
   border-radius: 1.5vmin;
-  margin: 2vmin 0;
+  margin: 2vmin;
   transition: all 0.3s;
+  font-size: 1.2em; /* add this line to make the font size slightly bigger */
 }
-.login-link1:hover{
+
+.login-link1:hover,
+.login-link2:hover {
   color: white;
   background-color: saddlebrown;
-  transform: translateY(-10px);
-}
-.login-link2:hover{
-  color: white;
-  background-color: saddlebrown;
-  transform: translateY(-10px);
+  transform: translateY(-20px);
 }
 
 .order-holder {
