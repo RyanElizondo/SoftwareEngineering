@@ -4,16 +4,19 @@ import {useState, useEffect} from "react";
 import Head from "next/head";
 
 
+
 function FoodPrep() {
     const [orders, setOrders] = useState([]);
-
     useEffect(() => {
         // Set the initial state of orders to the data loaded from the JSON file
         setOrders(Orderdata.orders);
     }, []);
-
+    const onRemoveOrder = (orderID) => {
+        const updatedOrder = orders.filter(order => order.orderID !== orderID);
+        setOrders(updatedOrder);
+    }
     return (
-        <div>
+        <div className= "foodpreplist">
             <h1>Food Preparation List</h1>
             {orders.map(order => (
                 <div key={order.orderID}>
@@ -34,6 +37,7 @@ function FoodPrep() {
                             </li>
                         ))}
                     </ul>
+                    <button onClick={() => onRemoveOrder(order.orderID)}>Food is ready</button>
                 </div>
             ))}
         </div>
