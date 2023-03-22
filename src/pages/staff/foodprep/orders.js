@@ -16,6 +16,15 @@ function FoodPrep() {
         setOrders(updatedOrder);
     }
     return (
+        <>
+            <Head>
+
+                <title>Order Queue</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
+                <link rel="stylesheet"
+                      href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
+            </Head>
         <div className= "foodpreplist">
             <h1>Food Preparation List</h1>
             {orders.map(order => (
