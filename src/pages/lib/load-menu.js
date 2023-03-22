@@ -1,15 +1,11 @@
 import path from 'path';
 import { promises as fs } from 'fs';
 
-
-
 // The following function is shared with getStaticProps and API routes from a `lib/` directory
 export async function loadMenu() {
 
-    //mongodb and fs packages
-    const { MongoClient, ServerApiVersion } = require('mongodb'); 
-    const fs = require('fs'); 
-
+    const { MongoClient, ServerApiVersion } = require('mongodb'); //mongodb package
+    
     //connection details
     const uri = process.env.mongoURI; //uri hidden in environment variables for safety
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 }); 
@@ -21,10 +17,6 @@ export async function loadMenu() {
 
         let menuItemsArray =  await menu.find({}).toArray(); //fill array with documents
 
-        const jsonDirectory = path.join(process.cwd(), 'json'); 
-        fs.writeFileSync(jsonDirectory + '/mongomenu.json', JSON.stringify(menuItemsArray, null, 2)); //converting array to json and saving it as file
-        //const fileContents = fs.readFileSync(jsonDirectory + '/mongomenu.json', 'utf8');
-
         client.close(); //close connection
 
         //Return the content of collection directly in json format
@@ -33,6 +25,8 @@ export async function loadMenu() {
     } catch(e){
         console.error(e); //output error
 
+        const fs = require('fs'); //fs package
+        
         //Absolute path to json folder
         const jsonDirectory = path.join(process.cwd(), 'json'); 
 
