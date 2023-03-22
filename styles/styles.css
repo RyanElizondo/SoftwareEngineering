@@ -81,6 +81,8 @@ div.page {
   margin-top:30vh;
 }
 
+
+
 .page{
   background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/begin.webp');
   max-width: 100%;
@@ -126,12 +128,20 @@ div.page {
 
 
 /*Food Prep Edits*/
+
+.login-input{
+  margin: 0 0 0 1vw;
+}
+
+.pass-input{
+  margin: 0 0 0 2.4vw;
+}
+
 .foodprep-order {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
-  text-align: center;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -239,6 +249,11 @@ h5.menu-item-title {
   width: 100%;
   max-width: 60vmax;
 }
+
+h6{
+  font-size:1em;
+}
+
 
 h5.order-item-customization {
   flex-direction: column;

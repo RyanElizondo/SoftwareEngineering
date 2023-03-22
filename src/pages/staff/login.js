@@ -1,5 +1,6 @@
 import {useState} from "react";
 import { useRouter } from 'next/router';
+import Head from "next/head";
 const Login = () => {
     const router = useRouter();
 
@@ -26,15 +27,28 @@ const Login = () => {
 
 
     return (
+        <>
+            <Head>
+
+                <title>Staff Login</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
+                <link rel="stylesheet"
+                      href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
+            </Head>
+
+
         <div className = "foodprep-order">
-            <h1>Login</h1>
+
+            <h1>Welcome back!</h1>
             <form onSubmit = {handleFormSubmit}>
                 <label1  >
-                    Staff/Manager Login:
+                    Staff Login:
                     <input
                         type="text"
                         value={username}
                         onChange={handleUsernameChange}
+                        className="login-input"
                     />
                 </label1>
                 <br />
@@ -45,13 +59,15 @@ const Login = () => {
                     type="password"
                     value={password}
                     onChange={handlePasswordChange}
+                    className="pass-input"
                 />
             </label>
             <br />
             <button type="Log In">Log In</button>
         </form>
-        </div>
 
+        </div>
+    </>
     )
 }
 

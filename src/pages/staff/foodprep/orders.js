@@ -1,6 +1,7 @@
 import Orderdata from '../../../../json/orderdata.json' ;
 //import {loadOrders} from "@/pages/lib/load-orders";
 import {useState, useEffect} from "react";
+import Head from "next/head";
 
 
 function FoodPrep() {
@@ -36,6 +37,7 @@ function FoodPrep() {
                 </div>
             ))}
         </div>
+            </>
     );
 }
 
