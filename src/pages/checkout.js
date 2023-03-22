@@ -13,7 +13,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 export default function App() {
   const [clientSecret, setClientSecret] = React.useState("");
-  const clientItems = useSelector(selectItems)
+  const clientItems = JSON.parse(JSON.stringify(useSelector(selectItems)));
 
   React.useEffect(() => {
     // Create PaymentIntent as soon as the page loads
