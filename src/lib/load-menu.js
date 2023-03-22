@@ -21,6 +21,10 @@ export async function loadMenu() {
 
         let menuItemsArray =  await menu.find({}).toArray(); //fill array with documents
 
+        const jsonDirectory = path.join(process.cwd(), 'json'); 
+        fs.writeFileSync(jsonDirectory + '/mongomenu.json', JSON.stringify(menuItemsArray, null, 2)); //converting array to json and saving it as file
+        //const fileContents = fs.readFileSync(jsonDirectory + '/mongomenu.json', 'utf8');
+
         client.close(); //close connection
 
         //Return the content of collection directly in json format
