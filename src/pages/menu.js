@@ -1,6 +1,5 @@
-import { loadMenu } from '../pages/lib/load-menu'
+import { loadMenu } from '../lib/load-menu'
 import Submenu from '../components/Submenu'
-//import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 
 /** Renders full menu and implements client-sided routing to browse through submenus.
