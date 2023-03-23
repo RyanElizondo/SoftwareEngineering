@@ -25,6 +25,7 @@ export default function FoodPrep({orders}) {
                 <div key={order.orderID}>
                     <h2>Order #{order.orderID}</h2>
                     <p>Status: {order.status}</p>
+                    <h3>Date Received: {order.localeDate}</h3>
                     <p>First Name:{order.firstName}</p>
                     <ul>
                         {order.items.map(item => (

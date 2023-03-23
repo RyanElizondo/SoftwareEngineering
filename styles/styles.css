@@ -158,6 +158,23 @@ div.page {
 .foodprep-order label1{
   margin-right: 135px;
 }
+.foodpreplist{
+  background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/landingpage.webp');
+  font-size: 17px;
+  margin-left: 6em;
+  margin-right: 85em;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 90vh;
+  background-color: rgb(114, 55, 16);
+  color: white;
+  text-emphasis: none;
+  text-decoration: none;
+  padding: 5vmin;
+  border-radius: 2vmin;
+  position:center;
+
+}
 
 /* Menu Edits */
 .flex-container {
