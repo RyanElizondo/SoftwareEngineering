@@ -106,7 +106,7 @@ export async function getMenuFromMongo() {
 
         let menuItemsArray =  await menu.find({}).toArray(); //fill array with documents
 
-        return JSON.parse(JSON.stringify(menuItemsArray, null, 2)); //Return the content of collection directly in json format
+        return JSON.stringify(menuItemsArray, null, 2); //Return the content of collection directly in json format
 
     } catch(e){
         console.error(e); //output error

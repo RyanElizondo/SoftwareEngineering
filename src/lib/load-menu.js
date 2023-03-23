@@ -23,15 +23,12 @@ export async function loadMenu() {
         return JSON.parse(JSON.stringify(menuItemsArray, null, 2));
 
     } catch(e){
-        console.error(e); //output error
-
-        const fs = require('fs'); //fs package
-        
+               
         //Absolute path to json folder
         const jsonDirectory = path.join(process.cwd(), 'json'); 
 
         //Read the json data file data.json
-        const fileContents = fs.readFileSync(jsonDirectory + '/menudata.json', 'utf8');
+        const fileContents = await fs.readFile(jsonDirectory + '/menudata.json', 'utf8');
 
         //Return the content of the data file in json format
         return JSON.parse(fileContents);
