@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require('mongodb'); //mongodb package
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb'); //mongodb package
 
 var client;
 var _db;
@@ -15,7 +15,7 @@ export async function openMongoConnection() {
         _db = client.db('Expresso'); //select db collection
 
     } catch(e){
-        console.log("ERROR: Could not connect to server"); 
+        console.log("ERROR: Could not connect to mongoDB"); 
     }
 }
 
@@ -24,27 +24,37 @@ export async function closeMongoConnection(){
     try{
         client.close(); //close connection
     } catch(e){
-        console.log("ERROR: Could not close connection to server");
+        console.log("ERROR: Could not close connection to mongoDB");
     }
 }
 
+//convert string that mongodb returns for documents into _id:'s for queries
+export function mongoIDConversion(mongoID){
 
-//Create operation print statements return undefined id atm bc insertOne is async so console.log() executes before id is made. Work around is put await but it is slower
+    let ID = new ObjectId(mongoID);
+
+    return ID;
+
+}
+
+
+//Create operations return print statement of document's mongoDB assigned _id:
 //creates 1 user given a json object
 export async function createUser(userJsonObject){
     try{
-        let insertedUser = await _db.collection('Users').insertOne(userJsonObject); //insert one given a json object
+        let insertedUser = await _db.collection('Users').insertOne(userJsonObject);
         console.log(`Successfully created user with id: ${insertedUser.insertedId}`); 
 
     } catch(e){
-        console.log("ERROR: Could not create user");
+        console.log(e);
+       // console.log("ERROR: Could not create user");
     }
 }
 
 //creates 1 menu item given a json object
 export async function createMenuItem(menuJsonObject){
     try{
-        let insertedMenu = await _db.collection('Menu').insertOne(menuJsonObject); //insert one given a json object
+        let insertedMenu = await _db.collection('Menu').insertOne(menuJsonObject);
         console.log(`Successfully created menu item with _id: ${insertedMenu.insertedId}`); 
 
     } catch(e){
@@ -68,8 +78,9 @@ export async function createOrder(orderJsonObject){
 //looks for 1 user that matches filters that are given as a json object
 export async function readUser(queries){
     try{
-        let findUser = _db.collection('Users').findOne(queries); 
-        console.log(`Found user: ${findUser}`); 
+        let findUser = await _db.collection('Users').findOne(queries); 
+        console.log(`Found user:`);
+        console.log(findUser);
 
     } catch(e){
         console.log("ERROR: Could not find user");
@@ -79,8 +90,9 @@ export async function readUser(queries){
 //looks for 1 menu item that matches filters that are given as a json object
 export async function readMenuItem(queries){
     try{
-        let findMenuItem = _db.collection('Menu').findOne(queries); 
-        console.log(`Found menu item: ${findMenuItem}`); 
+        let findMenuItem = await _db.collection('Menu').findOne(queries); 
+        console.log(`Found menu item:`); 
+        console.log(findMenuItem);
 
     } catch(e){
         console.log("ERROR: Could not find menu item");
@@ -90,8 +102,9 @@ export async function readMenuItem(queries){
 //looks for 1 order that matches filters that are given as a json object
 export async function readOrder(queries){
     try{
-        let findOrder = _db.collection('Orders').findOne(queries); 
-        console.log(`Found order: ${findOrder}`); 
+        let findOrder = await _db.collection('Orders').findOne(queries); 
+        console.log(`Found order:`);
+        console.log(findOrder);
 
     } catch(e){
         console.log("ERROR: Could not find order");
@@ -100,14 +113,17 @@ export async function readOrder(queries){
 
 
 
-//Update operation prints out updated doc so you can see the changes you made 
+//Update operation prints out updated doc (by calling read functions) so you can see the changes you made
 //updates 1 user that matches mongoID and updates them with given json object (if they exist)
 export async function updateUser(mongoID, updatesToBeMade){
     try{
-        _db.collection('Users').updateOne(mongoID, updatesToBeMade); 
-        console.log(`Updated user: ${_db.collection('Users').findOne(mongoID)}`); 
 
+        let convertedID = mongoIDConversion(mongoID);
+        await _db.collection('Users').updateOne({_id: convertedID}, {$set: updatesToBeMade});
+        console.log(`Updated user, calling readUser:`);
+        readUser({_id: convertedID});   
     } catch(e){
+        //console.log(e);
         console.log("ERROR: Could not update user, check if they exist first");
     }
 }
@@ -115,9 +131,10 @@ export async function updateUser(mongoID, updatesToBeMade){
 //updates 1 menu that matches mongoID and updates them with given json object (if they exist)
 export async function updateMenuItem(mongoID, updatesToBeMade){
     try{
-        _db.collection('Menu').updateOne(mongoID, updatesToBeMade); 
-        console.log(`Updated menu item: ${_db.collection('Menu').findOne(mongoID)}`); 
-
+        let convertedID = mongoIDConversion(mongoID);
+        await _db.collection('Menu').updateOne({_id: convertedID}, {$set: updatesToBeMade});
+        console.log(`Updated menu item, calling readMenuItem:`);
+        readMenuItem({_id: convertedID});   
     } catch(e){
         console.log("ERROR: Could not update menu item, check if it exist first");
     }
@@ -126,8 +143,10 @@ export async function updateMenuItem(mongoID, updatesToBeMade){
 //updates 1 order that matches mongoID and updates them with given json object (if they exist)
 export async function updateOrder(mongoID, updatesToBeMade){
     try{
-        _db.collection('Orders').updateOne(mongoID, updatesToBeMade); 
-        console.log(`Updated order: ${_db.collection('Orders').findOne(mongoID)}`); 
+        let convertedID = mongoIDConversion(mongoID);
+        await _db.collection('Orders').updateOne({_id: convertedID}, {$set: updatesToBeMade});
+        console.log(`Updated order, calling readMenuItem:`);
+        readOrder({_id: convertedID});   
 
     } catch(e){
         console.log("ERROR: Could not update order, check if it exist first");
@@ -139,8 +158,9 @@ export async function updateOrder(mongoID, updatesToBeMade){
 //deletes 1 user that matches mongoID (if they exist)
 export async function deleteUser(mongoID){
     try{
-        _db.collection('Users').deleteOne(mongoID); 
-        console.log(`Deleted user}`); 
+        let convertedID = mongoIDConversion(mongoID);       
+        _db.collection('Users').deleteOne({_id: convertedID}); 
+        console.log(`Deleted user`); 
     } catch(e){
         console.log("No user matched the mongo ID. Deleted 0 users.")
     }
@@ -148,8 +168,9 @@ export async function deleteUser(mongoID){
 
 export async function deleteMenuItem(mongoID){
     try{
-        _db.collection('Menu').deleteOne(mongoID); 
-        console.log(`Deleted menu item}`); 
+        let convertedID = mongoIDConversion(mongoID);       
+        _db.collection('Menu').deleteOne({_id: convertedID}); 
+        console.log(`Deleted menu item`); 
     } catch(e){
         console.log("No menu item matched the mongo ID. Deleted 0 items.")
     }
@@ -157,8 +178,9 @@ export async function deleteMenuItem(mongoID){
 
 export async function deleteOrder(mongoID){
     try{
-        _db.collection('Orders').deleteOne(mongoID); 
-        console.log(`Deleted order}`); 
+        let convertedID = mongoIDConversion(mongoID);       
+        _db.collection('Orders').deleteOne({_id: convertedID}); 
+        console.log(`Deleted order`); 
     } catch(e){
         console.log("No order matched the mongo ID. Deleted 0 order.")
     }
@@ -173,23 +195,22 @@ export async function getMenuFromMongo() {
 
         var jsonMenu =  JSON.stringify(menuItemsArray, null, 2); //Return the content of collection directly in json format
         
-        return  jsonMenu;
+        return jsonMenu;
 
     } catch(e){
-        //console.error(e); //output error
-        console.log("error sending json string")
+        console.log("error sending menu json string")
     }
 }
 
 export async function getOrdersFromMongo() {
     try{
-        const orders = _db.collection('Orders'); //select menu collection
+        let ordersArray = await _db.collection('Orders').find({}).toArray();; //select menu collection and put into array
 
-        let ordersArray =  await orders.find({}).toArray(); //fill array with documents
-
-        return JSON.parse(JSON.stringify(ordersArray, null, 2)); //Return the content of collection directly in json format
+        var jsonOrders =  JSON.stringify(ordersArray, null, 2); //Return the content of collection directly in json format
+        
+        return jsonOrders;
 
     } catch(e){
-        console.error(e); //output error
+        console.log("error sending order json string")
     }
 }
