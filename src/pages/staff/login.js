@@ -40,7 +40,7 @@ const Login = () => {
 
         <div className = "foodprep-order">
 
-            <h1>Welcome back!</h1>
+            <h1>Staff login</h1>
             <form onSubmit = {handleFormSubmit}>
                 <label1  >
                     Staff Login:

@@ -11,5 +11,5 @@ export function makeStore() {
 
 const store = makeStore();
 
-export default store;
-export const wrapper = createWrapper(makeStore);
+//export default store;
+export const storeWrapper = createWrapper(makeStore);
