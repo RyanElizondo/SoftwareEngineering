@@ -33,7 +33,7 @@ export async function closeMongoConnection(){
 //creates 1 user given a json object
 export async function createUser(userJsonObject){
     try{
-        let insertedUser = _db.collection('Users').insertOne(userJsonObject); //insert one given a json object
+        let insertedUser = await _db.collection('Users').insertOne(userJsonObject); //insert one given a json object
         console.log(`Successfully created user with id: ${insertedUser.insertedId}`); 
 
     } catch(e){
@@ -44,7 +44,7 @@ export async function createUser(userJsonObject){
 //creates 1 menu item given a json object
 export async function createMenuItem(menuJsonObject){
     try{
-        let insertedMenu = _db.collection('Menu').insertOne(menuJsonObject); //insert one given a json object
+        let insertedMenu = await _db.collection('Menu').insertOne(menuJsonObject); //insert one given a json object
         console.log(`Successfully created menu item with _id: ${insertedMenu.insertedId}`); 
 
     } catch(e){
@@ -55,7 +55,7 @@ export async function createMenuItem(menuJsonObject){
 //creates 1 order given a json object
 export async function createOrder(orderJsonObject){
     try{
-        let insertedOrder = _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
+        let insertedOrder = await _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
         console.log(`Successfully created order with _id: ${insertedOrder.insertedId}`); 
 
     } catch(e){
@@ -165,27 +165,19 @@ export async function deleteOrder(mongoID){
 }
 
 
-
-
-
-
-
-
-
+//the following get ALL documents from respective collections
 export async function getMenuFromMongo() {  
     try{
 
-        let menu = _db.collection('Menu'); //select menu collection
+        let menuItemsArray = await _db.collection('Menu').find({}).toArray();; //select menu collection and put into array
 
-        let menuItemsArray =  await menu.find({}).toArray(); //fill array with documents
-
-        var jsonMenu = await JSON.stringify(menuItemsArray, null, 2); //Return the content of collection directly in json format
-
-        //console.log(typeof(jsonMenu));
-        return jsonMenu;
+        var jsonMenu =  JSON.stringify(menuItemsArray, null, 2); //Return the content of collection directly in json format
+        
+        return  jsonMenu;
 
     } catch(e){
         //console.error(e); //output error
+        console.log("error sending json string")
     }
 }
 
