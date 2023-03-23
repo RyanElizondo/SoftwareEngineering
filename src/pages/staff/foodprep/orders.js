@@ -1,5 +1,10 @@
 import { loadOrders } from "../../lib/load-orders"
-import { useState } from "react";
+import { useEffect, useState} from "react";
+import { useSelector, useDispatch } from "react-redux"
+import { selectReceivedOrders, selectPreparingOrders, selectReadyOrders,
+    addOrder, editOrderStatus, removeOrder } from "@/features/foodprepOrders/foodprepOrdersSlice";
+import { storeWrapper} from "@/store";
+
 import Head from "next/head";
 
 export default function orders({orders}) {
@@ -74,9 +79,14 @@ export default function orders({orders}) {
     );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps = storeWrapper.getServerSideProps(storeWrapper => async ({params}) => {
     //Get menu from /lib/load-orders
     const ordersObject = await loadOrders()
     const orders = ordersObject.orders;
-    return { props: { orders } }
-}
+    storeWrapper.dispatch({type: 'setOrders', payload: orders})
+
+    return {
+        props: { orders }
+      }
+    }
+)
