@@ -1,24 +1,18 @@
-import Orderdata from '../../../../json/orderdata.json' ;
-//import {loadOrders} from "@/pages/lib/load-orders";
-import {useState, useEffect} from "react";
+import { loadOrders } from "../../lib/load-orders"
+import { useState } from "react";
 import Head from "next/head";
 
+export default function FoodPrep({orders}) {
+    const [orderList, setOrderList] = useState(orders);
 
-
-function FoodPrep() {
-    const [orders, setOrders] = useState([]);
-    useEffect(() => {
-        // Set the initial state of orders to the data loaded from the JSON file
-        setOrders(Orderdata.orders);
-    }, []);
     const onRemoveOrder = (orderID) => {
         const updatedOrder = orders.filter(order => order.orderID !== orderID);
-        setOrders(updatedOrder);
+        setOrderList(updatedOrder);
     }
+
     return (
         <>
             <Head>
-
                 <title>Order Queue</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
@@ -27,7 +21,7 @@ function FoodPrep() {
             </Head>
         <div className= "foodpreplist">
             <h1>Food Preparation List</h1>
-            {orders.map(order => (
+            {orderList.map(order => (
                 <div key={order.orderID}>
                     <h2>Order #{order.orderID}</h2>
                     <p>Status: {order.status}</p>
@@ -54,5 +48,9 @@ function FoodPrep() {
     );
 }
 
-
-export default FoodPrep
+export async function getServerSideProps() {
+    //Get menu from /lib/load-orders
+    const ordersObject = await loadOrders()
+    const orders = ordersObject.orders;
+    return { props: { orders } }
+}

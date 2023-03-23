@@ -16,7 +16,7 @@ export default function Home() {
         <div className='bg-image'>
           <div className="page">
             <h1 className="welcome">Expresso Café</h1>
-            <Link href="/begin" class = "button" >Begin order</Link>
+            <Link href="/begin" className="button">Begin order</Link>
           </div>
             <h2 className="quote">Good coffee is a pleasure, good friends are a treasure, and a cozy café is both.</h2>
         </div>
