@@ -28,6 +28,8 @@ export async function closeMongoConnection(){
     }
 }
 
+
+//Create operation print statements return undefined id atm bc insertOne is async so console.log() executes before id is made. Work around is put await but it is slower
 //creates 1 user given a json object
 export async function createUser(userJsonObject){
     try{
@@ -61,6 +63,8 @@ export async function createOrder(orderJsonObject){
     }
 }
 
+
+//Find operation print statments should return the whole document when found
 //looks for 1 user that matches filters that are given as a json object
 export async function readUser(queries){
     try{
@@ -72,6 +76,7 @@ export async function readUser(queries){
     }
 }
 
+//looks for 1 menu item that matches filters that are given as a json object
 export async function readMenuItem(queries){
     try{
         let findMenuItem = _db.collection('Menu').findOne(queries); 
@@ -82,6 +87,7 @@ export async function readMenuItem(queries){
     }
 }
 
+//looks for 1 order that matches filters that are given as a json object
 export async function readOrder(queries){
     try{
         let findOrder = _db.collection('Orders').findOne(queries); 
@@ -92,6 +98,10 @@ export async function readOrder(queries){
     }
 }
 
+
+
+//Update operation prints out updated doc so you can see the changes you made 
+//updates 1 user that matches mongoID and updates them with given json object (if they exist)
 export async function updateUser(mongoID, updatesToBeMade){
     try{
         _db.collection('Users').updateOne(mongoID, updatesToBeMade); 
@@ -102,6 +112,7 @@ export async function updateUser(mongoID, updatesToBeMade){
     }
 }
 
+//updates 1 menu that matches mongoID and updates them with given json object (if they exist)
 export async function updateMenuItem(mongoID, updatesToBeMade){
     try{
         _db.collection('Menu').updateOne(mongoID, updatesToBeMade); 
@@ -112,6 +123,7 @@ export async function updateMenuItem(mongoID, updatesToBeMade){
     }
 }
 
+//updates 1 order that matches mongoID and updates them with given json object (if they exist)
 export async function updateOrder(mongoID, updatesToBeMade){
     try{
         _db.collection('Orders').updateOne(mongoID, updatesToBeMade); 
@@ -122,16 +134,34 @@ export async function updateOrder(mongoID, updatesToBeMade){
     }
 }
 
-export async function deleteUser(){
 
+//delete operation print statements confirm deletion. DELETIONS CANNOT BE UNDONE!!!!!!!!!!!!!!!
+//deletes 1 user that matches mongoID (if they exist)
+export async function deleteUser(mongoID){
+    try{
+        _db.collection('Users').deleteOne(mongoID); 
+        console.log(`Deleted user}`); 
+    } catch(e){
+        console.log("No user matched the mongo ID. Deleted 0 users.")
+    }
 }
 
-export async function deleteMenuItem(){
-
+export async function deleteMenuItem(mongoID){
+    try{
+        _db.collection('Menu').deleteOne(mongoID); 
+        console.log(`Deleted menu item}`); 
+    } catch(e){
+        console.log("No menu item matched the mongo ID. Deleted 0 items.")
+    }
 }
 
-export async function deleteOrder(){
-
+export async function deleteOrder(mongoID){
+    try{
+        _db.collection('Orders').deleteOne(mongoID); 
+        console.log(`Deleted order}`); 
+    } catch(e){
+        console.log("No order matched the mongo ID. Deleted 0 order.")
+    }
 }
 
 
