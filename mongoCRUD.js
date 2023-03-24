@@ -28,7 +28,7 @@ export async function closeMongoConnection(){
     }
 }
 
-//convert string that mongodb returns for documents into _id:'s for queries
+/*//convert string that mongodb returns for documents into _id:'s for queries               MIGHT NOT BE NEEDED
 export function mongoIDConversion(mongoID){
 
     let ID = new ObjectId(mongoID);
@@ -36,19 +36,19 @@ export function mongoIDConversion(mongoID){
     return ID;
 
 }
-
+*/
 
 //Create operations return print statement of document's mongoDB assigned _id:
 //creates 1 user given a json object
 export async function createUser(userJsonObject){
-    try{
-        let insertedUser = await _db.collection('Users').insertOne(userJsonObject);
-        console.log(`Successfully created user with id: ${insertedUser.insertedId}`); 
 
-    } catch(e){
-        console.log(e);
-       // console.log("ERROR: Could not create user");
-    }
+        let insertedUser = await _db.collection('Users').insertOne(userJsonObject);
+        //console.log(`Successfully created user with id: ${insertedUser.insertedId}`); 
+
+        //console.log(typeof(insertedUser.insertedId.toString()))\
+        console.log(insertedUser);
+        return await insertedUser.insertedId;
+
 }
 
 //creates 1 menu item given a json object
@@ -118,10 +118,11 @@ export async function readOrder(queries){
 export async function updateUser(mongoID, updatesToBeMade){
     try{
 
-        let convertedID = mongoIDConversion(mongoID);
-        await _db.collection('Users').updateOne({_id: convertedID}, {$set: updatesToBeMade});
-        console.log(`Updated user, calling readUser:`);
-        readUser({_id: convertedID});   
+        //let convertedID = mongoIDConversion(mongoID);
+        console.log(typeof(mongoID))
+        await _db.collection('Users').updateOne({_id: mongoID}, {$set: updatesToBeMade});
+        console.log(`Updated user!`);
+
     } catch(e){
         //console.log(e);
         console.log("ERROR: Could not update user, check if they exist first");
