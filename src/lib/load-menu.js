@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo, closeMongoConnection, deleteUser, createUser, updateUser } from 'mongoCRUD';
+import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from 'mongoCRUD';
 
 /**
  * Builds menu object with submenu lists for frontend to build menu
