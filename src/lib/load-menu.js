@@ -20,7 +20,6 @@ const buildFrontendMenus = (mongomenu) => {
     for(let i = 0; i < mongomenu.length; i++) {
         const customerMenuItem = JSON.parse(JSON.stringify(mongomenu[i]));
         delete customerMenuItem._id;
-        delete customerMenuItem.submenu
         const serverMenuItem = JSON.parse(JSON.stringify(mongomenu[i]));
 
         if(customerMenuItem.submenu === "Sandwiches") {
@@ -85,28 +84,6 @@ export async function loadMenu() {
     try{
         openMongoConnection();
 
-        let newID = await createUser({name:"hmmm", OAUTHID:"randomString"});
-
-        //console.log(newID);
-        //console.log("waiting 5 secs");
-        //await setTimeout(5000);
-        
-
-       // updateUser(newID, {points: "5000", email: "testing@gmail.com"});
-
-        //console.log("waiting 5 secs");
-        //await setTimeout(5000);
-
-        console.log("DONE!")
-        //deleteUser(newID);
-
-
-
-
-
-
-
-
         const mongoMenu = await getMenuFromMongo();
 
         const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
@@ -124,6 +101,8 @@ export async function loadMenu() {
         
     } catch(e){
         console.log(e); 
+
+        //use local backup
 
         //Absolute path to json folder
         const jsonDirectory = path.join(process.cwd(), 'json'); 
