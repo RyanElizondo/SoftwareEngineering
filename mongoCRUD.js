@@ -210,8 +210,9 @@ export async function getOrdersFromMongo() {
 
 
 
-
+/*
 //deletes ALL users, used for testing only
 export async function emptyUserCollection(){
     _db.collection('Users').deleteMany({});
 }
+*/
