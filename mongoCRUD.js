@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb'); //mongodb package
+const { MongoClient, ServerApiVersion} = require('mongodb'); //mongodb package
 
 var client;
 var _db;
@@ -28,35 +28,27 @@ export async function closeMongoConnection(){
     }
 }
 
-/*//convert string that mongodb returns for documents into _id:'s for queries               MIGHT NOT BE NEEDED
-export function mongoIDConversion(mongoID){
-
-    let ID = new ObjectId(mongoID);
-
-    return ID;
-
-}
-*/
-
-//Create operations return print statement of document's mongoDB assigned _id:
+//Create operations return the mongodb insertedID, so for subsequent document calls, just use the return value and mongoID
+//need to be called with await since they return values
 //creates 1 user given a json object
 export async function createUser(userJsonObject){
-
+    try{
         let insertedUser = await _db.collection('Users').insertOne(userJsonObject);
-        //console.log(`Successfully created user with id: ${insertedUser.insertedId}`); 
+        console.log(`Successfully created user!`); 
 
-        //console.log(typeof(insertedUser.insertedId.toString()))\
-        console.log(insertedUser);
-        return await insertedUser.insertedId;
-
+        return insertedUser.insertedId;
+    } catch(e){
+        console.log("ERROR: Could not create user");
+    }
 }
 
 //creates 1 menu item given a json object
 export async function createMenuItem(menuJsonObject){
     try{
         let insertedMenu = await _db.collection('Menu').insertOne(menuJsonObject);
-        console.log(`Successfully created menu item with _id: ${insertedMenu.insertedId}`); 
+        console.log(`Successfully created menu item!`); 
 
+        return insertedMenu.insertedId;
     } catch(e){
         console.log("ERROR: Could not create menu item");
     }
@@ -66,88 +58,85 @@ export async function createMenuItem(menuJsonObject){
 export async function createOrder(orderJsonObject){
     try{
         let insertedOrder = await _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
-        console.log(`Successfully created order with _id: ${insertedOrder.insertedId}`); 
+        console.log(`Successfully created order!`); 
 
+        return insertedOrder.insertedId;
     } catch(e){
         console.log("ERROR: Could not create order");
     }
 }
 
-
 //Find operation print statments should return the whole document when found
-//looks for 1 user that matches filters that are given as a json object
-export async function readUser(queries){
+//have await in the console log to test speed but other option is await during the findOne() operation
+//looks for 1 user that matches given mongodb insertedID object
+export async function readUser(mongoID){
     try{
-        let findUser = await _db.collection('Users').findOne(queries); 
+        let foundUser = await _db.collection('Users').findOne({_id: mongoID}); 
         console.log(`Found user:`);
-        console.log(findUser);
+        console.log( foundUser);
 
     } catch(e){
-        console.log("ERROR: Could not find user");
+        console.log("ERROR: Could not find user, check if passing mongoID object");
     }
 }
 
-//looks for 1 menu item that matches filters that are given as a json object
-export async function readMenuItem(queries){
+//looks for 1 menu item that matches given mongodb insertedID object
+export async function readMenuItem(mongoID){
     try{
-        let findMenuItem = await _db.collection('Menu').findOne(queries); 
+        let foundMenuItem = await _db.collection('Menu').findOne({_id: mongoID}); 
         console.log(`Found menu item:`); 
-        console.log(findMenuItem);
+        console.log(  foundMenuItem);
 
     } catch(e){
-        console.log("ERROR: Could not find menu item");
+        console.log("ERROR: Could not find menu item, check if passing mongoID object");
     }
 }
 
-//looks for 1 order that matches filters that are given as a json object
-export async function readOrder(queries){
+//looks for 1 order that matches given mongodb insertedID object
+export async function readOrder(mongoID){
     try{
-        let findOrder = await _db.collection('Orders').findOne(queries); 
+        let foundOrder = await _db.collection('Orders').findOne({_id: mongoID}); 
         console.log(`Found order:`);
-        console.log(findOrder);
+        console.log( foundOrder);
 
     } catch(e){
-        console.log("ERROR: Could not find order");
+        console.log("ERROR: Could not find order, check if passing mongoID object");
     }
 }
 
 
 
 //Update operation prints out updated doc (by calling read functions) so you can see the changes you made
-//updates 1 user that matches mongoID and updates them with given json object (if they exist)
+//updates 1 user that matches mongoID object and updates them with given json object (if they exist)
 export async function updateUser(mongoID, updatesToBeMade){
     try{
 
-        //let convertedID = mongoIDConversion(mongoID);
-        console.log(typeof(mongoID))
         await _db.collection('Users').updateOne({_id: mongoID}, {$set: updatesToBeMade});
         console.log(`Updated user!`);
+        await readUser(mongoID);
 
     } catch(e){
-        //console.log(e);
         console.log("ERROR: Could not update user, check if they exist first");
     }
 }
 
-//updates 1 menu that matches mongoID and updates them with given json object (if they exist)
+//updates 1 menu that matches mongoID object and updates them with given json object (if they exist)
 export async function updateMenuItem(mongoID, updatesToBeMade){
     try{
-        let convertedID = mongoIDConversion(mongoID);
-        await _db.collection('Menu').updateOne({_id: convertedID}, {$set: updatesToBeMade});
-        console.log(`Updated menu item, calling readMenuItem:`);
-        readMenuItem({_id: convertedID});   
+        await _db.collection('Menu').updateOne({_id: mongoID}, {$set: updatesToBeMade});
+        console.log(`Updated menu item!`);
+        await readMenuItem(mongoID);
     } catch(e){
         console.log("ERROR: Could not update menu item, check if it exist first");
     }
 }
 
-//updates 1 order that matches mongoID and updates them with given json object (if they exist)
+//updates 1 order that matches mongoID object and updates them with given json object (if they exist)
 export async function updateOrder(mongoID, updatesToBeMade){
     try{
-        let convertedID = mongoIDConversion(mongoID);
-        await _db.collection('Orders').updateOne({_id: convertedID}, {$set: updatesToBeMade});
-        console.log(`Updated order, calling readMenuItem:`);
-        readOrder({_id: convertedID});   
+        await _db.collection('Orders').updateOne({_id: mongoID}, {$set: updatesToBeMade});
+        console.log(`Updated order!`);
+        await readOrder(mongoID);   
 
     } catch(e){
         console.log("ERROR: Could not update order, check if it exist first");
@@ -156,32 +145,31 @@ export async function updateOrder(mongoID, updatesToBeMade){
 
 
 //delete operation print statements confirm deletion. DELETIONS CANNOT BE UNDONE!!!!!!!!!!!!!!!
-//deletes 1 user that matches mongoID (if they exist)
+//deletes 1 user that matches mongoID object (if they exist)
 export async function deleteUser(mongoID){
-    try{
-        let convertedID = mongoIDConversion(mongoID);       
-        _db.collection('Users').deleteOne({_id: convertedID}); 
-        console.log(`Deleted user`); 
+    try{    
+        _db.collection('Users').deleteOne({_id: mongoID}); 
+        console.log(`Deleted user!`); 
     } catch(e){
         console.log("No user matched the mongo ID. Deleted 0 users.")
     }
 }
 
+//deletes 1 menu item that matches mongoID object (if they exist)
 export async function deleteMenuItem(mongoID){
-    try{
-        let convertedID = mongoIDConversion(mongoID);       
-        _db.collection('Menu').deleteOne({_id: convertedID}); 
-        console.log(`Deleted menu item`); 
+    try{    
+        _db.collection('Menu').deleteOne({_id: mongoID}); 
+        console.log(`Deleted menu item!`); 
     } catch(e){
         console.log("No menu item matched the mongo ID. Deleted 0 items.")
     }
 }
 
+//deletes 1 order that matches mongoID object (if they exist)
 export async function deleteOrder(mongoID){
-    try{
-        let convertedID = mongoIDConversion(mongoID);       
-        _db.collection('Orders').deleteOne({_id: convertedID}); 
-        console.log(`Deleted order`); 
+    try{     
+        _db.collection('Orders').deleteOne({_id: mongoID}); 
+        console.log(`Deleted order!`); 
     } catch(e){
         console.log("No order matched the mongo ID. Deleted 0 order.")
     }
@@ -199,7 +187,7 @@ export async function getMenuFromMongo() {
         return jsonMenu;
 
     } catch(e){
-        console.log("error sending menu json string")
+        console.log("ERROR: Did not send menu json string")
     }
 }
 
@@ -212,6 +200,18 @@ export async function getOrdersFromMongo() {
         return jsonOrders;
 
     } catch(e){
-        console.log("error sending order json string")
+        console.log("ERROR: Did not send order json string")
     }
+}
+
+
+
+
+
+
+
+
+//deletes ALL users, used for testing only
+export async function emptyUserCollection(){
+    _db.collection('Users').deleteMany({});
 }
