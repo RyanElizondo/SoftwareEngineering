@@ -1,4 +1,4 @@
-import { loadOrders } from "../../lib/load-orders"
+import { loadOrders } from "../../../lib/load-orders"
 import { useSelector, useDispatch } from "react-redux"
 import { selectReceivedOrders, selectPreparingOrders, selectReadyOrders } from "@/features/foodprepOrders/foodprepOrdersSlice";
 import { wrapper } from "@/store";
