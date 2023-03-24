@@ -9,17 +9,16 @@ export const foodprepOrdersSlice = createSlice({
     initialState,
     reducers: {
         setOrders: (state, action) => {
-            console.log("setting orders", action.payload)
             state.orders = action.payload;
         },
         addOrder: (state,action) => {
             state.orders.push(action.payload.order);
         },
         editOrderStatus: (state, action) => {
-            state.orders = state.find(order => order.orderID === action.payload.orderID).status = action.payload.newStatus;
+            state.orders.find(order => order.orderID === action.payload.orderID).status = action.payload.newStatus;
         },
         removeOrder: (state, action) => {
-            state.orders = state.filter(order => order.orderID !== action.payload.orderID);
+            state.orders = state.orders.filter(order => order.orderID !== action.payload.orderID);
         }
     },
     extraReducers: (builder) => {
@@ -34,8 +33,8 @@ export const foodprepOrdersSlice = createSlice({
 
 export const { setOrders, addOrder, editOrderStatus, removeOrder } = foodprepOrdersSlice.actions;
 
-export const selectReceivedOrders = (state) => state.foodprep?.orders.filter(order => order.status === "received");
-export const selectPreparingOrders = (state) => state.foodprep?.orders.filter(order => order.status === "preparing");
-export const selectReadyOrders = (state) => state.foodprep?.orders.filter(order => order.status === "ready");
+export const selectReceivedOrders = (state) => state.foodprep?.orders.filter(order => order.status === "Received");
+export const selectPreparingOrders = (state) => state.foodprep?.orders.filter(order => order.status === "Preparing");
+export const selectReadyOrders = (state) => state.foodprep?.orders.filter(order => order.status === "Ready");
 
 export default foodprepOrdersSlice.reducer;

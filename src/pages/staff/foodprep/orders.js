@@ -1,38 +1,15 @@
 import { loadOrders } from "../../lib/load-orders"
-import { useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux"
-import { selectReceivedOrders, selectPreparingOrders, selectReadyOrders,
-    addOrder, editOrderStatus, removeOrder } from "@/features/foodprepOrders/foodprepOrdersSlice";
+import { selectReceivedOrders, selectPreparingOrders, selectReadyOrders } from "@/features/foodprepOrders/foodprepOrdersSlice";
 import { wrapper } from "@/store";
 import { setOrders } from "../../../features/foodprepOrders/foodprepOrdersSlice"
+import FoodprepOrder from "@/components/FoodprepOrder";
 
 import Head from "next/head";
 
 export default function orders({orders}) {
 
     const dispatch = useDispatch();
-    /*console.log(orders);
-    useEffect( () => {
-        orders.forEach( order => {
-            console.log("dispatching in foreach loop")
-            dispatch(addOrder({order: order}))
-        })
-    }, [orders] )*/
-
-    const onUpdateStatus = (event) => {
-        let newStatus = "received";
-        if(order.status === "ready") {
-            //remove order from screen
-            dispatch(removeOrder({orderID: order.orderID}));
-            return;
-        } else if(order.status === "received") {
-            newStatus = "preparing";
-            dispatch(editOrderStatus({orderID: order.orderID, newStatus: newStatus}));
-        } else if(order.status === "preparing") {
-            newStatus = "ready";
-            dispatch(editOrderStatus({orderID: order.orderID, newStatus: newStatus}))
-        }
-    }
 
     const receivedOrders = useSelector(selectReceivedOrders);
     const preparedOrders = useSelector(selectPreparingOrders);
@@ -47,31 +24,22 @@ export default function orders({orders}) {
                 <link rel="stylesheet"
                       href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
             </Head>
-            <div className= "foodprep-page">
-                <h1> Food Preparation List</h1>
-                {orders.map(order => (
-                    <div className= "foodprep-order-holder" key={order.orderID}>
-                        <h2 className="foodprep-order-title">Order #{order.orderID}</h2>
-                        <p className="foodprep-order-status">Status: {order.status}</p>
-                        <h3 className="foodprep-order-date">Date Received: {order.localeDate}</h3>
-                        <p className="foodprep-order-name">First Name:{order.firstName}</p>
-                        <ul className="foodprep-order-items-holder">
-                            {order.items.map(item => (
-                                <li className="foodprep-order-item" key={item.itemName}>
-                                    {item.itemQuantity} x {item.itemName}
-                                    {item.customization && item.customization.length > 0 && (
-                                        <ul className="foodprep-order-item-customization-holder">
-                                            {item.customization.map(c => (
-                                                <li key={c}>{c}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </li>
-                            ))}
-                        </ul>
-                        <button onClick={onUpdateStatus}>Proceed</button>
+            <div className="foodprep-page">
+                <h1 className="foodprep-title">Food Preparation List</h1>
+                <div className="column-holder">
+                    <div className="foodprep column">
+                        <h2 className="orders-title">Received Orders</h2>
+                        <FoodprepOrder orderList={receivedOrders}/>
                     </div>
-                ))}
+                    <div className="foodprep column">
+                        <h2 className="orders-title">In Progress Orders</h2>
+                        <FoodprepOrder orderList={preparedOrders}/>
+                    </div>
+                    <div className="foodprep column">
+                        <h2 className="orders-title">Completed Orders</h2>
+                        <FoodprepOrder orderList={readyOrders}/>
+                    </div>
+                </div>
             </div>
         </>
     );
