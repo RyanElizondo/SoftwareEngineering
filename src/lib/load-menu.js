@@ -91,12 +91,11 @@ export async function loadMenu() {
         /* uncomment to write to json folder and see what getMenuFromMongo() returns
         const jsonDirectory = path.join(process.cwd(), 'json');  //Absolute path to json folder
         await fs.writeFile (jsonDirectory + '/mongomenu.json', menu) //writing to json data file
-        const fileContents = await fs.readFile(jsonDirectory + '/mongomenu.json', 'utf8'); //Read the json data file
         */
 
         closeMongoConnection();
 
-        //Return the content of the data file in json format
+        //Return the content from the database in frontend JSON workable format
         return customerMenu;
         
     } catch(e){
