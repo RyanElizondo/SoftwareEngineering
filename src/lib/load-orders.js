@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from 'mongoCRUD';
+import { openMongoConnection, closeMongoConnection, getOrdersFromMongo} from 'mongoCRUD';
 
 /**
  * Builds menu object with submenu lists for frontend to build menu
@@ -85,20 +85,18 @@ export async function loadOrders() {
     try{
         openMongoConnection();
 
-        const mongoMenu = await getMenuFromMongo();
-
-        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
+        const mongoOrders = await getOrdersFromMongo();
         
-        /* uncomment to write to json folder and see what getMenuFromMongo() returns
+        /* uncomment to write to json folder and see what getOrdersFromMongo() returns
         const jsonDirectory = path.join(process.cwd(), 'json');  //Absolute path to json folder
-        await fs.writeFile (jsonDirectory + '/mongomenu.json', menu) //writing to json data file
-        const fileContents = await fs.readFile(jsonDirectory + '/mongomenu.json', 'utf8'); //Read the json data file
+        await fs.writeFile (jsonDirectory + '/mongoorders.json', mongoOrders) //writing to json data file
+        //const fileContents = await fs.readFile(jsonDirectory + '/mongoorders.json', 'utf8'); //Read the json data file
         */
 
         closeMongoConnection();
 
         //Return the content of the data file in json format
-        return customerMenu;
+        return JSON.parse(mongoOrders);
         
     } catch(e){
         console.error(e); 
