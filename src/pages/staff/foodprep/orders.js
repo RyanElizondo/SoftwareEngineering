@@ -3,7 +3,8 @@ import { useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { selectReceivedOrders, selectPreparingOrders, selectReadyOrders,
     addOrder, editOrderStatus, removeOrder } from "@/features/foodprepOrders/foodprepOrdersSlice";
-import { storeWrapper} from "@/store";
+import { wrapper } from "@/store";
+import { setOrders } from "../../../features/foodprepOrders/foodprepOrdersSlice"
 
 import Head from "next/head";
 
@@ -17,9 +18,7 @@ export default function orders({orders}) {
             dispatch(addOrder({order: order}))
         })
     }, [orders] )*/
-    const startFoodPreparation = (order) => {
-        console.log('Starting preparation for order ${order.orderID}');
-    }
+
     const onUpdateStatus = (event) => {
         let newStatus = "received";
         if(order.status === "ready") {
@@ -29,7 +28,6 @@ export default function orders({orders}) {
         } else if(order.status === "received") {
             newStatus = "preparing";
             dispatch(editOrderStatus({orderID: order.orderID, newStatus: newStatus}));
-            startFoodPreparation(order);
         } else if(order.status === "preparing") {
             newStatus = "ready";
             dispatch(editOrderStatus({orderID: order.orderID, newStatus: newStatus}))
@@ -79,12 +77,12 @@ export default function orders({orders}) {
     );
 }
 
-export const getServerSideProps = storeWrapper.getServerSideProps(storeWrapper => async ({params}) => {
+export const getServerSideProps = wrapper.getServerSideProps( store => async () => {
     //Get menu from /lib/load-orders
     const ordersObject = await loadOrders()
     const orders = ordersObject.orders;
-    storeWrapper.dispatch({type: 'setOrders', payload: orders})
 
+    store.dispatch(setOrders(orders))
     return {
         props: { orders }
       }

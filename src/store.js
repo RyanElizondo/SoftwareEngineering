@@ -4,15 +4,13 @@ import orderReducer from './features/order/orderSlice';
 import foodprepReducer from './features/foodprepOrders/foodprepOrdersSlice'
 
 const makeStore = () => {
-    return configureStore({
+    const store = configureStore({
         reducer: {
             order: orderReducer,
             foodprep: foodprepReducer
-        },
+        }
     })
+    return store;
 }
 
-//const store = makeStore();
-
-//export default store;
-export const storeWrapper = createWrapper(makeStore);
+export const wrapper = createWrapper(makeStore);
