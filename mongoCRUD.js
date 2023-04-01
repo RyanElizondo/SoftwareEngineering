@@ -69,7 +69,7 @@ export async function createOrder(orderJsonObject){
 //Find operation print statments should return the whole document when found
 //have await in the console log to test speed but other option is await during the findOne() operation
 //looks for 1 user that matches given mongodb insertedID object
-export async function readUser(mongoID){
+export async function readUserWithID(mongoID){
     try{
         let foundUser = await _db.collection('Users').findOne({_id: mongoID}); 
         console.log(`Found user:`);
@@ -81,7 +81,7 @@ export async function readUser(mongoID){
 }
 
 //looks for 1 menu item that matches given mongodb insertedID object
-export async function readMenuItem(mongoID){
+export async function readMenuItemWithID(mongoID){
     try{
         let foundMenuItem = await _db.collection('Menu').findOne({_id: mongoID}); 
         console.log(`Found menu item:`); 
@@ -93,7 +93,7 @@ export async function readMenuItem(mongoID){
 }
 
 //looks for 1 order that matches given mongodb insertedID object
-export async function readOrder(mongoID){
+export async function readOrderWithID(mongoID){
     try{
         let foundOrder = await _db.collection('Orders').findOne({_id: mongoID}); 
         console.log(`Found order:`);
@@ -108,7 +108,7 @@ export async function readOrder(mongoID){
 
 //Update operation prints out updated doc (by calling read functions) so you can see the changes you made
 //updates 1 user that matches mongoID object and updates them with given json object (if they exist)
-export async function updateUser(mongoID, updatesToBeMade){
+export async function updateUserWithID(mongoID, updatesToBeMade){
     try{
 
         await _db.collection('Users').updateOne({_id: mongoID}, {$set: updatesToBeMade});
@@ -121,7 +121,7 @@ export async function updateUser(mongoID, updatesToBeMade){
 }
 
 //updates 1 menu that matches mongoID object and updates them with given json object (if they exist)
-export async function updateMenuItem(mongoID, updatesToBeMade){
+export async function updateMenuItemWithID(mongoID, updatesToBeMade){
     try{
         await _db.collection('Menu').updateOne({_id: mongoID}, {$set: updatesToBeMade});
         console.log(`Updated menu item!`);
@@ -132,7 +132,7 @@ export async function updateMenuItem(mongoID, updatesToBeMade){
 }
 
 //updates 1 order that matches mongoID object and updates them with given json object (if they exist)
-export async function updateOrder(mongoID, updatesToBeMade){
+export async function updateOrderWithID(mongoID, updatesToBeMade){
     try{
         await _db.collection('Orders').updateOne({_id: mongoID}, {$set: updatesToBeMade});
         console.log(`Updated order!`);
@@ -146,7 +146,7 @@ export async function updateOrder(mongoID, updatesToBeMade){
 
 //delete operation print statements confirm deletion. DELETIONS CANNOT BE UNDONE!!!!!!!!!!!!!!!
 //deletes 1 user that matches mongoID object (if they exist)
-export async function deleteUser(mongoID){
+export async function deleteUserWithID(mongoID){
     try{    
         _db.collection('Users').deleteOne({_id: mongoID}); 
         console.log(`Deleted user!`); 
@@ -156,7 +156,7 @@ export async function deleteUser(mongoID){
 }
 
 //deletes 1 menu item that matches mongoID object (if they exist)
-export async function deleteMenuItem(mongoID){
+export async function deleteMenuItemWithID(mongoID){
     try{    
         _db.collection('Menu').deleteOne({_id: mongoID}); 
         console.log(`Deleted menu item!`); 
@@ -166,7 +166,7 @@ export async function deleteMenuItem(mongoID){
 }
 
 //deletes 1 order that matches mongoID object (if they exist)
-export async function deleteOrder(mongoID){
+export async function deleteOrderWithID(mongoID){
     try{     
         _db.collection('Orders').deleteOne({_id: mongoID}); 
         console.log(`Deleted order!`); 
@@ -217,7 +217,7 @@ export async function getUsersFromMongo() {
     }
 }
 
-//load points
+
 
 
 
