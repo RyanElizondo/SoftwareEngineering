@@ -193,11 +193,24 @@ export async function getMenuFromMongo() {
 
 export async function getOrdersFromMongo() {
     try{
-        let ordersArray = await _db.collection('Orders').find({}).toArray();; //select menu collection and put into array
+        let ordersArray = await _db.collection('Orders').find({}).toArray();; //select orders collection and put into array
 
         var jsonOrders =  JSON.stringify(ordersArray, null, 2); //Return the content of collection directly in json format
         
         return jsonOrders;
+
+    } catch(e){
+        console.log("ERROR: Did not send order json string")
+    }
+}
+
+export async function getOrdersFromMongo() {
+    try{
+        let usersArray = await _db.collection('Users').find({}).toArray();; //select users collection and put into array
+
+        var jsonUsers =  JSON.stringify(usersArray, null, 2); //Return the content of collection directly in json format
+        
+        return jsonUsers;
 
     } catch(e){
         console.log("ERROR: Did not send order json string")
