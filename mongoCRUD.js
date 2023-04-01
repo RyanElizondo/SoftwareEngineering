@@ -204,13 +204,13 @@ export async function getOrdersFromMongo() {
     }
 }
 
-export async function getOrdersFromMongo() {
+export async function getUsersFromMongo() {
     try{
         let usersArray = await _db.collection('Users').find({}).toArray();; //select users collection and put into array
 
         var jsonUsers =  JSON.stringify(usersArray, null, 2); //Return the content of collection directly in json format
         
-        return jsonUsers;
+        return jsonOrders;
 
     } catch(e){
         console.log("ERROR: Did not send order json string")
