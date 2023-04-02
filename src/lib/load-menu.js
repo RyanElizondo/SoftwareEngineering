@@ -2,6 +2,7 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from 'mongoCRUD';
 
+
 /**
  * Builds menu object with submenu lists for frontend to build menu
  * @param mongomenu array of menuItems retrieved from MongoDB
