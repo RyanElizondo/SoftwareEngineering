@@ -65,7 +65,8 @@ export default function CheckoutForm() {
       },
     })
         .then( () => {
-          return fetch("/*Send client secret and successful payment to server*/",
+          /* TODO Send client secret and successful payment to server */
+          return fetch("",
               {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},

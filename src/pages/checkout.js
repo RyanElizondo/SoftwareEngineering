@@ -31,7 +31,8 @@ export default function App() {
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret)
-        /* call server endpoint to add client secret and orderItems to server database */
+        /* TODO call server endpoint to add client secret and orderItems to server database */
+          console.log("making HTTP request to send client order")
         return fetch("",
             {
               method: "POST",

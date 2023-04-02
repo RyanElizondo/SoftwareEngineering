@@ -20,10 +20,8 @@ export default async function handler(req, res) {
     },
   });
 
-  console.log(items)
-
   res.send({
     clientSecret: paymentIntent.client_secret,
-    items: JSON.parse(items)
+    items: items
   });
 };
