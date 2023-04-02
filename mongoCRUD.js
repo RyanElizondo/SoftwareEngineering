@@ -22,7 +22,9 @@ export async function openMongoConnection() {
 //closes mongo connection though client global var
 export async function closeMongoConnection(){
     try{
-        client.close(); //close connection
+        await client.close(); //close connection
+
+        console.log("closed connection")
     } catch(e){
         console.log("ERROR: Could not close connection to mongoDB");
     }
