@@ -113,7 +113,7 @@ export async function readOrder(mongoID){
 
 /*Unlike the previous counterparts, these plural options take in any JSON format as query 
 and prints more than 1 result (if applicable), from here you would take the _id string and
-convert it to the mongoDB ID object so that it can be used in the rest of the functions*/
+convert it to the mongoDB ID object so that it can be used in the rest of the functions. THESE DO NOT RETURN ANYTHING ATM*/
 //prints all users that match the query
 export async function readUsers(query){
     try{
@@ -274,12 +274,12 @@ export async function getUsersFromMongo() {
 //Adding or redeeming points to a user. The points attribute must be a numerical value (not a string)
 export async function addPoints(mongoID, pointsToAdd){
     try{
-        if(Math.sign(pointsToRedeem) == -1 ) //making points positive cause redeeming points should only remove points
-            pointsToRedeem = pointsToRedeem * -1;
+        if(Math.sign(pointsToAdd) == -1 ) //making points positive cause adding points should only add points
+            pointsToAdd = pointsToAdd * -1;
 
         await _db.collection('Users').updateOne({_id: mongoID}, {$inc: {points: pointsToAdd}});
         console.log(`added points to user!`);
-        await readUser(mongoID);
+
 
     } catch(e){
         console.log("ERROR: Could not add points to user, check if they exist first");
@@ -294,10 +294,38 @@ export async function redeemPoints(mongoID, pointsToRedeem){
 
         await _db.collection('Users').updateOne({_id: mongoID}, {$inc: {points: pointsToRedeem}});
         console.log(`redeemed points from user!`);
-        await readUser(mongoID);
 
     } catch(e){
         console.log("ERROR: Could not redeem points from user, check if they exist first");
+    }
+}
+
+export async function addStock(mongoID, stockToAdd){
+    try{
+        if(Math.sign(stockToAdd) == -1 ) //making stock positive cause adding stock should only add stock
+            stockToAdd = stockToAdd * -1;
+
+        await _db.collection('Menu').updateOne({_id: mongoID}, {$inc: {points: pointsToAdd}});
+        console.log(`added stock to item!`);
+
+
+    } catch(e){
+        console.log("ERROR: Could not add stock to menu item, check if it exists first");
+    }
+}
+
+export async function removeStock(mongoID, stockToRemove){
+    try{
+
+        if(Math.sign(stockToRemove) != -1 ) //making stock negative cause removing stock should only subtract stock
+            stockToRemove = stockToRemove * -1;
+
+        await _db.collection('Menu').updateOne({_id: mongoID}, {$inc: {points: stockToRemove}});
+        console.log(`removed stock from item!`);
+ 
+
+    } catch(e){
+        console.log("ERROR: Could not remove stock from item, check if it exists first");
     }
 }
 
