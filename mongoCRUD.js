@@ -4,10 +4,11 @@ var client;
 var _db;
 
 //opens mongo connection and saves _db global variable to be used throughout code
-export async function openMongoConnection() {
+async function openMongoConnection() {
 
     try{
         let uri = process.env.mongoURI; //uri hidden in environment variables for safety  
+        console.log(uri);
         client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 }); //connection details
         
         client.connect(); //open connection
@@ -20,7 +21,7 @@ export async function openMongoConnection() {
 }
 
 //closes mongo connection though client global var
-export async function closeMongoConnection(){
+async function closeMongoConnection(){
     try{
         await client.close(); //close connection
 
@@ -33,7 +34,7 @@ export async function closeMongoConnection(){
 /*Create operations return the mongodb insertedID, so for subsequent document calls, just use the return value. 
 Becauase a value is returned, await must be used in the caller*/
 //creates 1 user given a json object
-export async function createUser(userJsonObject){
+async function createUser(userJsonObject){
     try{
         let insertedUser =  await _db.collection('Users').insertOne(userJsonObject);
         console.log(`Successfully created user!`); 
@@ -45,7 +46,7 @@ export async function createUser(userJsonObject){
 }
 
 //creates 1 menu item given a json object
-export async function createMenuItem(menuJsonObject){
+async function createMenuItem(menuJsonObject){
     try{
         let insertedMenu = await _db.collection('Menu').insertOne(menuJsonObject);
         console.log(`Successfully created menu item!`); 
@@ -57,7 +58,7 @@ export async function createMenuItem(menuJsonObject){
 }
 
 //creates 1 order given a json object
-export async function createOrder(orderJsonObject){
+async function createOrder(orderJsonObject){
     try{
         let insertedOrder =  await _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
         console.log(`Successfully created order!`); 
@@ -71,7 +72,7 @@ export async function createOrder(orderJsonObject){
 /*Read operations return the document given the mongoID 
 */
 //looks for 1 user that matches given mongodb insertedID object
-export async function readUser(mongoID){
+async function readUser(mongoID){
     try{
         let foundUser =  _db.collection('Users').findOne({_id: mongoID}); 
         console.log(`Found user! Returning them now`);
@@ -85,7 +86,7 @@ export async function readUser(mongoID){
 
 
 //looks for 1 menu item that matches given mongodb insertedID object
-export async function readMenuItem(mongoID){
+async function readMenuItem(mongoID){
     try{
         let foundMenuItem = await _db.collection('Menu').findOne({_id: mongoID}); 
         console.log(`Found menu item! Returning them now:`); 
@@ -98,7 +99,7 @@ export async function readMenuItem(mongoID){
 }
 
 //looks for 1 order that matches given mongodb insertedID object
-export async function readOrder(mongoID){
+async function readOrder(mongoID){
     try{
         let foundOrder = await _db.collection('Orders').findOne({_id: mongoID}); 
         console.log(`Found order! Returning them now:`);
@@ -115,7 +116,7 @@ export async function readOrder(mongoID){
 and prints more than 1 result (if applicable), from here you would take the _id string and
 convert it to the mongoDB ID object so that it can be used in the rest of the functions. THESE DO NOT RETURN ANYTHING ATM*/
 //prints all users that match the query
-export async function readUsers(query){
+async function readUsers(query){
     try{
         let cursor = await _db.collection('Users').find(query).toArray(); 
         console.log(`Found user(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
@@ -127,7 +128,7 @@ export async function readUsers(query){
 }
 
 //prints all menu items that match the query
-export async function readMenuItems(query){
+async function readMenuItems(query){
     try{
         let cursor = _db.collection('Menu').find(query).toArray(); 
         console.log(`Found menu item(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
@@ -139,7 +140,7 @@ export async function readMenuItems(query){
 }
 
 //prints all orders that match the query
-export async function readOrders(query){
+async function readOrders(query){
     try{
         let cursor = _db.collection('Users').find(query).toArray(); 
         console.log(`Found order(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
@@ -151,7 +152,7 @@ export async function readOrders(query){
 }
 
 //convert string found from plural reads (seen above) into mongodb ID object that is needed for CRUD operations
-export async function stringToMongoID(mongoIDString){
+async function stringToMongoID(mongoIDString){
     let ID = new ObjectId(mongoIDString);
     return ID;
 }
@@ -163,7 +164,7 @@ export async function stringToMongoID(mongoIDString){
 
 //Update operation overwrites or creates data using the incoming updates as parameters. Since there is no returns, can be used async
 //updates 1 user that matches mongoID object and updates them with given json object (if they exist)
-export async function updateUser(mongoID, updatesToBeMade){
+async function updateUser(mongoID, updatesToBeMade){
     try{
 
         await _db.collection('Users').updateOne({_id: mongoID}, {$set: updatesToBeMade});
@@ -175,7 +176,7 @@ export async function updateUser(mongoID, updatesToBeMade){
 }
 
 //updates 1 menu that matches mongoID object and updates them with given json object (if they exist)
-export async function updateMenuItem(mongoID, updatesToBeMade){
+async function updateMenuItem(mongoID, updatesToBeMade){
     try{
         await _db.collection('Menu').updateOne({_id: mongoID}, {$set: updatesToBeMade});
         console.log(`Updated menu item!`);
@@ -186,7 +187,7 @@ export async function updateMenuItem(mongoID, updatesToBeMade){
 }
 
 //updates 1 order that matches mongoID object and updates them with given json object (if they exist)
-export async function updateOrder(mongoID, updatesToBeMade){
+async function updateOrder(mongoID, updatesToBeMade){
     try{
         await _db.collection('Orders').updateOne({_id: mongoID}, {$set: updatesToBeMade});
         console.log(`Updated order!`);
@@ -199,7 +200,7 @@ export async function updateOrder(mongoID, updatesToBeMade){
 
 //delete operation print statements confirm deletion. DELETIONS CANNOT BE UNDONE!!!!!!!!!!!!!!!
 //deletes 1 user that matches mongoID object (if they exist)
-export async function deleteUser(mongoID){
+async function deleteUser(mongoID){
     try{    
         _db.collection('Users').deleteOne({_id: mongoID}); 
         console.log(`Deleted user!`); 
@@ -209,7 +210,7 @@ export async function deleteUser(mongoID){
 }
 
 //deletes 1 menu item that matches mongoID object (if they exist)
-export async function deleteMenuItem(mongoID){
+async function deleteMenuItem(mongoID){
     try{    
         _db.collection('Menu').deleteOne({_id: mongoID}); 
         console.log(`Deleted menu item!`); 
@@ -219,7 +220,7 @@ export async function deleteMenuItem(mongoID){
 }
 
 //deletes 1 order that matches mongoID object (if they exist)
-export async function deleteOrder(mongoID){
+async function deleteOrder(mongoID){
     try{     
         _db.collection('Orders').deleteOne({_id: mongoID}); 
         console.log(`Deleted order!`); 
@@ -230,7 +231,7 @@ export async function deleteOrder(mongoID){
 
 
 //the following get ALL documents from respective collections
-export async function getMenuFromMongo() {  
+async function getMenuFromMongo() {  
     try{
 
         let menuItemsArray = await _db.collection('Menu').find({}).toArray();; //select menu collection and put into array
@@ -244,7 +245,7 @@ export async function getMenuFromMongo() {
     }
 }
 
-export async function getOrdersFromMongo() {
+async function getOrdersFromMongo() {
     try{
         let ordersArray = await _db.collection('Orders').find({}).toArray(); //select orders collection and put into array
 
@@ -257,7 +258,7 @@ export async function getOrdersFromMongo() {
     }
 }
 
-export async function getUsersFromMongo() {
+async function getUsersFromMongo() {
     try{
         let usersArray = await _db.collection('Users').find({}).toArray(); //select users collection and put into array
 
@@ -272,7 +273,7 @@ export async function getUsersFromMongo() {
 
 
 //Adding or redeeming points to a user. The points attribute must be a numerical value (not a string)
-export async function addPoints(mongoID, pointsToAdd){
+async function addPoints(mongoID, pointsToAdd){
     try{
         if(Math.sign(pointsToAdd) == -1 ) //making points positive cause adding points should only add points
             pointsToAdd = pointsToAdd * -1;
@@ -286,7 +287,7 @@ export async function addPoints(mongoID, pointsToAdd){
     }
 }
 
-export async function redeemPoints(mongoID, pointsToRedeem){
+async function redeemPoints(mongoID, pointsToRedeem){
     try{
 
         if(Math.sign(pointsToRedeem) != -1 ) //making points negative cause redeeming points should only remove points
@@ -300,7 +301,7 @@ export async function redeemPoints(mongoID, pointsToRedeem){
     }
 }
 
-export async function addInventory(mongoID, stockToAdd){
+async function addInventory(mongoID, stockToAdd){
     try{
         if(Math.sign(stockToAdd) == -1 ) //making stock positive cause adding stock should only add stock
             stockToAdd = stockToAdd * -1;
@@ -314,7 +315,7 @@ export async function addInventory(mongoID, stockToAdd){
     }
 }
 
-export async function removeInventory(mongoID, stockToRemove){
+async function removeInventory(mongoID, stockToRemove){
     try{
 
         if(Math.sign(stockToRemove) != -1 ) //making stock negative cause removing stock should only subtract stock
@@ -329,7 +330,7 @@ export async function removeInventory(mongoID, stockToRemove){
     }
 }
 
-
+module.exports = { openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
 
 
 /*
