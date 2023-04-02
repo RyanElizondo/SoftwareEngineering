@@ -329,7 +329,20 @@ export async function removeInventory(mongoID, stockToRemove){
     }
 }
 
+export async function getFoodprepOrdersFromMongo() {
+    try{
+        let filters = {status: "Paid"}; //insert hard codded query filters here in json format, rn looking at status as query for foodprep
+        
+        let ordersArray = await _db.collection('Orders').find(filters).toArray();; //select orders collection and put into array
 
+        var jsonOrders =  JSON.stringify(ordersArray, null, 2); //Return the content of collection directly in json format
+        
+        return jsonOrders;
+
+    } catch(e){
+        console.log("ERROR: Did not send order json string")
+    }
+}
 
 
 /*
