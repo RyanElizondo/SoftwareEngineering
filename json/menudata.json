@@ -1,0 +1,757 @@
+{
+  "submenus": [
+    {
+      "name": "Sandwiches",
+      "items": [
+        {
+          "name": "Bacon Egg and Cheese",
+          "customizations": [
+            {
+              "name": "Bacon",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Cheese",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Egg",
+              "type": "boolean",
+              "options": true
+            }
+          ],
+          "price": 5,
+          "inventory": 50
+        },
+        {
+          "name": "Grilled Cheese",
+          "price": 5,
+          "inventory":  50
+        },
+        {
+          "name": "BBQ Chicken Sandwich",
+          "customizations": [
+            {
+              "name": "BBQ Sauce",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Chicken",
+              "type": "boolean",
+              "options": true
+            }
+          ],
+          "price": 8,
+          "inventory": 50
+        },
+        {
+          "name": "Avocado BLT",
+          "customizations": [
+            {
+              "name": "Avocado",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Bacon",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Lettuce",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Tomato",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Chipotle Mayo Sauce",
+              "type": "boolean",
+              "options": true
+            }
+          ],
+          "price": 7,
+          "inventory": 50
+        },
+        {
+          "name": "Turkey Breast",
+          "customizations": [
+            {
+              "name": "Turkey breast",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Mayonnaise",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Lettuce",
+              "type": "boolean",
+              "options": true
+            }
+          ],
+          "price": 6,
+          "inventory": 50
+        },
+        {
+          "name": "Cheesesteak",
+          "customizations": [
+            {
+              "name": "Cheese",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Steak",
+              "type": "boolean",
+              "options": true
+            }
+          ],
+          "price": 5,
+          "inventory": 50
+        },
+        {
+          "name": "Pulled Pork Sandwich",
+          "customizations": [
+            {
+              "name": "BBQ Sauce",
+              "type": "boolean",
+              "options": true
+            },
+            {
+              "name": "Bread type",
+              "type": "radiobutton",
+              "options": ["White bread", "Roll"]
+            }
+          ],
+          "price": 5,
+          "inventory": 50
+        }
+      ]
+    },
+    {
+      "name": "Bakery",
+      "items": [
+        {
+          "name": "Plain Bagel",
+          "customizations": [
+            {
+              "name": "Spread",
+              "type": "checkbox",
+              "options": ["Butter", "Cream cheese", "Blueberry jam"]
+            },
+            {
+              "name": "Toasted",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Sliced",
+              "type": "boolean",
+              "options": false
+            }
+          ],
+          "price": 3,
+          "inventory": 100
+        },
+        {
+          "name": "Blueberry Bagel",
+          "customizations": [
+            {
+              "name": "Spread",
+              "type": "checkbox",
+              "options": ["Butter", "Cream cheese", "Blueberry jam"]
+            },
+            {
+              "name": "Toasted",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Sliced",
+              "type": "boolean",
+              "options": false
+            }
+          ],
+          "price": 4,
+          "inventory": 50
+        },
+        {
+          "name": "Cinnamon Raisin Bagel",
+          "customizations": [
+            {
+              "name": "Spread",
+              "type": "checkbox",
+              "options": ["Butter", "Cream cheese", "Blueberry jam"]
+            },
+            {
+              "name": "Toasted",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Sliced",
+              "type": "boolean",
+              "options": false
+            }
+          ],
+          "price": 3,
+          "inventory": 50
+        },
+        {
+          "name": "Chocolate Chip Cookies",
+          "price": 2,
+          "inventory": 200
+        },
+        {
+          "name": "Oatmeal Raisin Cookies",
+          "price": 2,
+          "inventory": 200
+        },
+        {
+          "name": "Sugar Cookies",
+          "price": 2,
+          "inventory": 200
+        },
+        {
+          "name": "Brownies",
+          "price": 3,
+          "inventory": 200
+        },
+        {
+          "name": "Blueberry Muffin",
+          "price": 3,
+          "inventory": 200
+        },
+        {
+          "name": "Pumpkin Muffin",
+          "price": 3,
+          "inventory": 200
+        }
+      ]
+    },
+    {
+      "name": "Beverages",
+      "items": [
+        {
+          "name": "Hazelnut Coffee",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 2,
+              "Medium": 3,
+              "Large": 4
+            }
+          },
+          "inventory": 300
+        },
+        {
+          "name": "Light Roast Coffee",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 2,
+              "Medium": 3,
+              "Large": 4
+            }
+          },
+          "inventory": 300
+        },
+        {
+          "name": "Dark Roast Coffee",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 2,
+              "Medium": 3,
+              "Large": 4
+            }
+          },
+          "inventory": 300
+        },
+        {
+          "name": "Decaf Coffee",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 2,
+              "Medium": 3,
+              "Large": 4
+            }
+          },
+          "inventory": 300
+        },
+        {
+          "name": "Caramel Cookie Latte",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            },
+            {
+              "name": "Whipped cream",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Decaf espresso",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Double espresso",
+              "type": "boolean",
+              "options": false
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
+          "inventory": 200
+        },
+        {
+          "name": "Cinnamon Croissant Latte",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            },
+            {
+              "name": "Whipped cream",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Decaf espresso",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Double espresso",
+              "type": "boolean",
+              "options": false
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
+          "inventory": 100
+        },
+        {
+          "name": "Mocha Marshmallow Latte",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            },
+            {
+              "name": "Whipped cream",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Decaf espresso",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Double espresso",
+              "type": "boolean",
+              "options": false
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
+          "inventory": 100
+        },
+        {
+          "name": "Oatmeal Raisin Latte",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            },
+            {
+              "name": "Whipped cream",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Decaf espresso",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Double espresso",
+              "type": "boolean",
+              "options": false
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
+          "inventory": 100
+        },
+        {
+          "name": "Oreo Swirl Latte",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            },
+            {
+              "name": "Whipped cream",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Decaf espresso",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Double espresso",
+              "type": "boolean",
+              "options": false
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
+          "inventory": 100
+        },
+        {
+          "name": "Jelly Donut Latte",
+          "customizations": [
+            {
+              "name": "Size",
+              "type": "radiobutton",
+              "options": ["Small", "Medium", "Large"]
+            },
+            {
+              "name": "Dairy",
+              "type": "radiobutton",
+              "options": ["Milk", "Cream", "Half and half", "Black"]
+            },
+            {
+              "name": "Dairy Amount",
+              "type": "number",
+              "options": {"min": 1,"max": 5}
+            },
+            {
+              "name": "Sugar",
+              "type": "radiobutton",
+              "options": ["Regular", "Cane sugar", "Brown sugar"]
+            },
+            {
+              "name": "Sugar Amount",
+              "type": "number",
+              "options": {"min": 0,"max": 5}
+            },
+            {
+              "name": "Whipped cream",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Decaf espresso",
+              "type": "boolean",
+              "options": false
+            },
+            {
+              "name": "Double espresso",
+              "type": "boolean",
+              "options": false
+            }
+          ],
+          "price": {
+            "dependent": "Size",
+            "tiers": {
+              "Small": 3,
+              "Medium": 4,
+              "Large": 5
+            }
+          },
+          "inventory": 100
+        },
+        {
+          "name": "Coca-Cola",
+          "price": 2,
+          "inventory": 200
+        },
+        {
+          "name": "Sprite",
+          "price": 2,
+          "inventory": 200
+        },
+        {
+          "name": "Fanta",
+          "price": 2,
+          "inventory": 200
+        },
+        {
+          "name": "Orange Juice",
+          "price": 3,
+          "inventory": 200
+        },
+        {
+          "name": "Apple Juice",
+          "price": 3,
+          "inventory": 200
+        },
+        {
+          "name": "Bottled Water",
+          "price": 1,
+          "inventory": 200
+        }
+      ]
+    }
+  ]
+}
