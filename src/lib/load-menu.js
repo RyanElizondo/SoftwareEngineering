@@ -1,6 +1,7 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from 'mongoCRUD';
+import { openMongoConnection, getMenuFromMongo, closeMongoConnection, createUser, readUsers, stringToMongoID, updateUser, readUser, redeemPoints, addPoints} from 'mongoCRUD';
+
 
 /**
  * Builds menu object with submenu lists for frontend to build menu
@@ -84,6 +85,20 @@ export async function loadMenu() {
     try{
         openMongoConnection();
 
+
+        //let test = await createUser({name: "Tom", job: "tester"})
+       // console.log(test)
+        //readUsers({name: "Tom"});
+        
+        let IDtobeUsed = await stringToMongoID("6428c79e93a20f20c9631772")
+  
+        await addPoints(IDtobeUsed, 999)
+
+        let result = await readUser(IDtobeUsed)
+
+        console.log(result)
+
+ //
         const mongoMenu = await getMenuFromMongo();
 
         const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
