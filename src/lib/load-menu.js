@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo, closeMongoConnection, createUser, readUsers, stringToMongoID, updateUser, readUser, redeemPoints, addPoints, emptyUserCollection} from 'mongoCRUD';
+import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from 'mongoCRUD';
 
 
 /**
