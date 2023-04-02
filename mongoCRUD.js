@@ -12,7 +12,7 @@ export async function openMongoConnection() {
         
         client.connect(); //open connection
 
-        _db = client.db('Expresso'); //select db collection
+        _db = client.db('Expresso'); //select db 
 
     } catch(e){
         console.log("ERROR: Could not connect to mongoDB"); 
@@ -45,7 +45,7 @@ export async function createUser(userJsonObject){
 //creates 1 menu item given a json object
 export async function createMenuItem(menuJsonObject){
     try{
-        let insertedMenu = _db.collection('Menu').insertOne(menuJsonObject);
+        let insertedMenu = await _db.collection('Menu').insertOne(menuJsonObject);
         console.log(`Successfully created menu item!`); 
 
         return  insertedMenu.insertedId;
@@ -57,7 +57,7 @@ export async function createMenuItem(menuJsonObject){
 //creates 1 order given a json object
 export async function createOrder(orderJsonObject){
     try{
-        let insertedOrder =  _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
+        let insertedOrder =  await _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
         console.log(`Successfully created order!`); 
 
         return await insertedOrder.insertedId;
@@ -119,11 +119,6 @@ export async function readUsers(query){
         console.log(`Found user(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
         console.log(JSON.stringify(cursor, null, 2)); //Return the content of collection directly in json format
         
-        //return jsonOrders;
-        
-        
-        //await cursor.forEach(console.dir);
-
     } catch(e){
         console.log("ERROR: Could not find users, check if passing JSON format");
     }
@@ -132,9 +127,9 @@ export async function readUsers(query){
 //prints all menu items that match the query
 export async function readMenuItems(query){
     try{
-        let cursor = _db.collection('Menu').find(query); 
+        let cursor = _db.collection('Menu').find(query).toArray(); 
         console.log(`Found menu item(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
-        await cursor.forEach(console.dir);
+        console.log(JSON.stringify(cursor, null, 2)); //Return the content of collection directly in json format
 
     } catch(e){
         console.log("ERROR: Could not find menu items, check if passing JSON format");
@@ -144,9 +139,9 @@ export async function readMenuItems(query){
 //prints all orders that match the query
 export async function readOrders(query){
     try{
-        let cursor = _db.collection('Users').find(query); 
-        console.log(`Found order(s),  if you want to work with a single object, take the _id string and convert it to an object for future use:`);
-        await cursor.forEach(console.dir);
+        let cursor = _db.collection('Users').find(query).toArray(); 
+        console.log(`Found order(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
+        console.log(JSON.stringify(cursor, null, 2)); //Return the content of collection directly in json format
 
     } catch(e){
         console.log("ERROR: Could not find orders, check if passing JSON format");
@@ -154,7 +149,7 @@ export async function readOrders(query){
 }
 
 //convert string found from plural reads (seen above) into mongodb ID object that is needed for CRUD operations
-export function stringToMongoID(mongoIDString){
+export async function stringToMongoID(mongoIDString){
     let ID = new ObjectId(mongoIDString);
     return ID;
 }
@@ -266,7 +261,7 @@ export async function getUsersFromMongo() {
 
         var jsonUsers =  JSON.stringify(usersArray, null, 2); //Return the content of collection directly in json format
         
-        return jsonOrders;
+        return jsonUsers;
 
     } catch(e){
         console.log("ERROR: Did not send order json string")
@@ -277,6 +272,8 @@ export async function getUsersFromMongo() {
 //Adding or redeeming points to a user. The points attribute must be a numerical value (not a string)
 export async function addPoints(mongoID, pointsToAdd){
     try{
+        if(Math.sign(pointsToRedeem) == -1 ) //making points positive cause redeeming points should only remove points
+            pointsToRedeem = pointsToRedeem * -1;
 
         await _db.collection('Users').updateOne({_id: mongoID}, {$inc: {points: pointsToAdd}});
         console.log(`added points to user!`);
@@ -298,8 +295,7 @@ export async function redeemPoints(mongoID, pointsToRedeem){
         await readUser(mongoID);
 
     } catch(e){
-        console.error(e);
-        //console.log("ERROR: Could not redeem points from user, check if they exist first");
+        console.log("ERROR: Could not redeem points from user, check if they exist first");
     }
 }
 
@@ -310,5 +306,6 @@ export async function redeemPoints(mongoID, pointsToRedeem){
 //deletes ALL users, used for testing only
 export async function emptyUserCollection(){
     _db.collection('Users').deleteMany({});
+    console.log("ALL USERS DELETED")
 }
 */
