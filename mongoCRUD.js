@@ -246,7 +246,7 @@ export async function getMenuFromMongo() {
 
 export async function getOrdersFromMongo() {
     try{
-        let ordersArray = await _db.collection('Orders').find({}).toArray();; //select orders collection and put into array
+        let ordersArray = await _db.collection('Orders').find({}).toArray(); //select orders collection and put into array
 
         var jsonOrders =  JSON.stringify(ordersArray, null, 2); //Return the content of collection directly in json format
         
@@ -259,7 +259,7 @@ export async function getOrdersFromMongo() {
 
 export async function getUsersFromMongo() {
     try{
-        let usersArray = await _db.collection('Users').find({}).toArray();; //select users collection and put into array
+        let usersArray = await _db.collection('Users').find({}).toArray(); //select users collection and put into array
 
         var jsonUsers =  JSON.stringify(usersArray, null, 2); //Return the content of collection directly in json format
         

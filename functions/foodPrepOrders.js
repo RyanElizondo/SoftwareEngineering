@@ -1,9 +1,38 @@
+//Database functions for foodprepOrders API
+const { getOrdersFromMongo, readMenuItems,  } = require('../mongoCRUD')
 
+exports.handler = async (event, context) => {
+    if(event.httpMethod === 'GET') {
+        // handle GET request: determine if query parameters are provided
+        if (event.queryStringParameters === null) {
+            const menu = getOrdersFromMongo();
+            return {
+                statusCode: 200,
+                body: JSON.stringify(menu)
+            }
+        } else {
+            //GET filtered results from mongodb and parse query string
+        }
+    } else if(event.httpMethod === 'POST') {
+        //add an order to the orders collection
+
+    } else if(event.httpMethod === 'PUT') {
+
+    } else {
+        return {
+            statusCode: 405,
+            body: JSON.stringify({ message: 'Method Not Allowed' })
+        };
+    }
+
+}
+
+/*
 const http = require('http'); //http package
 const { MongoClient } = require('mongodb'); //mongodb package
 const { openMongoConnection, closeMongoConnection } = require('./mongoCRUD');  //mongoCRUD.js
 const url = process.env.mongoURI;
-const dbName = 'Expresso'; 
+const dbName = 'Expresso';
 const collectionName = 'Orders';
 
 const server = http.createServer(async (req, res) => { //create server and handle requests
@@ -97,3 +126,4 @@ const server = http.createServer(async (req, res) => { //create server and handl
         });
     } 
 });
+*/
