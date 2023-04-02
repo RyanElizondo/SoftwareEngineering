@@ -15,7 +15,13 @@ export default function App() {
   const [clientSecret, setClientSecret] = React.useState("");
   const clientItems = JSON.parse(JSON.stringify(useSelector(selectItems)));
 
+  const reqInfo = {
+    clientSecret: clientSecret,
+    clientItems: clientItems
+  }
+
   React.useEffect(() => {
+
     // Create PaymentIntent as soon as the page loads
     fetch("/api/create-payment-intent", {
       method: "POST",
@@ -23,7 +29,26 @@ export default function App() {
       body: JSON.stringify({ items: clientItems }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then((data) => {
+        setClientSecret(data.clientSecret)
+        /* call server endpoint to add client secret and orderItems to server database */
+        return fetch("",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(reqInfo)
+            }
+            )
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch( (error) => {
+          console.log(error);
+        }) ;
+
   }, []);
 
   const appearance = {
