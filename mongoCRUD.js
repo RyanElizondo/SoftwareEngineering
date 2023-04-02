@@ -300,7 +300,7 @@ export async function redeemPoints(mongoID, pointsToRedeem){
     }
 }
 
-export async function addStock(mongoID, stockToAdd){
+export async function addInventory(mongoID, stockToAdd){
     try{
         if(Math.sign(stockToAdd) == -1 ) //making stock positive cause adding stock should only add stock
             stockToAdd = stockToAdd * -1;
@@ -314,7 +314,7 @@ export async function addStock(mongoID, stockToAdd){
     }
 }
 
-export async function removeStock(mongoID, stockToRemove){
+export async function removeInventory(mongoID, stockToRemove){
     try{
 
         if(Math.sign(stockToRemove) != -1 ) //making stock negative cause removing stock should only subtract stock
