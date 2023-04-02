@@ -25,6 +25,13 @@ const server = http.createServer(async (req, res) => { //create server and handl
                 }
                 res.setHeader('Content-Type', 'application/json'); //set header to json
                 res.end(JSON.stringify(orders)); //send orders as json
+                //Special case GET /menu/?status=received
+                //Uses URL parameter to filter orders based on status
+                if (req.url.includes('status=received')) {
+                    const filteredOrders = orders.filter(order => order.status === 'received');
+                    res.setHeader('Content-Type', 'application/json'); //set header to json
+                    res.end(JSON.stringify(filteredOrders)); //send orders as json
+                }
                 client.close();
             });
         });
