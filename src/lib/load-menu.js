@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from 'mongoCRUD';
+import { openMongoConnection, getMenuFromMongo, closeMongoConnection, getOrdersFromMongo} from 'mongoCRUD';
 
 
 /**
@@ -90,11 +90,11 @@ export async function loadMenu() {
         const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
         
         
-        /* uncomment to write to json folder and see what function() returns
+        //uncomment to write to json folder and see what function() returns
         const mongoOrders = await getOrdersFromMongo();
         const jsonDirectory = path.join(process.cwd(), 'json');  //Absolute path to json folder
         await fs.writeFile (jsonDirectory + '/mongoordersv2.json', mongoOrders) //writing to json data file
-        */
+        
 
         closeMongoConnection();
 
