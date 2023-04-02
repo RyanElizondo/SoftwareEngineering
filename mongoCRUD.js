@@ -331,7 +331,7 @@ export async function removeInventory(mongoID, stockToRemove){
 
 export async function getFoodprepOrdersFromMongo() {
     try{
-        let filters = {status: "Paid"}; //insert hard codded query filters here in json format, rn looking at status as query for foodprep
+        let filters = {status: "Received" , paymentStatus: "Paid"}; //insert hard codded query filters here in json format, rn looking at statuses as query for foodprep
         
         let ordersArray = await _db.collection('Orders').find(filters).toArray();; //select orders collection and put into array
 

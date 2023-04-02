@@ -96,7 +96,7 @@
     "orderID": 6,
     "firstName": "Separate payment and status",
     "status": "Received",
-    "paymentStatus": "Pending",
+    "paymentStatus": "Paid",
     "localeDate": "4/2/2023, 2:37:50 PM",
     "items": [
       {
