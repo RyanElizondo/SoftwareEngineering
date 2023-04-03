@@ -1,16 +1,6 @@
 const {getUsersFromMongo, readUsers, createUser, updateUser, } = require('../mongoCRUD')
-const { MongoClient } = require('mongodb'); //mongodb package
 const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
 const { readUser } = require('mongoCRUD');
-const uri = process.env.mongoURI;
-const dbName = 'Expresso';
-const collectionName = 'Orders';
-
-//openMongoConnection();//open mongo connection
-
-//const mongoClient = new MongoClient(process.env.MONGODB_URI);
-
-//const clientPromise = mongoClient.connect();
 
 openMongoConnection();
 
@@ -21,6 +11,7 @@ exports.handler = async (event, context) => { //handler function
         if (Object.keys(event.queryStringParameters).length === 0) {
             //console.log("hello")
             const menu = await getUsersFromMongo(); //get all orders from mongodb
+            closeMongoConnection();
             return {
                 statusCode: 200,
                 body: JSON.stringify(menu)
@@ -29,6 +20,7 @@ exports.handler = async (event, context) => { //handler function
             //GET filtered results from mongodb and parse query string
             const filter = event.queryStringParameters; //get filter from query string
             const users = await readUsers(filter); //read menu items from mongodb
+            closeMongoConnection();
             return { 
                 statusCode: 200,
                 body: JSON.stringify(menu)
@@ -39,6 +31,7 @@ exports.handler = async (event, context) => { //handler function
         //adds customer account data to the database
         const customer = JSON.parse(event.body); 
         const addCustomer = await createUser(customer);
+        closeMongoConnection();
         return {
             statusCode: 200,
             body: JSON.stringify(addCustomer)
@@ -49,7 +42,7 @@ exports.handler = async (event, context) => { //handler function
         const id = event.path.split('/')[2]; //get id from url
         const updates = JSON.parse(event.body); //get order from body
         const result = await updateUser(id, updates); //update order status
-       
+       closeMongoConnection();
         return {
             statusCode: 200,
             body: JSON.stringify(result)
@@ -59,6 +52,7 @@ exports.handler = async (event, context) => { //handler function
         //deletes customer account data
         const id = event.path.split('/')[2]; //get id from url
         const result = await deleteUser(id); //update order status
+        closeMongoConnection();
         return {
             statusCode: 200,
             body: JSON.stringify(result)
