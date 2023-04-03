@@ -84,9 +84,9 @@ export async function loadMenu() {
     try{
         openMongoConnection();
 
-        const mongoMenu = await getMenuFromMongo();
+        const mongoMenu = getMenuFromMongo();
 
-        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
+        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(await mongoMenu));
         
         /* uncomment to write to json folder and see what getMenuFromMongo() returns
         const jsonDirectory = path.join(process.cwd(), 'json');  //Absolute path to json folder
