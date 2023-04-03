@@ -3,8 +3,8 @@ const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb'); //mongodb
 var client;
 var _db;
 
-//opens mongo connection and saves _db global variable to be used throughout code
-async function openMongoConnection() {
+/*============================CONNECTION STUFF============================= */
+async function openMongoConnection() {//opens mongo connection and saves _db global variable to be used throughout code
 
     try{
         let uri = process.env.mongoURI; //uri hidden in environment variables for safety  
@@ -20,21 +20,16 @@ async function openMongoConnection() {
     }
 }
 
-//closes mongo connection though client global var
-async function closeMongoConnection(){
+async function closeMongoConnection(){ //closes mongo connection though client global var
     try{
-        await client.close(); //close connection
-
-        console.log("closed connection")
+        await client.close(); //close connection (need to see if await is necessary here, seems like connections do not close without it)
     } catch(e){
         console.log("ERROR: Could not close connection to mongoDB");
     }
 }
 
-/*Create operations return the mongodb insertedID, so for subsequent document calls, just use the return value. 
-Becauase a value is returned, await must be used in the caller*/
-//creates 1 user given a json object
-async function createUser(userJsonObject){
+/*============================CREATE STUFF============================= */
+async function createUser(userJsonObject){//creates 1 user given a json object
     try{
         let insertedUser =  await _db.collection('Users').insertOne(userJsonObject);
         console.log(`Successfully created user!`); 
@@ -45,8 +40,7 @@ async function createUser(userJsonObject){
     }
 }
 
-//creates 1 menu item given a json object
-async function createMenuItem(menuJsonObject){
+async function createMenuItem(menuJsonObject){//creates 1 menu item given a json object
     try{
         let insertedMenu = await _db.collection('Menu').insertOne(menuJsonObject);
         console.log(`Successfully created menu item!`); 
@@ -57,8 +51,7 @@ async function createMenuItem(menuJsonObject){
     }
 }
 
-//creates 1 order given a json object
-async function createOrder(orderJsonObject){
+async function createOrder(orderJsonObject){ //creates 1 order given a json object
     try{
         let insertedOrder =  await _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
         console.log(`Successfully created order!`); 
@@ -69,10 +62,8 @@ async function createOrder(orderJsonObject){
     }
 }
 
-/*Read operations return the document given the mongoID 
-*/
-//looks for 1 user that matches given mongodb insertedID object
-async function readUser(mongoID){
+/*============================READ SINGULAR STUFF============================= */
+async function readUser(mongoID){ //looks for 1 user that matches given mongodb insertedID object
     try{
         let foundUser =  _db.collection('Users').findOne({_id: mongoID}); 
         console.log(`Found user! Returning them now`);
@@ -83,13 +74,10 @@ async function readUser(mongoID){
     }
 }
 
-
-
-//looks for 1 menu item that matches given mongodb insertedID object
-async function readMenuItem(mongoID){
+async function readMenuItem(mongoID){//looks for 1 menu item that matches given mongodb insertedID object
     try{
         let foundMenuItem = await _db.collection('Menu').findOne({_id: mongoID}); 
-        console.log(`Found menu item! Returning them now:`); 
+        console.log(`Found menu item! Returning it now`); 
         
         return foundMenuItem;
 
@@ -98,11 +86,10 @@ async function readMenuItem(mongoID){
     }
 }
 
-//looks for 1 order that matches given mongodb insertedID object
-async function readOrder(mongoID){
+async function readOrder(mongoID){ //looks for 1 order that matches given mongodb insertedID object
     try{
         let foundOrder = await _db.collection('Orders').findOne({_id: mongoID}); 
-        console.log(`Found order! Returning them now:`);
+        console.log(`Found order! Returning it now`);
         
         return foundOrder;
 
@@ -111,60 +98,48 @@ async function readOrder(mongoID){
     }
 }
 
-
-/*Unlike the previous counterparts, these plural options take in any JSON format as query 
-and prints more than 1 result (if applicable), from here you would take the _id string and
-convert it to the mongoDB ID object so that it can be used in the rest of the functions. THESE DO NOT RETURN ANYTHING ATM*/
-//prints all users that match the query
-async function readUsers(query){
+/*============================READ PLURAL STUFF============================= */
+async function readUsers(query){ //prints all users that match the query
     try{
         let cursor = await _db.collection('Users').find(query).toArray(); 
         console.log(`Found user(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
-        console.log(JSON.stringify(cursor, null, 2)); //Return the content of collection directly in json format
+        console.log(JSON.stringify(cursor, null, 2)); //print the content of collection directly in json format
         
     } catch(e){
-        console.log("ERROR: Could not find users, check if passing JSON format");
+        console.log("ERROR: Could not find users, check if passing JSON format query");
     }
 }
 
-//prints all menu items that match the query
-async function readMenuItems(query){
+async function readMenuItems(query){ //prints all menu items that match the query
     try{
         let cursor = _db.collection('Menu').find(query).toArray(); 
         console.log(`Found menu item(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
         console.log(JSON.stringify(cursor, null, 2)); //Return the content of collection directly in json format
 
     } catch(e){
-        console.log("ERROR: Could not find menu items, check if passing JSON format");
+        console.log("ERROR: Could not find menu items, check if passing JSON format query");
     }
 }
 
-//prints all orders that match the query
-async function readOrders(query){
+async function readOrders(query){ //prints all orders that match the query
     try{
         let cursor = _db.collection('Users').find(query).toArray(); 
         console.log(`Found order(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
         console.log(JSON.stringify(cursor, null, 2)); //Return the content of collection directly in json format
 
     } catch(e){
-        console.log("ERROR: Could not find orders, check if passing JSON format");
+        console.log("ERROR: Could not find orders, check if passing JSON format query");
     }
 }
 
-//convert string found from plural reads (seen above) into mongodb ID object that is needed for CRUD operations
-async function stringToMongoID(mongoIDString){
+/*============================STRING TO MONGOID OBJECT============================= */
+async function stringToMongoID(mongoIDString){ //convert string found from plural reads (seen above) into mongodb ID object that is needed for CRUD operations
     let ID = new ObjectId(mongoIDString);
     return ID;
 }
 
-
-
-
-
-
-//Update operation overwrites or creates data using the incoming updates as parameters. Since there is no returns, can be used async
-//updates 1 user that matches mongoID object and updates them with given json object (if they exist)
-async function updateUser(mongoID, updatesToBeMade){
+/*============================UPDATE STUFF============================= */
+async function updateUser(mongoID, updatesToBeMade){ //updates 1 user that matches mongoID object and updates them with given json object (if they exist)
     try{
 
         await _db.collection('Users').updateOne({_id: mongoID}, {$set: updatesToBeMade});
@@ -175,8 +150,7 @@ async function updateUser(mongoID, updatesToBeMade){
     }
 }
 
-//updates 1 menu that matches mongoID object and updates them with given json object (if they exist)
-async function updateMenuItem(mongoID, updatesToBeMade){
+async function updateMenuItem(mongoID, updatesToBeMade){ //updates 1 menu that matches mongoID object and updates them with given json object (if they exist)
     try{
         await _db.collection('Menu').updateOne({_id: mongoID}, {$set: updatesToBeMade});
         console.log(`Updated menu item!`);
@@ -186,8 +160,7 @@ async function updateMenuItem(mongoID, updatesToBeMade){
     }
 }
 
-//updates 1 order that matches mongoID object and updates them with given json object (if they exist)
-async function updateOrder(mongoID, updatesToBeMade){
+async function updateOrder(mongoID, updatesToBeMade){ //updates 1 order that matches mongoID object and updates them with given json object (if they exist)
     try{
         await _db.collection('Orders').updateOne({_id: mongoID}, {$set: updatesToBeMade});
         console.log(`Updated order!`);
@@ -197,10 +170,8 @@ async function updateOrder(mongoID, updatesToBeMade){
     }
 }
 
-
-//delete operation print statements confirm deletion. DELETIONS CANNOT BE UNDONE!!!!!!!!!!!!!!!
-//deletes 1 user that matches mongoID object (if they exist)
-async function deleteUser(mongoID){
+/*============================DELETE STUFF============================= */
+async function deleteUser(mongoID){//deletes 1 user that matches mongoID object (if they exist)
     try{    
         _db.collection('Users').deleteOne({_id: mongoID}); 
         console.log(`Deleted user!`); 
@@ -209,8 +180,7 @@ async function deleteUser(mongoID){
     }
 }
 
-//deletes 1 menu item that matches mongoID object (if they exist)
-async function deleteMenuItem(mongoID){
+async function deleteMenuItem(mongoID){//deletes 1 menu item that matches mongoID object (if they exist)
     try{    
         _db.collection('Menu').deleteOne({_id: mongoID}); 
         console.log(`Deleted menu item!`); 
@@ -219,8 +189,7 @@ async function deleteMenuItem(mongoID){
     }
 }
 
-//deletes 1 order that matches mongoID object (if they exist)
-async function deleteOrder(mongoID){
+async function deleteOrder(mongoID){ //deletes 1 order that matches mongoID object (if they exist)
     try{     
         _db.collection('Orders').deleteOne({_id: mongoID}); 
         console.log(`Deleted order!`); 
@@ -229,8 +198,7 @@ async function deleteOrder(mongoID){
     }
 }
 
-
-//the following get ALL documents from respective collections
+/*============================GET ALL ITEMS============================= */
 async function getMenuFromMongo() {  
     try{
 
@@ -271,9 +239,9 @@ async function getUsersFromMongo() {
     }
 }
 
+/*============================POINTS STUFF============================= */
 
-//Adding or redeeming points to a user. The points attribute must be a numerical value (not a string)
-async function addPoints(mongoID, pointsToAdd){
+async function addPoints(mongoID, pointsToAdd){ //The points attribute must be a numerical value (not a string)
     try{
         if(Math.sign(pointsToAdd) == -1 ) //making points positive cause adding points should only add points
             pointsToAdd = pointsToAdd * -1;
@@ -301,14 +269,14 @@ async function redeemPoints(mongoID, pointsToRedeem){
     }
 }
 
+/*============================INVENTORY STUFF============================= */
 async function addInventory(mongoID, stockToAdd){
     try{
         if(Math.sign(stockToAdd) == -1 ) //making stock positive cause adding stock should only add stock
             stockToAdd = stockToAdd * -1;
 
-        await _db.collection('Menu').updateOne({_id: mongoID}, {$inc: {points: pointsToAdd}});
+        await _db.collection('Menu').updateOne({_id: mongoID}, {$inc: {inventory: stockToAdd}});
         console.log(`added stock to item!`);
-
 
     } catch(e){
         console.log("ERROR: Could not add stock to menu item, check if it exists first");
@@ -321,7 +289,7 @@ async function removeInventory(mongoID, stockToRemove){
         if(Math.sign(stockToRemove) != -1 ) //making stock negative cause removing stock should only subtract stock
             stockToRemove = stockToRemove * -1;
 
-        await _db.collection('Menu').updateOne({_id: mongoID}, {$inc: {points: stockToRemove}});
+        await _db.collection('Menu').updateOne({_id: mongoID}, {$inc: {inventory: stockToRemove}});
         console.log(`removed stock from item!`);
  
 
@@ -330,12 +298,27 @@ async function removeInventory(mongoID, stockToRemove){
     }
 }
 
+/*============================FOOD PREP QUERY ============================= */
+export async function getPaidOrders() {
+    try{
+        let filters = {status: "Received" , paymentStatus: "Paid"}; //insert hard codded query filters here in json format, rn looking at statuses as query for foodprep
+        
+        let ordersArray = await _db.collection('Orders').find(filters).toArray();; //select orders collection and put into array
+
+        var jsonOrders =  JSON.stringify(ordersArray, null, 2); //Return the content of collection directly in json format
+        
+        return jsonOrders;
+
+    } catch(e){
+        console.log("ERROR: Did not send order json string")
+    }
+}
+
 module.exports = { openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
 
-
+/*============================FULL DELETES STUFF============================= */
 /*
-//deletes ALL users, used for testing only
-export async function emptyUserCollection(){
+export async function emptyUserCollection(){ //deletes ALL users
     _db.collection('Users').deleteMany({});
     console.log("ALL USERS DELETED")
 }
