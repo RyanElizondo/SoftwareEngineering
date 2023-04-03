@@ -201,7 +201,6 @@ async function deleteOrder(mongoID){ //deletes 1 order that matches mongoID obje
 /*============================GET ALL ITEMS============================= */
 async function getMenuFromMongo() {  
     try{
-
         let menuItemsArray = await _db.collection('Menu').find({}).toArray();; //select menu collection and put into array
 
         var jsonMenu =  JSON.stringify(menuItemsArray, null, 2); //Return the content of collection directly in json format
@@ -240,7 +239,6 @@ async function getUsersFromMongo() {
 }
 
 /*============================POINTS STUFF============================= */
-
 async function addPoints(mongoID, pointsToAdd){ //The points attribute must be a numerical value (not a string)
     try{
         if(Math.sign(pointsToAdd) == -1 ) //making points positive cause adding points should only add points
@@ -340,10 +338,20 @@ async function updateOrderStatus(mongoID, statusCode) { //updates order status f
 }
 
 
+async function getSubmenu(submenuString) { //gets submenu that updates order status from Recieved to In Progress (if passed 1) or In Progress to Complete (if passed 2)
+    try{     
+        //readMenuItem({submenu: submenuString}); //need to return array, so maybe modify readMenuItem to be more general
+        let cursor = _db.collection('Menu').find({submenu: submenuString}).toArray(); 
+
+    } catch(e){
+        console.log("ERROR: Could not read submenu")
+    }
+}
 
 
 
-module.exports = { updateOrderStatus, getPaidOrders, openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
+
+module.exports = {getSubmenu, updateOrderStatus, getPaidOrders, openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
 
 /*============================FULL DELETES STUFF============================= */
 /*
