@@ -299,7 +299,7 @@ async function removeInventory(mongoID, stockToRemove){
 }
 
 /*============================FOOD PREP QUERY ============================= */
-export async function getPaidOrders() {
+async function getPaidOrders() {
     try{
         let filters = {status: "Received" , paymentStatus: "Paid"}; //insert hard codded query filters here in json format, rn looking at statuses as query for foodprep
         
@@ -314,7 +314,33 @@ export async function getPaidOrders() {
     }
 }
 
-module.exports = { openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
+async function updateOrderStatus(mongoID, statusCode) { //updates order status from Recieved to In Progress (if passed 1) or In Progress to Complete (if passed 2)
+    try{
+        
+        let updatesToBeMade;
+
+        //need to check if mongoID being passed is an object so it can be passed to update order
+        if (statusCode == 1){
+            updatesToBeMade = {status: "In Progress"}
+            updateOrder(mongoID, updatesToBeMade)
+        } else if (statusCode == 2){
+            updatesToBeMade = {status: "Complete"}
+            updateOrder(mongoID, updatesToBeMade)
+        } else {
+            console.log("Sent invalid status code")
+        }
+
+    } catch(e){
+        console.log("ERROR: Did not update order status")
+    }
+
+}
+
+
+
+
+
+module.exports = { updateOrderStatus, getPaidOrders, openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
 
 /*============================FULL DELETES STUFF============================= */
 /*
