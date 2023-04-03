@@ -319,7 +319,10 @@ async function updateOrderStatus(mongoID, statusCode) { //updates order status f
         
         let updatesToBeMade;
 
-        //need to check if mongoID being passed is an object so it can be passed to update order
+        if (typeof(mongoID) === string){   //need to check if mongoID being passed is an object so it can be passed to update order
+            mongoID = stringToMongoID(mongoID);
+        }
+     
         if (statusCode == 1){
             updatesToBeMade = {status: "In Progress"}
             updateOrder(mongoID, updatesToBeMade)
