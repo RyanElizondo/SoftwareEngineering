@@ -2,6 +2,7 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from 'mongoCRUD';
 
+
 /**
  * Builds menu object with submenu lists for frontend to build menu
  * @param mongomenu array of menuItems retrieved from MongoDB
@@ -88,10 +89,12 @@ export async function loadMenu() {
 
         const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(await mongoMenu));
         
-        /* uncomment to write to json folder and see what getMenuFromMongo() returns
+        
+        /*uncomment to write to json folder and see what function() returns
+        const mongoOrders = await getFoodprepOrdersFromMongo();
         const jsonDirectory = path.join(process.cwd(), 'json');  //Absolute path to json folder
-        await fs.writeFile (jsonDirectory + '/mongomenu.json', menu) //writing to json data file
-        */
+        await fs.writeFile (jsonDirectory + '/foodprepOrdersFromMongo.json', mongoOrders) //writing to json data file
+       */
 
         closeMongoConnection();
 

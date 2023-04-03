@@ -90,5 +90,74 @@
         "itemQuantity": 1
       }
     ]
+  },
+  {
+    "_id": "6429d3b66b288cc7d9f674c1",
+    "orderID": 6,
+    "firstName": "Separate payment and status",
+    "status": "Received",
+    "paymentStatus": "Paid",
+    "localeDate": "4/2/2023, 2:37:50 PM",
+    "items": [
+      {
+        "itemName": "Bacon Egg and Cheese",
+        "itemQuantity": 1
+      },
+      {
+        "itemName": "Apple Juice",
+        "itemQuantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "6429d3dd6b288cc7d9f6f9d6",
+    "orderID": 7,
+    "firstName": "Combined payment and status",
+    "status": "Received",
+    "localeDate": "4/2/2023, 2:37:50 PM",
+    "items": [
+      {
+        "itemName": "Bacon Egg and Cheese",
+        "itemQuantity": 1
+      },
+      {
+        "itemName": "Apple Juice",
+        "itemQuantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "6429d4106b288cc7d9f7a446",
+    "order": 8,
+    "name": "Slim",
+    "status": "Received",
+    "date": "4/2/2023, 2:37 PM",
+    "items": [
+      {
+        "name": "Bacon Egg and Cheese",
+        "quantity": 1
+      },
+      {
+        "name": "Apple Juice",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "6429d43c6b288cc7d9f83a3e",
+    "o": 9,
+    "n": "Ultra slim",
+    "s": "Received",
+    "d": "4/2/2023, 2:37 PM",
+    "i": [
+      {
+        "n": "Bacon Egg and Cheese",
+        "q": 1
+      },
+      {
+        "n": "Apple Juice",
+        "q": 1
+      }
+    ]
   }
 ]
