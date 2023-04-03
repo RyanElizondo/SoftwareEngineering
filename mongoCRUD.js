@@ -298,7 +298,7 @@ export async function removeInventory(mongoID, stockToRemove){
 }
 
 /*============================FOOD PREP QUERY ============================= */
-export async function getFoodprepOrdersFromMongo() {
+export async function getPaidOrders() {
     try{
         let filters = {status: "Received" , paymentStatus: "Paid"}; //insert hard codded query filters here in json format, rn looking at statuses as query for foodprep
         
@@ -312,7 +312,6 @@ export async function getFoodprepOrdersFromMongo() {
         console.log("ERROR: Did not send order json string")
     }
 }
-
 
 /*============================FULL DELETES STUFF============================= */
 /*
