@@ -6,25 +6,20 @@
  */
 export default function UserOrderItemsList({orderItems}) {
 
-
     return(
-        <div className="confirmation-order-items-holder">
-            {orderItems.map(order => (
-                    <ul className="user-items-holder">
-                        {order.items.map(item => (
-                            <li className="user-order-item" key={item.itemName}>
-                                {item.itemQuantity} x {item.itemName}
-                                {item.customization && item.customization.length > 0 && (
-                                    <ul className="user-order-item-customization-holder">
-                                        {item.customization.map(c => (
-                                            <li key={c}>{c}</li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
+        <ul className="user-items-holder">
+            {orderItems.map(item => (
+                <li className="user-order-item" key={item.itemName}>
+                    {item.itemQuantity} x {item.itemName}
+                    {item.customization && item.customization.length > 0 && (
+                        <ul className="user-order-item-customization-holder">
+                            {item.customization.map(c => (
+                                <li key={c}>{c}</li>
+                            ))}
+                        </ul>
+                    )}
+                </li>
             ))}
-        </div>
+        </ul>
     )
 }

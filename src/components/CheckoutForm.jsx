@@ -56,11 +56,15 @@ export default function CheckoutForm() {
 
     setIsLoading(true);
 
+    const baseUrl = `${window.location.protocol}//${window.location.host}`;
+    const orderConfirmationPath = '/order-confirmation';
+    const orderConfirmationUrl = `${baseUrl}${orderConfirmationPath}`;
+
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: orderConfirmationUrl,
         receipt_email: email,
       },
     });

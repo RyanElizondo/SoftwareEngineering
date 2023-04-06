@@ -9,8 +9,6 @@ export async function loadUserOrder() {
     if(databaseReady === true) {
 
     } else {
-        console.error(e);
-
         //Absolute path to json folder
         const jsonDirectory = path.join(process.cwd(), 'json');
 

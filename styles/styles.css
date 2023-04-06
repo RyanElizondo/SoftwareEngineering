@@ -393,5 +393,12 @@ h5.order-item-customization {
   margin: 2vmin 0;
 }
 
+.confirmation-holder {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 4vmin;
+  border-radius: 1vmin;
+}
+
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
