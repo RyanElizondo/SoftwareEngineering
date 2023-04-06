@@ -42,7 +42,7 @@ export default function Order( ) {
             </div>
             <Link href="/menu" className="return-button grow">Back to menu</Link>
             {/*TODO replace the below hyperlink reference to redirect to the stripe page */}
-            <Link href="/checkout" className="return-button grow">Place order</Link>
+            <Link href="/order-confirmation" className="return-button grow">Place order</Link>
         </div>
 </>
     )
