@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "6429d3b66b288cc7d9f674c1",
+    "orderID": 6,
+    "firstName": "Separate payment and status",
+    "status": "Received",
+    "paymentStatus": "Paid",
+    "localeDate": "4/2/2023, 2:37:50 PM",
+    "items": [
+      {
+        "itemName": "Bacon Egg and Cheese",
+        "itemQuantity": 1
+      },
+      {
+        "itemName": "Apple Juice",
+        "itemQuantity": 1
+      }
+    ]
+  }
+]

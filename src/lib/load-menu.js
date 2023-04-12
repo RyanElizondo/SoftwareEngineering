@@ -2,6 +2,7 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from 'mongoCRUD';
 
+
 /**
  * Builds menu object with submenu lists for frontend to build menu
  * @param mongomenu array of menuItems retrieved from MongoDB
@@ -18,19 +19,18 @@ const buildFrontendMenus = (mongomenu) => {
 
     //iterate through mongo menu and create deep copies for server and customer menu
     for(let i = 0; i < mongomenu.length; i++) {
-        const customerMenuItem = JSON.parse(JSON.stringify(mongomenu[i]));
+        var customerMenuItem = mongomenu[i];
+        var serverMenuItem = customerMenuItem;
         delete customerMenuItem._id;
-        const serverMenuItem = JSON.parse(JSON.stringify(mongomenu[i]));
+        //const serverMenuItem = mongomenu[i];
 
         if(customerMenuItem.submenu === "Sandwiches") {
             sandwichItems.push(customerMenuItem);
             serverSandwiches.push(serverMenuItem);
-        } else if(customerMenuItem.submenu === "Bakery")
-        {
+        } else if(customerMenuItem.submenu === "Bakery") {
             bakeryItems.push(customerMenuItem);
             serverBakery.push(serverMenuItem);
-        } else if(customerMenuItem.submenu === "Beverages")
-        {
+        } else if(customerMenuItem.submenu === "Beverages") {
             beverageItems.push(customerMenuItem);
             serverBeverages.push(serverMenuItem);
         }
@@ -84,14 +84,16 @@ export async function loadMenu() {
     try{
         openMongoConnection();
 
-        const mongoMenu = await getMenuFromMongo();
+        const mongoMenu = getMenuFromMongo();
 
-        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
+        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(await mongoMenu));
         
-        /* uncomment to write to json folder and see what getMenuFromMongo() returns
+        
+        /*uncomment to write to json folder and see what function() returns
+        const mongoOrders = await getFoodprepOrdersFromMongo();
         const jsonDirectory = path.join(process.cwd(), 'json');  //Absolute path to json folder
-        await fs.writeFile (jsonDirectory + '/mongomenu.json', menu) //writing to json data file
-        */
+        await fs.writeFile (jsonDirectory + '/foodprepOrdersFromMongo.json', mongoOrders) //writing to json data file
+       */
 
         closeMongoConnection();
 
