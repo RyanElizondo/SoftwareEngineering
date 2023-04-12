@@ -1,44 +1,35 @@
+
 {
-  "users": [
+  "name": "Lucas Cordova III",
+  "email": "lucascordovaiii@gmail.com",
+  "pastOrders": [
     {
-      "name": "Lucas Cordova III",
-      "email": "lucascordovaiii@gmail.com",
-      "pastOrders": [
+      "orderID": 6,
+      "localeDate": "4/2/2023, 2:37:50 PM",
+      "TotalCost": "$8.50",
+      "items": [
         {
-          "_id": "6429d3b66b288cc7d9f674c1",
-          "orderID": 6,
-          "status": "Complete",
-          "paymentStatus": "Paid",
-          "localeDate": "4/2/2023, 2:37:50 PM",
-          "TotalCost": "$8.50",
-          "items": [
-            {
-              "itemName": "Bacon Egg and Cheese",
-              "itemQuantity": 1
-            },
-            {
-              "itemName": "Apple Juice",
-              "itemQuantity": 1
-            }
-          ]
+          "itemName": "Bacon Egg and Cheese",
+          "itemQuantity": 1,
+          "customization": ["Bacon", "Egg", "Cheese"]
         },
         {
-          "_id": "9829d3b66b288cc7d9213c1",
-          "orderID": 4,
-          "status": "Complete",
-          "paymentStatus": "Paid",
-          "localeDate": "4/1/2023, 4:30:50 PM",
-          "TotalCost": "$3.19",
-          "items": [
-            {
-              "itemName": "Blueberry Muffin",
-              "itemQuantity": 1
-            }
-          ]
+          "itemName": "Apple Juice",
+          "itemQuantity": 1
         }
-      ],
-        "points": 500
+      ]
+    },
+    {
+      "orderID": 4,
+      "localeDate": "4/1/2023, 4:30:50 PM",
+      "TotalCost": "$3.19",
+      "items": [
+        {
+          "itemName": "Blueberry Muffin",
+          "itemQuantity": 1
+        }
+      ]
     }
-  ]
+  ],
+    "points": 500
 }
-
