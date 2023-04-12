@@ -57,8 +57,8 @@ exports.handler = async (event, context) => { //handler function
         }
     }else if (event.httpMethod === 'POST') {
         //add order
-        const order = JSON.parse(event.body); //get order from body
-        const result = await createOrder(order); //add order
+        const orderObject = JSON.parse(event.body); //get order from body
+        const result = await createOrder(orderObject); //add order
         closeMongoConnection();
         return {
             statusCode: 200,

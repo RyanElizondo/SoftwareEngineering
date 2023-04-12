@@ -16,8 +16,11 @@ export default function App() {
   const clientItems = JSON.parse(JSON.stringify(useSelector(selectItems)));
 
   const reqInfo = {
-    clientSecret: clientSecret,
-    clientItems: clientItems
+    "stripe-client-secret": clientSecret,
+    "status": "Received",
+    "paymentStatus": "incomplete",
+    "localeDate": new Date().toLocaleDateString(),
+    "items": clientItems,
   }
 
   React.useEffect(() => {
@@ -33,7 +36,7 @@ export default function App() {
         setClientSecret(data.clientSecret)
         /* TODO call server endpoint to add client secret and orderItems to server database */
           console.log("making HTTP request to send client order")
-        return fetch("",
+        return fetch("/.netlify/functions/managerOrders",
             {
               method: "POST",
               headers: {
