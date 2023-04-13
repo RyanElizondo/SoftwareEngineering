@@ -3,10 +3,9 @@ const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb'); //mongodb
 var client;
 var _db;
 
-/*============================CONNECTION STUFF============================= */
-/** This creates a connection to our mongoDB cluster using the URI hidden as an environment variable 
- * @param nothing
- * @return nothing
+/**
+ * Creates a connection to our mongoDB cluster using the URI hidden as an environment variable
+ * @returns {Promise<void>}
  */
 async function openMongoConnection() {
     try{
@@ -23,9 +22,9 @@ async function openMongoConnection() {
     }
 }
 
-/** This closes the connection to our mongoDB cluster 
- * @param nothing
- * @return nothing
+/**
+ * Closes the connection to our mongoDB cluster
+ * @returns {Promise<void>}
  */
 async function closeMongoConnection(){
     try{
@@ -73,11 +72,10 @@ async function createMenuItem(menuJsonObject){
 async function createOrder(orderJsonObject){
     try{
         let insertedOrder =  await _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
-        console.log(`Successfully created order!`); 
-
+        console.log(`Successfully created order!`);
         return await insertedOrder.insertedId;
     } catch(e){
-        console.log("ERROR: Could not create order");
+        console.log("ERROR: Could not create order", e);
     }
 }
 
