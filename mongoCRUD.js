@@ -88,8 +88,9 @@ async function createOrder(orderJsonObject){
  */
 async function readUser(mongoID){
     try{
-        let foundUser =  _db.collection('Users').findOne({_id: mongoID}); 
+        let foundUser =  await _db.collection('Users').findOne({_id: mongoID}); 
         console.log(`Found user! Returning them now`);
+        
         
         return foundUser;
     } catch(e){
@@ -473,8 +474,8 @@ async function getSubmenu(submenuString) {
  */
 async function updateOrderFromStripe(stripeClientSecret, orderTotal){
 
-    let stripeOrder = readOrder({stripeID: stripeClientSecret});
-    let ID = stripeOrder._id; //check if this is a string
+    let stripeOrder = await readOrder({stripeID: stripeClientSecret});
+    let ID = stripeOrder._id; 
 
     let orderDollars = orderTotal / 100;
     updateOrder(ID, {paymentStatus: "Paid", total: orderDollars});
