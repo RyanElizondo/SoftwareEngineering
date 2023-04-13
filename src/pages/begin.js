@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import Head from "next/head";
-import {useSession, signIn, signOut} from "next-auth/react";
+import Head from 'next/head';
+import {useSession, signIn, signOut} from 'next-auth/react';
 
 const Begin = () => {
     const { data, status } = useSession()
-
+    
+    // If user is signed in, either sign out or continue to menu.
     if (status === 'authenticated') {
         return (
             <div>
@@ -13,6 +14,8 @@ const Begin = () => {
                 <Link href="/menu" className="login-link2">Continue to Menu</Link>
             </div>
         );
+
+    // If user is not signed in, either sign in with google or continue as guest.
     } else {
         return (
             <>

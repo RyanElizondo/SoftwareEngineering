@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 
-export const authOptions = {
+const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -9,7 +9,8 @@ export const authOptions = {
         }),
     ],
     session: {
-        strategy: 'jwt'
-    }
+        jwt: true,
+        maxAge: 60 * 60,    // Session expires in 1 hour
+    },
 };
 export default NextAuth(authOptions);
