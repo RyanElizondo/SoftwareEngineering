@@ -3,6 +3,7 @@ const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb'); //mongodb
 var client;
 var _db;
 
+/*============================CONNECTION STUFF============================= */
 /**
  * Creates a connection to our mongoDB cluster using the URI hidden as an environment variable
  * @returns {Promise<void>}
@@ -73,7 +74,7 @@ async function createOrder(orderJsonObject){
     try{
         let insertedOrder =  await _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
         console.log(`Successfully created order!`);
-        return await insertedOrder.insertedId;
+        return insertedOrder.insertedId;
     } catch(e){
         console.log("ERROR: Could not create order", e);
     }
@@ -129,45 +130,47 @@ async function readOrder(mongoID){
 }
 
 /*============================READ PLURAL STUFF============================= */
-/** This prints all the documents in the Users collection that match the query 
+/** This returns all the documents in the Users collection that match the query 
  * @param {object} JSON object
- * @return nothing, just prints to console. Can be used to get the string to convert to mongoDB ID
+ * @return {array} of Users that match query, use JSON stringify to make it more readable
  */
 async function readUsers(query){ 
     try{
         let cursor = await _db.collection('Users').find(query).toArray(); 
-        console.log(`Found user(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
-        console.log(JSON.stringify(cursor, null, 2)); 
-        
+        console.log(`Found user(s), returning as array`);
+
+        return cursor;
     } catch(e){
         console.log("ERROR: Could not find users, check if passing JSON format query");
     }
 }
 
-/** This prints all the documents in the Menu collection that match the query 
+/** This returns all the documents in the Menu collection that match the query 
  * @param {object} JSON object
- * @return nothing, just prints to console. Can be used to get the string to convert to mongoDB ID
+ * @return {array} of Menu Items that match query, use JSON stringify to make it more readable
  */
 async function readMenuItems(query){
     try{
         let cursor = _db.collection('Menu').find(query).toArray(); 
-        console.log(`Found menu item(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
-        console.log(JSON.stringify(cursor, null, 2));
+        console.log(`Found menu item(s), returning as array`);
+
+        return cursor;
 
     } catch(e){
         console.log("ERROR: Could not find menu items, check if passing JSON format query");
     }
 }
 
-/** This prints all the documents in the Orders collection that match the query 
+/** This returns all the documents in the Orders collection that match the query 
  * @param {object} JSON object
- * @return nothing, just prints to console. Can be used to get the string to convert to mongoDB ID
+ *  @return {array} of Orders that match query, use JSON stringify to make it more readable
  */
 async function readOrders(query){
     try{
-        let cursor = _db.collection('Users').find(query).toArray(); 
-        console.log(`Found order(s), if you want to work with a single object, take the _id string and convert it to an object for future use:`);
-        console.log(JSON.stringify(cursor, null, 2)); 
+        let cursor = _db.collection('Orders').find(query).toArray(); 
+        console.log(`Found order(s), returning as array`);
+
+        return cursor;
 
     } catch(e){
         console.log("ERROR: Could not find orders, check if passing JSON format query");
@@ -278,9 +281,9 @@ async function deleteOrder(mongoID){
  */
 async function getMenuFromMongo() {  
     try{
-        let menuItemsArray = await _db.collection('Menu').find({}).toArray();
+        let menuItemsArray = readMenuItems({});
 
-        var jsonMenu =  JSON.stringify(menuItemsArray, null, 2);
+        var jsonMenu = await JSON.stringify(menuItemsArray, null, 2);
         
         return jsonMenu;
 
@@ -295,9 +298,9 @@ async function getMenuFromMongo() {
  */
 async function getOrdersFromMongo() {
     try{
-        let ordersArray = await _db.collection('Orders').find({}).toArray(); 
+        let ordersArray = readOrders({}); 
 
-        var jsonOrders =  JSON.stringify(ordersArray, null, 2); 
+        var jsonOrders = await JSON.stringify(ordersArray, null, 2); 
         
         return jsonOrders;
 
@@ -312,7 +315,7 @@ async function getOrdersFromMongo() {
  */
 async function getUsersFromMongo() {
     try{
-        let usersArray = await _db.collection('Users').find({}).toArray(); 
+        let usersArray = readUsers({}); 
 
         var jsonUsers =  JSON.stringify(usersArray, null, 2); 
         
@@ -409,7 +412,8 @@ async function removeInventory(mongoID, stockToRemove){
 async function getPaidOrders() {
     try{
         let filters = {status: "Received" , paymentStatus: "Paid"}; 
-        let ordersArray = await _db.collection('Orders').find(filters).toArray();
+
+        let ordersArray = readOrders(filters);
 
         var jsonOrders =  JSON.stringify(ordersArray, null, 2);
         
@@ -453,9 +457,11 @@ async function updateOrderStatus(mongoID, statusCode) {
 async function getSubmenu(submenuString) { 
     try{     
         
-        let cursor = _db.collection('Menu').find({submenu: submenuString}).toArray(); 
+        let filters = {submenu: submenuString}; 
 
-        var jsonSubmenu =  JSON.stringify(cursor, null, 2);
+        let submenuArray = readMenuItems(filters);
+
+        var jsonSubmenu =  JSON.stringify(submenuArray, null, 2);
         
         return jsonSubmenu;
 
@@ -465,7 +471,7 @@ async function getSubmenu(submenuString) {
     }
 }
 
-/** This updates an order status to paid and puts in the total of the order (data from STRIPE)  
+/** Once order passes through STRIPE, order status is updated to paid and order total is added to doc
  * @param {string} stripe unique client ID
  * @param {int} order total (in cents) 
  * @return nothing
@@ -481,10 +487,10 @@ async function updateOrderFromStripe(stripeClientSecret, orderTotal){
 }
 
 
-module.exports = {getSubmenu, updateOrderStatus, getPaidOrders, openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
+module.exports = {updateOrderFromStripe, getSubmenu, updateOrderStatus, getPaidOrders, openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
 
 /*============================FULL DELETES STUFF============================= */
-/** This deletes ALL USERS
+/** This deletes ALL USERS, since we are using users as a testing ground, deleting all test users happens periodically
  * @param nothing
  * @return nothing
  */
