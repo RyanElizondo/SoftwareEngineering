@@ -3,6 +3,234 @@ body {
   margin: 0;
 }
 
+
+/*Intro Page Edits */
+div.page {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  margin: auto;
+  padding-top: 4vh;
+}
+.bg-image {
+  background-image: url('../public/landingpage.webp');
+  background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/landingpage.webp');
+  max-width: 100%;
+  min-height: 100vh;
+  height: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+.button{
+  display: inline-block;
+  text-decoration: none;
+  color: #FFFCCC;
+  border: 1px solid #fff;
+  padding: 12px 34px;
+  font-size: 13px;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  font-family: "Franklin Gothic Book";
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 42.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.button:hover{
+  border: 1px solid wheat;
+  background: #996633;
+  transition: 1s;
+}
+.welcome{
+  color: white;
+  font-family: 'Yanone Kaffeesatz';
+  transform: translate(5%, 395%);
+  font-size: 40px;
+  text-align: center;
+  position: absolute;
+  top: 25.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.quote{
+  color: white;
+  font-family: 'Fasthand', cursive;
+  font-size: 23px;
+  text-align: center;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/*Begin Edits */
+.login-links-holder {
+  display: flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; /* add this line to center vertically */
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto Slab', serif;
+  margin-top:30vh;
+}
+
+
+
+.page{
+  background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/begin.webp');
+  max-width: 100%;
+  min-height: 100vh;
+  height: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;
+  width: 300px;
+  height: auto;
+}
+.logo img {
+  max-height: 80px;
+  max-width: 80px;
+}
+
+.login-link1,
+.login-link2 {
+  padding: 2vmin;
+  width: 60vw; /* adjust the width to your desired size */
+  text-align: center;
+  background-color: blanchedalmond;
+  border-radius: 1.5vmin;
+  margin: 2vmin;
+  transition: all 0.3s;
+  font-size: 1.2em; /* add this line to make the font size slightly bigger */
+  text-decoration: none;
+}
+
+.login-link1:hover,
+.login-link2:hover {
+  color: white;
+  background-color: saddlebrown;
+  transform: translateY(-20px);
+}
+
+
+/*Food Prep Edits*/
+
+.login-input{
+  margin: 0 0 0 1vw;
+}
+
+.pass-input{
+  margin: 0 0 0 2.4vw;
+}
+
+.foodprep-order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  font-size:30px;
+  background-size: cover;
+  background-position: center;
+  height: 50%;
+  width: 50%;
+}
+.foodprep-order button{
+  margin-top: 20px;
+}
+.foodprep-order label1{
+  margin-right: 135px;
+}
+.foodprep-page{
+  font-size: 13px;
+  max-width: 90vw;
+  margin: 1vw auto 7.5vw auto;
+  padding: 5vh 0 0 0;
+  position: sticky;
+  top: 90vh;
+  color: black;
+  text-emphasis: none;
+  text-decoration: none;
+  border-radius: 3vmin;
+  position:center;
+  background-color: wheat;
+  display: flex;
+  flex-direction: column;
+  alignment: center;
+}
+
+.orders-title {
+  text-align: center;
+  border-bottom: solid;
+  border-bottom-width: 0.25vh;
+  border-bottom-color: black;
+  margin: 1.5vmin 2vmin;
+}
+
+.foodprep-title {
+  text-align: center;
+  margin: 0 5vmin 2.5vh 0.5vmin;
+}
+
+.foodprep-orders-holder {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.foodprep-order-holder {
+  background-color: rgba(128, 128, 128, 0.24);
+  margin: 1.0vmin;
+  padding: 0.5vmin 2vmin 1.5vmin 2vmin;
+  border-radius: 1vmin;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.foodprep-button {
+  max-width: 70%;
+  min-width: 40%
+}
+
+.column-holder {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgba(256,256,256,0.5);
+  min-height: 40vh;
+}
+
+.column.foodprep {
+  width: 33.33%;
+  margin: 0 auto 0 auto;
+}
+
+.foodprep-button {
+  margin: auto;
+}
+
+/* Menu Edits */
 .flex-container {
   display: flex;
   flex-wrap: wrap;
@@ -47,6 +275,14 @@ body {
   margin: 1vmin;
 }
 
+.menu-item-quantity{
+  margin: 0 1vw 0 0;
+}
+
+.menu-item-price,
+.menu-item-inventory{
+  font-size: 1em;
+}
 .submenu-title {
   background-color: rgb(97, 86, 67);
   color: white;
@@ -62,45 +298,7 @@ body {
 h5.menu-item-title {
   font-size: 1.2em;
 }
-
-div.page {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-  min-height: 25vh;
-  max-width: 60vmax;
-  margin: auto;
-  padding-top: 4vh;
-}
-
-.bg-image {
-  background-image: url('../public/landingpage.webp');
-  max-width: 100%;
-  min-height: 60vh;
-  height: auto;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
-}
-
-.login-links-holder {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 40vw;
-  margin: 25vh 0;
-}
-
-.login-link {
-  padding: 2vmin;
-  width: 100vw;
-  text-align: center;
-  background-color: blanchedalmond;
-  border-radius: 1.5vmin;
-  margin: 2vmin 0;
-}
-
+/*View Order Edits*/
 .order-holder {
   flex-direction: column;
   align-items: flex-start;
@@ -108,7 +306,7 @@ div.page {
   flex-wrap: wrap;
   justify-content: center;
   margin: 0 4vmin;
-  width: 100%;
+  width: 30vw;
   align-content: center;
 }
 
@@ -122,6 +320,11 @@ div.page {
   width: 100%;
   max-width: 60vmax;
 }
+
+h6{
+  font-size:1em;
+}
+
 
 h5.order-item-customization {
   flex-direction: column;
@@ -142,10 +345,18 @@ h5.order-item-customization {
 }
 
 .order-detail {
+
   text-align: right;
   font-weight: normal;
   font-size: 1em;
 }
+
+
+.order-title,
+.order-details{
+  color: beige;
+}
+
 
 .order-item-title {
   margin: 2vmin 0 1vmin 0;
@@ -157,6 +368,7 @@ h5.order-item-customization {
   margin: 2vmin;
   width: inherit;
   border-radius: 1vmin;
+
 }
 
 .view-order-button {
@@ -170,6 +382,7 @@ h5.order-item-customization {
   padding: 2vmin;
   border-radius: 2vmin;
 }
+
 
 .return-button {
   padding: 2vmin;
