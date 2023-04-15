@@ -5,7 +5,8 @@ import {
     selectPreparingOrders,
     selectReadyOrders,
     addOrder,
-    setOrders
+    setOrders,
+    editOrderStatus
 } from "@/features/foodprepOrders/foodprepOrdersSlice";
 import { wrapper } from "@/store";
 import FoodprepOrder from "@/components/FoodprepOrder";
@@ -37,6 +38,8 @@ export default function orders({orders}) {
         _channel.subscribe((message) => {
             if(message.data.action === "addOrder") {
                 dispatch(addOrder(message.data.order));
+            } else if(message.data.action === "updateOrder") {
+                dispatch(editOrderStatus(message.data.order));
             }
         })
         setChannel(_channel)
@@ -60,15 +63,15 @@ export default function orders({orders}) {
                 <div className="column-holder">
                     <div className="foodprep column">
                         <h2 className="orders-title">Received Orders</h2>
-                        <FoodprepOrder orderList={receivedOrders}/>
+                        <FoodprepOrder orderList={receivedOrders} channel={channel}/>
                     </div>
                     <div className="foodprep column">
                         <h2 className="orders-title">In Progress Orders</h2>
-                        <FoodprepOrder orderList={preparedOrders}/>
+                        <FoodprepOrder orderList={preparedOrders} channel={channel}/>
                     </div>
                     <div className="foodprep column">
                         <h2 className="orders-title">Completed Orders</h2>
-                        <FoodprepOrder orderList={readyOrders}/>
+                        <FoodprepOrder orderList={readyOrders} channel={channel}/>
                     </div>
                 </div>
             </div>
