@@ -1,19 +1,50 @@
 import { loadOrders } from "../../../lib/load-orders"
 import { useSelector, useDispatch } from "react-redux"
-import { selectReceivedOrders, selectPreparingOrders, selectReadyOrders } from "@/features/foodprepOrders/foodprepOrdersSlice";
+import {
+    selectReceivedOrders,
+    selectPreparingOrders,
+    selectReadyOrders,
+    addOrder,
+    setOrders
+} from "@/features/foodprepOrders/foodprepOrdersSlice";
 import { wrapper } from "@/store";
-import { setOrders } from "../../../features/foodprepOrders/foodprepOrdersSlice"
 import FoodprepOrder from "@/components/FoodprepOrder";
+import * as Ably from 'ably/promises'
+import { configureAbly } from '@ably-labs/react-hooks'
 
 import Head from "next/head";
+import {useEffect, useState} from "react";
 
 export default function orders({orders}) {
 
     const dispatch = useDispatch();
 
+    const [channel, setChannel] = useState(null);
+
     const receivedOrders = useSelector(selectReceivedOrders);
     const preparedOrders = useSelector(selectPreparingOrders);
     const readyOrders = useSelector(selectReadyOrders);
+
+    //Connect foodprep orders to websocket for client-server communication on orders.
+    useEffect(() => {
+        const ably = configureAbly({ key: process.env.ABLY_API_KEY}/*{ authUrl: '/api/authentication/token-auth' }*/)
+
+        ably.connection.on((stateChange) => {
+            console.log(stateChange)
+        })
+
+        const _channel = ably.channels.get('foodprep-orders')
+        _channel.subscribe((message) => {
+            if(message.data.action === "addOrder") {
+                dispatch(addOrder(message.data.order));
+            }
+        })
+        setChannel(_channel)
+
+        return () => {
+            _channel.unsubscribe()
+        }
+    }, [])
 
     return (
         <>
