@@ -473,12 +473,13 @@ async function getSubmenu(submenuString) {
 
 /** Once payment intent is created from STRIPE, add it to order and wait for payment to come back
  * @param {string} stripe unique client ID
- * @return nothing
+ * @return {new objectID} mongoDB ID object
  */
 async function pendingStripe(stripeClientSecret){
 
-    await createOrder({stripeID: stripeClientSecret});
+    let stripeOrder = await createOrder({stripeID: stripeClientSecret});
     
+    return stripeOrder;
 }
 
 /** Once order passes successfully through STRIPE, order status is updated to paid and order total is added to doc
