@@ -395,3 +395,53 @@ h5.order-item-customization {
 
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
+
+.user-profile{
+  color:black;
+  text-align: center;
+  border-bottom: solid;
+  border-bottom-width: 0.25vh;
+  border-bottom-color: black;
+  margin: 1.5vmin 2vmin;
+  background-color: wheat;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info label {
+  margin-bottom: 0.5rem;
+}
+
+.user-info label + * {
+  margin-top: 0.5rem;
+}
+.user-info{
+  text-align: center;
+  border-bottom: solid;
+  border-bottom-width: 0.25vh;
+  border-bottom-color: black;
+  margin: 1.5vmin 2vmin;
+  color:gainsboro;
+}
+.past-orders{
+  text-align: center;
+  border-bottom: solid;
+  border-bottom-width: 0.25vh;
+  border-bottom-color: black;
+  margin: 1.5vmin 2vmin;
+  color: black;
+  background-color:wheat;
+}
+.order-pasts{
+  text-align:left;
+  border-bottom: solid;
+  border-bottom-width: 0.25vh;
+  border-bottom-color: black;
+  margin: 1.2vmin 1.5vmin;
+  color:white;
+}
+.user-profile-page{
+  background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/begin.webp');
+}

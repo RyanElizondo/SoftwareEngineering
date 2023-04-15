@@ -3,22 +3,19 @@ import { loadUser } from "../../lib/load-user";
 export default function viewProfile({ user }) {
     const { email, name, pastOrders, points } = user;
     return (
-        <div>
-            <h1>User Profile</h1>
-            <div>
+        <div className = "user-profile-page">
+            <h1 className= "user-profile">User Profile</h1>
+            <div className = "user-info">
                 <label>Email:</label> {email}
-            </div>
-            <div>
-                <label>Name:</label>
-                {name}
-            </div>
-            <div>
+
+                <label>Name:</label> {name}
+
                 <label> Points: {points}</label>
             </div>
-            <h2>Past Orders</h2>
+            <h2 className= "past-orders">Past Orders</h2>
             {pastOrders.map((order, index) => (
-                <div key={index}>
-                    <div>_</div>
+                <div key={index} className= "order-pasts">
+                    <div></div>
                     <div>Order ID: {order.orderID}</div>
                     <div>Order Date: {order.localeDate}</div>
                     <div>Order Total: {order.TotalCost}</div>
