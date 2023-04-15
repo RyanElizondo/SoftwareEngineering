@@ -1,6 +1,7 @@
-import { loadUser } from "../../lib/load-user";
+import { loadUser } from "../lib/load-user";
+import withNavBar from "@/components/withNavBar";
 
-export default function viewProfile({ user }) {
+function viewProfile({ user }) {
     const { email, name, pastOrders, points } = user;
     return (
         <div className = "user-profile-page">
@@ -42,3 +43,5 @@ export async function getServerSideProps() {
     const user = await loadUser();
     return { props: { user } };
 }
+
+export default withNavBar(viewProfile);

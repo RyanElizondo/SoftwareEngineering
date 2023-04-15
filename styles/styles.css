@@ -81,8 +81,6 @@ div.page {
   margin-top:30vh;
 }
 
-
-
 .page{
   background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/begin.webp');
   max-width: 100%;
@@ -91,6 +89,25 @@ div.page {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
+}
+
+.navbar {
+  border-width: 1px 0;
+  border-radius: 0;
+  background-clip: padding-box;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  border-bottom: 1px rgba(50, 50, 93, 0.2) solid;
+  padding: 0.5vmin 15vmin;
+}
+
+.nav-button {
+  color: black;
+  font-size: calc(6px + 2.5vmin);
+  padding: 2vmin;
+  min-width: 15vmin;
+  text-align: center;
 }
 
 .logo {
