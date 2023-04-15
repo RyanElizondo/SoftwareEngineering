@@ -471,12 +471,22 @@ async function getSubmenu(submenuString) {
     }
 }
 
-/** Once order passes through STRIPE, order status is updated to paid and order total is added to doc
+/** Once payment intent is created from STRIPE, add it to order and wait for payment to come back
+ * @param {string} stripe unique client ID
+ * @return nothing
+ */
+async function pendingStripe(stripeClientSecret){
+
+    await createOrder({stripeID: stripeClientSecret});
+    
+}
+
+/** Once order passes successfully through STRIPE, order status is updated to paid and order total is added to doc
  * @param {string} stripe unique client ID
  * @param {int} order total (in cents) 
  * @return nothing
  */
-async function updateOrderFromStripe(stripeClientSecret, orderTotal){
+async function successfulStripe(stripeClientSecret, orderTotal){
 
     let stripeOrder = await readOrder({stripeID: stripeClientSecret});
     let ID = stripeOrder._id; 
@@ -486,8 +496,22 @@ async function updateOrderFromStripe(stripeClientSecret, orderTotal){
     
 }
 
+/** Once order unsuccessfully passes through STRIPE, order status is updated to Card Declined or whatever we want to make it
+ * @param {string} stripe unique client ID
+ * @return nothing
+ */
+async function unsuccessfulStripe(stripeClientSecret, orderTotal){
 
-module.exports = {updateOrderFromStripe, getSubmenu, updateOrderStatus, getPaidOrders, openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
+    let stripeOrder = await readOrder({stripeID: stripeClientSecret});
+    let ID = stripeOrder._id; 
+
+
+    updateOrder(ID, {paymentStatus: "Card Declined"});
+    
+}
+
+
+module.exports = {pendingStripe, unsuccessfulStripe, successfulStripe, getSubmenu, updateOrderStatus, getPaidOrders, openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
 
 /*============================FULL DELETES STUFF============================= */
 /** This deletes ALL USERS, since we are using users as a testing ground, deleting all test users happens periodically
