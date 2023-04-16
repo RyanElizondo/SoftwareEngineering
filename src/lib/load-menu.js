@@ -82,20 +82,12 @@ const buildFrontendMenus = (mongomenu) => {
 export async function loadMenu() {
 
     try{
-        openMongoConnection();
+        await openMongoConnection();
 
-        const mongoMenu = getMenuFromMongo();
+        const mongoMenu = await getMenuFromMongo()
+        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
 
-        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(await mongoMenu));
-        
-        
-        /*uncomment to write to json folder and see what function() returns
-        const mongoOrders = await getFoodprepOrdersFromMongo();
-        const jsonDirectory = path.join(process.cwd(), 'json');  //Absolute path to json folder
-        await fs.writeFile (jsonDirectory + '/foodprepOrdersFromMongo.json', mongoOrders) //writing to json data file
-       */
-
-        closeMongoConnection();
+        //closeMongoConnection();
 
         //Return the content from the database in frontend JSON workable format
         return customerMenu;
