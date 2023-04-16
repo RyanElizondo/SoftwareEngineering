@@ -2,6 +2,8 @@
 {
   "name": "Lucas Cordova III",
   "email": "lucascordovaiii@gmail.com",
+  "points": 500,
+  "userID": 115992489685291109865,
   "pastOrders": [
     {
       "orderID": 6,
@@ -30,6 +32,5 @@
         }
       ]
     }
-  ],
-    "points": 500
+  ]
 }

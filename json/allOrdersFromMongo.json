@@ -1,0 +1,163 @@
+[
+  {
+    "_id": "64192842d85382b1d40b3140",
+    "orderID": 1,
+    "firstName": "Lucas",
+    "status": "Received",
+    "localeDate": "3/12/2023, 6:50:21 PM",
+    "items": [
+      {
+        "itemName": "Avocado BLT",
+        "itemQuantity": 1,
+        "customization": [
+          "NO lettuce"
+        ]
+      },
+      {
+        "itemName": "Hazelnut Coffee",
+        "itemQuantity": 1,
+        "customization": [
+          "Medium",
+          "3 Cream",
+          "2 Regular Sugar"
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "64192842d85382b1d40b3141",
+    "orderID": 2,
+    "firstName": "Oliver",
+    "status": "Received",
+    "localeDate": "3/12/2023, 6:55:50 PM",
+    "items": [
+      {
+        "itemName": "Brownies",
+        "itemQuantity": 6
+      },
+      {
+        "itemName": "Jelly Donut Latte",
+        "itemQuantity": 1,
+        "customization": [
+          "Medium",
+          "3 Half and Half",
+          "3 Regular Sugar",
+          "Whipped cream",
+          "Double espresso"
+        ]
+      },
+      {
+        "itemName": "Fanta",
+        "itemQuantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "64192842d85382b1d40b3142",
+    "orderID": 3,
+    "firstName": "Aditya",
+    "status": "Received",
+    "localeDate": "3/12/2023, 6:57:21 PM",
+    "items": [
+      {
+        "itemName": "Chocolate Chip Cookies",
+        "itemQuantity": 12
+      }
+    ]
+  },
+  {
+    "_id": "641e0db4d85382b1d4aa5680",
+    "orderID": 4,
+    "firstName": "Ryan",
+    "status": "Preparing",
+    "localeDate": "3/12/2023, 6:50:19 PM",
+    "items": [
+      {
+        "itemName": "Pumpkin Muffin",
+        "itemQuantity": 4
+      }
+    ]
+  },
+  {
+    "_id": "641e0dcad85382b1d4aa99f0",
+    "orderID": 5,
+    "firstName": "Thomas",
+    "status": "Ready",
+    "localeDate": "3/12/2023, 6:50:19 PM",
+    "items": [
+      {
+        "itemName": "Blueberry Muffin",
+        "itemQuantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "6429d3b66b288cc7d9f674c1",
+    "orderID": 6,
+    "firstName": "Separate payment and status",
+    "status": "Received",
+    "paymentStatus": "Paid",
+    "localeDate": "4/2/2023, 2:37:50 PM",
+    "items": [
+      {
+        "itemName": "Bacon Egg and Cheese",
+        "itemQuantity": 1
+      },
+      {
+        "itemName": "Apple Juice",
+        "itemQuantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "6429d3dd6b288cc7d9f6f9d6",
+    "orderID": 7,
+    "firstName": "Combined payment and status",
+    "status": "Received",
+    "localeDate": "4/2/2023, 2:37:50 PM",
+    "items": [
+      {
+        "itemName": "Bacon Egg and Cheese",
+        "itemQuantity": 1
+      },
+      {
+        "itemName": "Apple Juice",
+        "itemQuantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "6429d4106b288cc7d9f7a446",
+    "order": 8,
+    "name": "Slim",
+    "status": "Received",
+    "date": "4/2/2023, 2:37 PM",
+    "items": [
+      {
+        "name": "Bacon Egg and Cheese",
+        "quantity": 1
+      },
+      {
+        "name": "Apple Juice",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "6429d43c6b288cc7d9f83a3e",
+    "o": 9,
+    "n": "Ultra slim",
+    "s": "Received",
+    "d": "4/2/2023, 2:37 PM",
+    "i": [
+      {
+        "n": "Bacon Egg and Cheese",
+        "q": 1
+      },
+      {
+        "n": "Apple Juice",
+        "q": 1
+      }
+    ]
+  }
+]
