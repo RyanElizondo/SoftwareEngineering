@@ -1,6 +1,8 @@
 //Database functions for foodprepOrders API
 const { getOrdersFromMongo, readMenuItems, updateOrderStatus} = require('../mongoCRUD')
 const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
+const Ably = require('ably');
+
 
 
 openMongoConnection();
@@ -10,7 +12,8 @@ exports.handler = async (event, context) => { //handler function
         // handle GET request: determine if query parameters are provided
         if (Object.keys(event.queryStringParameters).length === 0) {
             //console.log("hello")
-            const menu = await getOrdersFromMongo(); //get all orders from mongodb
+            const menu =  getOrdersFromMongo(); //get all orders from mongodb
+
             closeMongoConnection();
             return {
                 statusCode: 200,
@@ -53,7 +56,8 @@ exports.handler = async (event, context) => { //handler function
         return {
             statusCode: 405,
             body: JSON.stringify({ message: 'Method Not Allowed' })
-        };
+        }
     }
-
 }
+ably.close(); // runs synchronously
+console.log('Closed the connection to Ably.');p
