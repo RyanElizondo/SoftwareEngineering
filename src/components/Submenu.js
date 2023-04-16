@@ -1,4 +1,5 @@
 import MenuItem from './MenuItem'
+import {useState} from "react";
 
 /**
  * Submenu component: bakery, sandwiches, beverages
@@ -8,11 +9,17 @@ import MenuItem from './MenuItem'
  * @constructor
  */
 export default function Submenu( {name, items} ) {
+    const [viewSubmenu, setViewSubmenu] = useState(false);
+
+    const updateViewSubmenu = (event) => {
+        setViewSubmenu(!viewSubmenu);
+    }
+
     return (
         <div className="submenu-holder">
-            <h3 className="submenu-title">{name}</h3>
+            <h3 className="submenu-title submenu-button" onClick={updateViewSubmenu}>{name}</h3>
             <ul className="submenu-list">
-                {items.map( (item,index) => (
+                {viewSubmenu ? (items.map((item, index) => (
                     <MenuItem
                         name={item.name}
                         customizations={item.customizations}
@@ -21,7 +28,7 @@ export default function Submenu( {name, items} ) {
                         inventory={item.inventory}
                         key={index}
                     />
-                ) )}
+                ))) : null}
             </ul>
         </div>
     )
