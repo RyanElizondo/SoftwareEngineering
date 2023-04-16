@@ -421,6 +421,8 @@ h5.order-item-customization {
   border-bottom-color: black;
   margin: 1.5vmin 2vmin;
   background-color: wheat;
+  font-family: "Arial Narrow";
+  font-size: 30px;
 }
 .user-info {
   display: flex;
@@ -441,6 +443,7 @@ h5.order-item-customization {
   border-bottom-color: black;
   margin: 1.5vmin 2vmin;
   color:gainsboro;
+  font-family: "Arial Black";
 }
 .past-orders{
   text-align: center;
@@ -450,6 +453,7 @@ h5.order-item-customization {
   margin: 1.5vmin 2vmin;
   color: black;
   background-color:wheat;
+  font-family: "Arial Black" ;
 }
 .order-pasts{
   text-align:left;
@@ -457,8 +461,14 @@ h5.order-item-customization {
   border-bottom-width: 0.25vh;
   border-bottom-color: black;
   margin: 1.2vmin 1.5vmin;
-  color:white;
+  color:black;
+  background-color:white;
+  font-family: "Arial Black";
 }
 .user-profile-page{
   background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/begin.webp');
+}
+.navbar{
+  background-color: white;
+  font-family: "Arial Black";
 }
