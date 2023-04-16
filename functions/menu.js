@@ -3,7 +3,6 @@
  */
 const { getMenuFromMongo, readMenuItems, createMenuItem, updateMenuItem, deleteMenuItem} = require('../mongoCRUD')
 const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
-const { getMenuFromMongo, createMenuItem, updateMenuItem } = require('mongoCRUD');
 
 openMongoConnection();
 
@@ -55,6 +54,18 @@ exports.handler = async (event, context) => { //handler function
         return {
             statusCode: 200,
             body: JSON.stringify(result)
+        }
+    } else if (event.httpMethod === 'OPTIONS') {
+        /* TODO update access-control-allow-origin when merging to main */
+        return {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Max-Age': '86400' // 24 hours
+            },
+            body: ''
         }
     } else {
         return {

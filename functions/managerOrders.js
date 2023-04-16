@@ -57,14 +57,27 @@ exports.handler = async (event, context) => { //handler function
         }
     }else if (event.httpMethod === 'POST') {
         //add order
-        const order = JSON.parse(event.body); //get order from body
-        const result = await createOrder(order); //add order
+        const orderObject = JSON.parse(event.body); //get order from body
+        const result = await createOrder(orderObject); //add order
         closeMongoConnection();
         return {
             statusCode: 200,
             body: JSON.stringify(result)
         }
-    } else {
+    } else if (event.httpMethod === 'OPTIONS') {
+        /* TODO update access-control-allow-origin when merging to main */
+        return {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Max-Age': '86400' // 24 hours
+            },
+            body: ''
+        }
+    }
+    else {
         return {
             statusCode: 405,
             body: JSON.stringify({ message: 'Method Not Allowed' })
