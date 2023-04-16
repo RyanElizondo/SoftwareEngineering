@@ -8,6 +8,7 @@ import Link from 'next/link';
 export default function NavBar() {
     return (
         <div className="navbar" >
+            <img src="favicon.ico" alt="Logo" width="100" height="100" />
             <h2 className="nav-button1">
                 <Link href="/" style={{ textDecoration: 'none' }}>Home</Link>
             </h2>
