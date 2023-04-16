@@ -8,22 +8,20 @@ import Link from 'next/link';
 export default function NavBar() {
     return (
         <div className="navbar">
-            <h2 className="logo">
-                <img src = "google.png" alt="LogoHere" /></h2>
             <h2 className="nav-button1">
-                <Link href="/">Home</Link>
+                <Link href="/" style={{textDecoration: 'none'}}>Home</Link>
             </h2>
             <h2 className="nav-button2">
-                <Link href="menu">Menu</Link>
+                <Link href="menu" style={{textDecoration: 'none'}}>Menu</Link>
             </h2>
             <h2 className="nav-button3">
-                <Link href="about-us">About us</Link>
+                <Link href="about-us" style={{textDecoration: 'none'}}>About us</Link>
             </h2>
             <h2 className="nav-button4">
-                <Link href="contact">Contact</Link>
+                <Link href="contact" style={{textDecoration: 'none'}}>Contact</Link>
             </h2>
             <h2 className="nav-button5">
-                <Link href="profile">Profile</Link>
+                <Link href="profile" style={{textDecoration: 'none'}}>Profile</Link>
             </h2>
 
         </div>

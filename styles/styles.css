@@ -421,7 +421,7 @@ h5.order-item-customization {
   border-bottom-color: black;
   margin: 1.5vmin 2vmin;
   background-color: wheat;
-  font-family: "Arial Narrow";
+  font-family: "Arial Black";
   font-size: 30px;
 }
 .user-info {
@@ -443,7 +443,7 @@ h5.order-item-customization {
   border-bottom-color: black;
   margin: 1.5vmin 2vmin;
   color:gainsboro;
-  font-family: "Arial Black";
+  font-family: "Arial Narrow";
 }
 .past-orders{
   text-align: center;
@@ -456,19 +456,48 @@ h5.order-item-customization {
   font-family: "Arial Black" ;
 }
 .order-pasts{
-  text-align:left;
+  text-align:center;
   border-bottom: solid;
-  border-bottom-width: 0.25vh;
+  border-bottom-width: 0.50vh;
   border-bottom-color: black;
+  border-bottom-left-radius: 20vh;
+  border-bottom-right-radius: 20vh;
+  border-top-left-radius: 20vh;
+  border-top-right-radius: 20vh;
   margin: 1.2vmin 1.5vmin;
   color:black;
-  background-color:white;
-  font-family: "Arial Black";
+  background-color:antiquewhite;
+  font-family: "Arial Narrow";
 }
 .user-profile-page{
   background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/begin.webp');
 }
 .navbar{
   background-color: white;
-  font-family: "Arial Black";
+  font-family: Bahnschrift;
+}
+.about-us-title{
+  color:white;
+  font-family: Bahnschrift;
+}
+.about-us-desc{
+  color:white;
+  text-align: center;
+  margin-left: 20vh;
+  margin-right:20vh;
+  font-size:20px;
+  font-family: Bahnschrift;
+}
+.Email2{
+  color:wheat;
+}
+.Phone2{
+  color:wheat;
+}
+.navbar{
+  background-color: bisque;
+}
+.search-bar{
+  margin-top:5vh;
+  margin-left:-30vh;
 }
