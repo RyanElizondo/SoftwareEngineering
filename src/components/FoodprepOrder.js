@@ -10,15 +10,17 @@ const getButtonName = (status) => {
     }
 }
 
-export default function FoodprepOrder({orderList}) {
+export default function FoodprepOrder({orderList, channel}) {
 
     const dispatch = useDispatch();
 
+    //publish message to channel to notify server of status update
     const onUpdateStatus = (event, order) => {
         let newStatus = "Received";
         if(order.status === "Ready") {
             //remove order from screen
             dispatch(removeOrder({orderID: order.orderID}));
+            channel.publish("foodprep-orders", )
             return;
         } else if(order.status === "Received") {
             newStatus = "Preparing";
@@ -29,9 +31,7 @@ export default function FoodprepOrder({orderList}) {
         }
 
         //send order ID and new status to server
-        if(newStatus !== "Received") {
-            //may or may not need to add 'await'
-            /* TODO add URL endpoint to update order status */
+        /*if(newStatus !== "Received") {
             fetch("",
                 {
                     method: "PUT",
@@ -44,7 +44,19 @@ export default function FoodprepOrder({orderList}) {
                 .catch( (error) => {
                     console.log("Error calling server API to update order status", error);
                 })
+        }*/
+
+        const channelData = {
+            orderID: order.orderID,
+            action: "updateStatus",
+            status: newStatus
         }
+        if(newStatus !== "Received") {
+            channel.publish("foodprep-orders", channelData,
+                (error) => {console.log("Channel publish failed with error: ", error)}
+            );
+        }
+
     }
 
     return(
