@@ -43,7 +43,7 @@ async function closeMongoConnection(){
 async function createUser(userJsonObject){
     try{
         let insertedUser =  await _db.collection('Users').insertOne(userJsonObject);
-        console.log(`Successfully created user!`); 
+        console.log(`Successfully created user!`);
 
         return insertedUser.insertedId;
     } catch(e){
@@ -512,7 +512,14 @@ async function unsuccessfulStripe(stripeClientSecret, orderTotal){
 }
 
 
-module.exports = {pendingStripe, unsuccessfulStripe, successfulStripe, getSubmenu, updateOrderStatus, getPaidOrders, openMongoConnection, closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser, deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo, getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory, readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder, createUser, createMenuItem, createOrder, stringToMongoID}
+module.exports = {pendingStripe, unsuccessfulStripe, successfulStripe,
+    getSubmenu, updateOrderStatus, getPaidOrders, openMongoConnection,
+    closeMongoConnection, updateUser, updateMenuItem, updateOrder, deleteUser,
+    deleteMenuItem, deleteOrder, getMenuFromMongo, getOrdersFromMongo,
+    getUsersFromMongo, addPoints, redeemPoints, addInventory, removeInventory,
+    readMenuItems, readUsers, readOrders, readUser, readMenuItem, readOrder,
+    createUser, createMenuItem, createOrder, stringToMongoID
+}
 
 /*============================FULL DELETES STUFF============================= */
 /** This deletes ALL USERS, since we are using users as a testing ground, deleting all test users happens periodically

@@ -1,6 +1,6 @@
 const {getUsersFromMongo, readUsers, createUser, updateUser, } = require('../mongoCRUD')
 const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
-const { readUser } = require('mongoCRUD');
+const { readUser } = require('../mongoCRUD');
 
 openMongoConnection();
 
