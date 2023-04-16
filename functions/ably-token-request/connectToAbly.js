@@ -4,10 +4,10 @@ const ably = new Ably.Realtime('jBXOFQ.P8Xv2A:_Qw3NEd_EzEbonkXGj6wQ6A0k63sqifBYf
 
 
 const channel = ably.channels.get('foodprep-orders');
-channel.subscribe('greeting', (message) => {
+channel.subscribe('foodprep-orders', (message) => {
     console.log(`Received message: ${message.data}`);
 });
-channel.publish('greeting', 'hello!', function(err) {
+channel.publish('foodprep-orders', 'hello!', function(err) {
     if(err) {
         console.log(err + 'error');
     }

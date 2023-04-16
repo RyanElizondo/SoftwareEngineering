@@ -2,7 +2,12 @@
 const { getOrdersFromMongo, readMenuItems, updateOrderStatus} = require('../mongoCRUD')
 const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
 const Ably = require('ably');
-const ably = new Ably.Realtime(process.env.ABLY_API_KEY);
+const ably = new Ably.Realtime(process.env.ABLY_API_KEY); //create ably instance
+const channel = ably.channels.get('foodprep-orders'); //get foodprep-orders channel
+
+channel.subscribe('foodprep-orders', (message) => { //subscribe to Received event
+    console.log(`Received message: ${message.data}`);
+});
 
 
 
@@ -33,8 +38,29 @@ exports.handler = async (event, context) => { //handler function
 
     } else if(event.httpMethod === 'PUT') {
         //update order status
-        const id = event.path.split('/')[2]; //get id from url
-        const result = await updateOrderStatus(id); //update order status
+        const orderObject = { //get order from body
+            orderID: event.path.split('/')[2],
+            status: 1,
+            localeDate: new Date().toLocaleString(),
+            firstname: "test",
+            array: ["test", "test2"]
+        }
+        //const id = event.path.split('/')[2]; //get id from url
+        const result = await updateOrderStatus(orderObject.orderID, orderObject.status); //update order status
+
+        const dataForFrontend = { //data to send to frontend
+            action: 'addOrder',
+            order: result
+        }
+
+        channel.publish('foodprep-orders', dataForFrontend, function (err) { //publish to ably
+            if (err) {
+                console.log('publish failed with error ' + err);
+            } else {
+                console.log('publish succeeded');
+            }
+        });
+
         closeMongoConnection();
         return {
             statusCode: 200,
@@ -60,5 +86,3 @@ exports.handler = async (event, context) => { //handler function
         }
     }
 }
-ably.close(); // runs synchronously
-console.log('Closed the connection to Ably.');p
