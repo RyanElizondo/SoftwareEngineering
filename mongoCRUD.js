@@ -81,16 +81,14 @@ async function createOrder(orderJsonObject){
 }
 
 /*============================READ SINGULAR STUFF============================= */
-/** This reads a User document in the User collection of our mongoDB 
- * @param {new objectID} mongoDB ID 
+/** Reads a user document in the User collection of MongoDB
+ * @param {new userID} unique identifier of the user
  * @return {object} user document 
  */
-async function readUser(mongoID){
+async function readUser(userID){
     try{
-        let foundUser =  await _db.collection('Users').findOne({_id: mongoID}); 
+        let foundUser =  await _db.collection('Users').findOne({userID: userID});
         console.log(`Found user! Returning them now`);
-        
-        
         return foundUser;
     } catch(e){
         console.log("ERROR: Could not find user, check if passing mongoID object");
@@ -281,9 +279,9 @@ async function deleteOrder(mongoID){
  */
 async function getMenuFromMongo() {  
     try{
-        let menuItemsArray = readMenuItems({});
+        let menuItemsArray = await readMenuItems({});
 
-        var jsonMenu = await JSON.stringify(menuItemsArray, null, 2);
+        var jsonMenu = JSON.stringify(menuItemsArray);
         
         return jsonMenu;
 
