@@ -37,7 +37,7 @@ function Menu({ menu }) {
                 </Link>
                 <input className= "search-bar"
                     type="text"
-                    placeholder="Search items..."
+                    placeholder="Search Item..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
