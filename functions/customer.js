@@ -2,6 +2,7 @@ const {getUsersFromMongo, readUsers, createUser, updateUser, } = require('../mon
 const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
 const { readUser } = require('mongoCRUD');
 const Ably = require('ably');
+const ably = new Ably.Realtime(process.env.ABLY_API_KEY);
 
 openMongoConnection();
 

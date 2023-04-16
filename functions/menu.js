@@ -4,6 +4,8 @@
 const { getMenuFromMongo, readMenuItems, createMenuItem, updateMenuItem, deleteMenuItem} = require('../mongoCRUD')
 const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
 const Ably = require('ably');
+const ably = new Ably.Realtime(process.env.ABLY_API_KEY);
+
 
 openMongoConnection();
 

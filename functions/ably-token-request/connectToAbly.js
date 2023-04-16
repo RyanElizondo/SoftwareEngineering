@@ -9,7 +9,7 @@ channel.subscribe('greeting', (message) => {
 });
 channel.publish('greeting', 'hello!', function(err) {
     if(err) {
-        console.log(err);
+        console.log(err + 'error');
     }
     console.log('message published');
 });
