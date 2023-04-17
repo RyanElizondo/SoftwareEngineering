@@ -1,32 +1,48 @@
 import Link from 'next/link';
-import Head from "next/head";
+import Head from 'next/head';
+import {useSession, signIn, signOut} from 'next-auth/react';
 
-export default function Begin(){
-    return (
-        <>
-            <Head>
-
-                <title>Expresso Sign-In</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="icon" href="/favicon.ico" />
-                <link rel="stylesheet"
-                      href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
-            </Head>
-
-        <div className="page">
-            <div className="login-links-holder">
-                <link rel="stylesheet"
-                      href = "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"/>
-                {/*TODO replace below href to redirect user to Oauth2.0 API */}
-                <h2 className="logo">
-                    <img src = "google.png" alt="LogoHere" /></h2>
-                <Link href="/menu" className="login-link1">Continue with Google</Link>
-                <br></br>
-                <Link href="/menu" className="login-link2">Continue as Guest</Link>
+const Begin = () => {
+    const { data, status } = useSession()
+    
+    // If user is signed in, either sign out or continue to menu.
+    if (status === 'authenticated') {
+        return (
+            <div>
+                <p>Welcome, {data.user.name}</p>
+                <button onClick={()=> signOut()}>Sign out</button>
+                <Link href="/menu" className="login-link2">Continue to Menu</Link>
             </div>
-        </div>
+        );
 
+    // If user is not signed in, either sign in with google or continue as guest.
+    } else {
+        return (
+            <>
+                <Head>
+    
+                    <title>Expresso Sign-In</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <link rel="icon" href="/favicon.ico" />
+                    <link rel="stylesheet"
+                          href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
+                </Head>
+    
+            <div className="page">
+                <div className="login-links-holder">
+                    <link rel="stylesheet"
+                          href = "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"/>
+                    <h2 className="logo">
+                        <img src = "google.png" alt="LogoHere" /></h2>
+                    <button onClick={()=> signIn('google')}>Sign in with Google</button>
+                    <Link href="/menu" className="login-link2">Continue as Guest</Link>
+                </div>
+            </div>
+    
+    
+        </>
+        );
+    }
+};
 
-    </>
-    )
-}
+export default Begin

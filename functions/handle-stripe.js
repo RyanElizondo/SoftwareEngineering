@@ -1,4 +1,4 @@
-const {openMongoConnection} = require("../mongoCRUD");
+const {openMongoConnection, successfulStripe, unsuccessfulStripe, pendingStripe, readOrder, deleteOrder} = require("../mongoCRUD");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async ({ body, headers }) => {
@@ -19,6 +19,25 @@ exports.handler = async ({ body, headers }) => {
 
             //TODO Send email to customer
 
+        }
+
+        switch(stripeEvent.type){
+            case 'payment_intent.succeeded':
+                const paymentIntent = await stripe.paymentIntents.retrieve(
+                    stripeEvent.id
+                )
+                successfulStripe(paymentIntent.id,paymentIntent.amount);
+                break;
+            default:
+                // unexpected event AKA fail payment
+                const paymentFail = await stripe.paymentIntents.retrieve(
+                    stripeEvent.id
+                )
+                unsuccessfulStripe(paymentFail.id,paymentFail.amount);
+                let testing = pendingStripe(paymentFail.client_secret);
+                const createdOrder = readOrder(testing);
+                deleteOrder(createdOrder);
+                console.log(testing);
         }
 
         return {

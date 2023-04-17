@@ -96,7 +96,9 @@
     "orderID": 6,
     "firstName": "Separate payment and status",
     "status": "Received",
+    "stripe-client-secret": "pi_1J9Z2pKZ2Z2Z2Z2Z2Z2Z2Z2Z2Z2Z",
     "paymentStatus": "Paid",
+    "order-total": 10.66,
     "localeDate": "4/2/2023, 2:37:50 PM",
     "items": [
       {

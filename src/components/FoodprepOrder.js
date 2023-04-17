@@ -27,6 +27,24 @@ export default function FoodprepOrder({orderList}) {
             newStatus = "Ready";
             dispatch(editOrderStatus({orderID: order.orderID, newStatus: newStatus}))
         }
+
+        //send order ID and new status to server
+        if(newStatus !== "Received") {
+            //may or may not need to add 'await'
+            /* TODO add URL endpoint to update order status */
+            fetch("",
+                {
+                    method: "PUT",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        "orderID": order.orderID,
+                        "status": newStatus
+                    })
+                })
+                .catch( (error) => {
+                    console.log("Error calling server API to update order status", error);
+                })
+        }
     }
 
     return(

@@ -19,19 +19,18 @@ const buildFrontendMenus = (mongomenu) => {
 
     //iterate through mongo menu and create deep copies for server and customer menu
     for(let i = 0; i < mongomenu.length; i++) {
-        const customerMenuItem = JSON.parse(JSON.stringify(mongomenu[i]));
+        var customerMenuItem = mongomenu[i];
+        var serverMenuItem = customerMenuItem;
         delete customerMenuItem._id;
-        const serverMenuItem = JSON.parse(JSON.stringify(mongomenu[i]));
+        //const serverMenuItem = mongomenu[i];
 
         if(customerMenuItem.submenu === "Sandwiches") {
             sandwichItems.push(customerMenuItem);
             serverSandwiches.push(serverMenuItem);
-        } else if(customerMenuItem.submenu === "Bakery")
-        {
+        } else if(customerMenuItem.submenu === "Bakery") {
             bakeryItems.push(customerMenuItem);
             serverBakery.push(serverMenuItem);
-        } else if(customerMenuItem.submenu === "Beverages")
-        {
+        } else if(customerMenuItem.submenu === "Beverages") {
             beverageItems.push(customerMenuItem);
             serverBeverages.push(serverMenuItem);
         }
@@ -85,9 +84,9 @@ export async function loadMenu() {
     try{
         openMongoConnection();
 
-        const mongoMenu = await getMenuFromMongo();
+        const mongoMenu = getMenuFromMongo();
 
-        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
+        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(await mongoMenu));
         
         
         /*uncomment to write to json folder and see what function() returns
