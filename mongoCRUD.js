@@ -71,8 +71,9 @@ async function createMenuItem(menuJsonObject){
  * @return {new objectID} mongoDB ID that can be used for RUD operations
  */
 async function createOrder(orderJsonObject){
+    const orderMongoObject = {...orderJsonObject, _id: orderJsonObject.stripeClientSecret}
     try{
-        let insertedOrder =  await _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
+        let insertedOrder =  await _db.collection('Orders').insertOne(orderMongoObject); //insert one given a json object
         console.log(`Successfully created order!`);
         return insertedOrder.insertedId;
     } catch(e){
@@ -431,7 +432,7 @@ async function getPaidOrders() {
  */
 async function updateOrderStatus(mongoID, statusCode) { 
     try{
-        
+
         let updatesToBeMade;
      
         if (statusCode == 1){
@@ -504,8 +505,7 @@ async function successfulStripe(stripeClientSecret, orderTotal){
 async function unsuccessfulStripe(stripeClientSecret, orderTotal){
 
     let stripeOrder = await readOrder({stripeID: stripeClientSecret});
-    let ID = stripeOrder._id; 
-
+    let ID = stripeOrder._id;
 
     updateOrder(ID, {paymentStatus: "Card Declined"});
     

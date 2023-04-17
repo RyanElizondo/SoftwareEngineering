@@ -12,32 +12,20 @@ exports.handler = async ({ body, headers }) => {
 
         await openMongoConnection();
 
-        // only do stuff if this is a successful Stripe Checkout purchase
-        if (stripeEvent.type === 'checkout.session.completed') {
-            const eventObject = stripeEvent.data.object;
-            const items = eventObject.display_items;
-
-            //TODO Send email to customer
-
-        }
-
         switch(stripeEvent.type){
             case 'payment_intent.succeeded':
                 const paymentIntent = await stripe.paymentIntents.retrieve(
                     stripeEvent.id
                 )
-                successfulStripe(paymentIntent.id,paymentIntent.amount);
+                await successfulStripe(paymentIntent.client_secret,paymentIntent.amount);
                 break;
             default:
                 // unexpected event AKA fail payment
                 const paymentFail = await stripe.paymentIntents.retrieve(
                     stripeEvent.id
                 )
-                unsuccessfulStripe(paymentFail.id,paymentFail.amount);
-                let testing = pendingStripe(paymentFail.client_secret);
-                const createdOrder = readOrder(testing);
-                deleteOrder(createdOrder);
-                console.log(testing);
+                await unsuccessfulStripe(paymentFail.client_secret,paymentFail.amount);
+                break;
         }
 
         return {
