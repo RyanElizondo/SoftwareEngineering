@@ -486,6 +486,13 @@ h5.order-item-customization {
 .navbar{
   background-color: white;
   font-family: Bahnschrift;
+  font-size:16px;
+}
+@media only screen and (max-width: 768px) {
+  .navbar {
+    font-size: 8px;
+    padding: 10px;
+  }
 }
 .about-us-title{
   color:white;
