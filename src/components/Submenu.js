@@ -17,7 +17,7 @@ export default function Submenu( {name, items} ) {
 
     return (
         <div className="submenu-holder">
-            <h3 className="submenu-title submenu-button" onClick={updateViewSubmenu}>{name}</h3>
+            <h3 className="submenu-title submenu-button" onClick={updateViewSubmenu}>{name} </h3>
             <ul className="submenu-list">
                 {viewSubmenu ? (items.map((item, index) => (
                     <MenuItem

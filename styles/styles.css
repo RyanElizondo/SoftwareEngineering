@@ -123,7 +123,7 @@ div.page {
   max-width: 80px;
 }
 
-.login-link1,
+.google-signin,
 .login-link2 {
   padding: 2vmin;
   width: 60vw; /* adjust the width to your desired size */
@@ -134,9 +134,11 @@ div.page {
   transition: all 0.3s;
   font-size: 1.2em; /* add this line to make the font size slightly bigger */
   text-decoration: none;
+  font-family: 'Roboto Slab', serif;
+  color:black;
 }
 
-.login-link1:hover,
+.google-signin:hover,
 .login-link2:hover {
   color: white;
   background-color: saddlebrown;
@@ -508,5 +510,9 @@ h5.order-item-customization {
 }
 .search-bar{
   margin-top:5vh;
-  margin-left:-30vh;
+  margin-left:5vh;
+  margin-bottom:5vh;
+}
+.submenu-button{
+  cursor:pointer;
 }

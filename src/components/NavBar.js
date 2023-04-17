@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import {useSession} from "next-auth/react";
 
 /**
  * Navigation component that provides buttons for going to the homepage, viewing profile, menu, etc
@@ -6,6 +7,8 @@ import Link from 'next/link';
  * @constructor
  */
 export default function NavBar() {
+    const { data: session, sessionStatus } = useSession();
+
     return (
         <div className="navbar" >
             <img src="favicon.ico" alt="Logo" width="100" height="100" />
@@ -22,7 +25,7 @@ export default function NavBar() {
                 <Link href="contact" style={{ textDecoration: 'none' }}>Contact</Link>
             </h2>
             <h2 className="nav-button5">
-                <Link href="profile" style={{ textDecoration: 'none' }}>Profile</Link>
+                <Link href="profile" style={{ textDecoration: 'none' }}>{session ? "Profile" : "Create Account"}</Link>
             </h2>
 
         </div>

@@ -20,6 +20,11 @@ function Menu({ menu }) {
         };
     });
 
+    const handleSearchQuery = (e) => {
+        setSearchQuery(e.target.value);
+
+    }
+
     return (
         <>
             <Head>
@@ -39,7 +44,7 @@ function Menu({ menu }) {
                     type="text"
                     placeholder="Search Item..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={handleSearchQuery}
                 />
                 <div className="menu-holder menu-flex">
                     {filteredSubmenus.map((submenu, index) => (
