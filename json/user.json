@@ -1,0 +1,36 @@
+
+{
+  "name": "Lucas Cordova III",
+  "email": "lucascordovaiii@gmail.com",
+  "points": 500,
+  "userID": 115992489685291109865,
+  "pastOrders": [
+    {
+      "orderID": 6,
+      "localeDate": "4/2/2023, 2:37:50 PM",
+      "TotalCost": "$8.50",
+      "items": [
+        {
+          "itemName": "Bacon Egg and Cheese",
+          "itemQuantity": 1,
+          "customization": ["Bacon", "Egg", "Cheese"]
+        },
+        {
+          "itemName": "Apple Juice",
+          "itemQuantity": 1
+        }
+      ]
+    },
+    {
+      "orderID": 4,
+      "localeDate": "4/1/2023, 4:30:50 PM",
+      "TotalCost": "$3.19",
+      "items": [
+        {
+          "itemName": "Blueberry Muffin",
+          "itemQuantity": 1
+        }
+      ]
+    }
+  ]
+}

@@ -81,8 +81,6 @@ div.page {
   margin-top:30vh;
 }
 
-
-
 .page{
   background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/begin.webp');
   max-width: 100%;
@@ -91,6 +89,25 @@ div.page {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
+}
+
+.navbar {
+  border-width: 1px 0;
+  border-radius: 0;
+  background-clip: padding-box;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  border-bottom: 1px rgba(50, 50, 93, 0.2) solid;
+  padding: 0.5vmin 15vmin;
+}
+
+.nav-button {
+  color: black;
+  font-size: calc(6px + 2.5vmin);
+  padding: 2vmin;
+  min-width: 15vmin;
+  text-align: center;
 }
 
 .logo {
@@ -244,15 +261,34 @@ div.page {
 .menu-flex {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  min-height: 50vmin;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  min-height: 75vh;
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
+.submenu-title {
+  background-color: rgb(97, 86, 67);
+  color: white;
+  padding: 2vmin;
+  font-size: 2em;
+  margin: 0 2.5vmin 2.5vmin 2.5vmin;
+  text-align: center;
+  border-radius: 2vmin;
+  font-family: Gloria+Hallelujah, serif;
+  text-emphasis: none;
+}
+
+.submenu-button:hover {
+  background-color: rgb(75, 67, 52);
+}
+
 .submenu-holder {
   display: block;
+  width: auto;
   min-width: 80vmin;
   padding: 4vmin;
 }
@@ -282,17 +318,6 @@ div.page {
 .menu-item-price,
 .menu-item-inventory{
   font-size: 1em;
-}
-.submenu-title {
-  background-color: rgb(97, 86, 67);
-  color: white;
-  padding: 2vmin;
-  font-size: 2em;
-  margin: 0 2.5vmin 2.5vmin 2.5vmin;
-  text-align: center;
-  border-radius: 2vmin;
-  font-family: Gloria+Hallelujah, serif;
-  text-emphasis: none;
 }
 
 h5.menu-item-title {
@@ -381,6 +406,7 @@ h5.order-item-customization {
   text-decoration: none;
   padding: 2vmin;
   border-radius: 2vmin;
+  max-width: 10vw;
 }
 
 
@@ -395,3 +421,63 @@ h5.order-item-customization {
 
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
+
+.user-profile{
+  color:black;
+  text-align: center;
+  border-bottom: solid;
+  border-bottom-width: 0.25vh;
+  border-bottom-color: black;
+  margin: 1.5vmin 2vmin;
+  background-color: wheat;
+  font-family: "Arial Narrow";
+  font-size: 30px;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info label {
+  margin-bottom: 0.5rem;
+}
+
+.user-info label + * {
+  margin-top: 0.5rem;
+}
+.user-info{
+  text-align: center;
+  border-bottom: solid;
+  border-bottom-width: 0.25vh;
+  border-bottom-color: black;
+  margin: 1.5vmin 2vmin;
+  color:gainsboro;
+  font-family: "Arial Black";
+}
+.past-orders{
+  text-align: center;
+  border-bottom: solid;
+  border-bottom-width: 0.25vh;
+  border-bottom-color: black;
+  margin: 1.5vmin 2vmin;
+  color: black;
+  background-color:wheat;
+  font-family: "Arial Black" ;
+}
+.order-pasts{
+  text-align:left;
+  border-bottom: solid;
+  border-bottom-width: 0.25vh;
+  border-bottom-color: black;
+  margin: 1.2vmin 1.5vmin;
+  color:black;
+  background-color:white;
+  font-family: "Arial Black";
+}
+.user-profile-page{
+  background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/begin.webp');
+}
+.navbar{
+  background-color: white;
+  font-family: "Arial Black";
+}

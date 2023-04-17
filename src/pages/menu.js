@@ -3,6 +3,7 @@ import Submenu from '../components/Submenu'
 //import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 import Head from "next/head";
+import withNavBar from "@/components/withNavBar";
 
 /** Renders full menu and implements client-sided routing to browse through submenus.
  * This component also keeps track of a user's order
@@ -13,7 +14,7 @@ import Head from "next/head";
  * @returns {JSX.Element}
  * @constructor
  */
-export default function Menu({menu}) {
+function Menu({menu}) {
     const submenus = menu.submenus;
 
     return (
@@ -49,3 +50,4 @@ export async function getServerSideProps() {
     return { props: { menu } }
 }
 
+export default withNavBar(Menu);

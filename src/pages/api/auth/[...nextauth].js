@@ -8,9 +8,14 @@ const authOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET
         }),
     ],
-    session: {
-        jwt: true,
-        maxAge: 60 * 60,    // Session expires in 1 hour
-    },
+    /*session: {
+        strategy: 'jwt'
+    },*/
+    callbacks: {
+        async session({session, token}) {
+            session.user.userID = token.sub;
+            return session;
+        }
+    }
 };
 export default NextAuth(authOptions);
