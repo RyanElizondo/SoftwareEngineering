@@ -1,4 +1,6 @@
-const {openMongoConnection, successfulStripe, unsuccessfulStripe, pendingStripe, readOrder, deleteOrder} = require("../mongoCRUD");
+const {openMongoConnection, successfulStripe, unsuccessfulStripe, pendingStripe, readOrder, deleteOrder,
+    closeMongoConnection
+} = require("../mongoCRUD");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async ({ body, headers }) => {
@@ -28,6 +30,7 @@ exports.handler = async ({ body, headers }) => {
                 break;
         }
 
+        await closeMongoConnection();
         return {
             statusCode: 200,
             body: JSON.stringify({ received: true }),
