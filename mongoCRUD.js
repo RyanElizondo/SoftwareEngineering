@@ -488,12 +488,10 @@ async function pendingStripe(stripeClientSecret){
  */
 async function successfulStripe(stripeClientSecret, orderTotal){
 
-    let stripeOrder = await readOrder({stripeID: stripeClientSecret});
-    let ID = stripeOrder._id; 
-
     let orderDollars = orderTotal / 100;
-    updateOrder(ID, {paymentStatus: "Paid", total: orderDollars});
-    
+    console.log("updating order");
+    await updateOrder(stripeClientSecret, {paymentStatus: "Paid", total: orderDollars});
+    console.log("Successfully updated order!");
 }
 
 /** Once order unsuccessfully passes through STRIPE, order status is updated to Card Declined or whatever we want to make it
@@ -502,10 +500,8 @@ async function successfulStripe(stripeClientSecret, orderTotal){
  */
 async function unsuccessfulStripe(stripeClientSecret, orderTotal){
 
-    let stripeOrder = await readOrder({stripeID: stripeClientSecret});
-    let ID = stripeOrder._id;
-
-    updateOrder(ID, {paymentStatus: "Card Declined"});
+    //await updateOrder(stripeClientSecret, {paymentStatus: "Card Declined"});
+    console.log('received unsucessful stripe')
     
 }
 

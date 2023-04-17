@@ -4,21 +4,21 @@
 const { getOrdersFromMongo, readMenuItems, getPaidOrders, updateOrder, deleteOrder, createOrder} = require('../mongoCRUD')
 const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
 
-openMongoConnection();
-
 exports.handler = async (event, context) => { //handler function
     if(event.httpMethod === 'GET') {
         // handle GET request: determine if query parameters are provided
         if (Object.keys(event.queryStringParameters).length === 0) {
+            await openMongoConnection();
             const menu = await getOrdersFromMongo(); //get all orders from mongodb
-            closeMongoConnection();
+            await closeMongoConnection();
             return {
                 statusCode: 200,
                 body: JSON.stringify(menu)
             }
         } else if(event.queryStringParameters === '/managerorders/?status=paid'){
+            await openMongoConnection();
             const menu = await getPaidOrders();
-            closeMongoConnection();
+            await closeMongoConnection();
             return {
                 statusCode: 200,
                 body: JSON.stringify(menu)
@@ -36,30 +36,33 @@ exports.handler = async (event, context) => { //handler function
         }
 
     } else if(event.httpMethod === 'PUT') {
+        await openMongoConnection();
         //update order status
         const id = event.path.split('/')[2]; //get id from url
         const order = JSON.parse(event.body); //get order from body
         const result = await updateOrder(id, order); //update order status
-        closeMongoConnection();
+        await closeMongoConnection();
         return {
             statusCode: 200,
             body: JSON.stringify(result)
         }
 
     } else if (event.httpMethod === 'DELETE') {
+        await openMongoConnection();
         //delete order
         const id = event.path.split('/')[2]; //get id from url
         const result = await deleteOrder(id); //delete order
-        closeMongoConnection();
+        await closeMongoConnection();
         return {
             statusCode: 200,
             body: JSON.stringify(result)
         }
     }else if (event.httpMethod === 'POST') {
+        await openMongoConnection();
         //add order
         const orderObject = JSON.parse(event.body); //get order from body
         const result = await createOrder(orderObject); //add order
-        closeMongoConnection();
+        await closeMongoConnection();
         return {
             statusCode: 200,
             body: JSON.stringify(result)
