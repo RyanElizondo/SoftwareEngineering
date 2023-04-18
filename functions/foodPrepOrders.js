@@ -1,6 +1,6 @@
 //Database functions for foodprepOrders API
-const { getOrdersFromMongo, readMenuItems, updateOrderStatus} = require('../mongoCRUD')
-const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
+const { getOrdersFromMongo, readMenuItems, updateOrderStatus} = require('./mongoCRUD')
+const { openMongoConnection, closeMongoConnection } = require('./mongoCRUD');  //mongoCRUD.js
 const Ably = require('ably');
 const ably = new Ably.Realtime(process.env.ABLY_API_KEY); //create ably instance
 const channel = ably.channels.get('foodprep-orders'); //get foodprep-orders channel
