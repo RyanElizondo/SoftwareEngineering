@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import Head from "next/head";
-import {useSession, signIn, signOut} from "next-auth/react";
+import Head from 'next/head';
+import {useSession, signIn, signOut} from 'next-auth/react';
 
 const Begin = () => {
     const { data, status } = useSession()
-
+    
+    // If user is signed in, either sign out or continue to menu.
     if (status === 'authenticated') {
         return (
             <div>
@@ -13,6 +14,8 @@ const Begin = () => {
                 <Link href="/menu" className="login-link2">Continue to Menu</Link>
             </div>
         );
+
+    // If user is not signed in, either sign in with google or continue as guest.
     } else {
         return (
             <>
@@ -31,7 +34,7 @@ const Begin = () => {
                           href = "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"/>
                     <h2 className="logo">
                         <img src = "google.png" alt="LogoHere" /></h2>
-                    <button onClick={()=> signIn('google')}>Sign in with Google</button>
+                    <button onClick={()=> signIn('google')} className="google-signin">Continue with Google</button>
                     <Link href="/menu" className="login-link2">Continue as Guest</Link>
                 </div>
             </div>

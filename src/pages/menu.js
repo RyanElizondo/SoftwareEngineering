@@ -1,50 +1,109 @@
-import { loadMenu } from '../lib/load-menu'
-import Submenu from '../components/Submenu'
+import { loadMenu } from '../lib/load-menu';
+import Submenu from '../components/Submenu';
 import Link from 'next/link';
-import Head from "next/head";
+import Head from 'next/head';
+import withNavBar from '@/components/withNavBar';
+import { useState } from 'react';
 
-/** Renders full menu and implements client-sided routing to browse through submenus.
- * This component also keeps track of a user's order
- *
- * Menu component: holder and navigator of submenu components (bakery, sandwiches, beverages)
- * Required information: props.name, props.submenuList
- * @param menu retrieved from database
+/**
+ * Page for customers to view and customize their order. Dynamically generates based on MongoDB "menu" collection
+ * @param menu object retrieved from MongoDB.
  * @returns {JSX.Element}
  * @constructor
  */
-export default function Menu({menu}) {
+function Menu({ menu }) {
     const submenus = menu.submenus;
+    const [searchQuery, setSearchQuery] = useState('');
+    const initializeSubmenuState = () => {
+        let initialState = {};
+        submenus.forEach( (submenu) => {
+            initialState[submenu.name] = false;
+        } )
+        return initialState;
+    };
+
+    const updateVisibility = (submenuName, value) => {
+        setVisibleSubmenus({
+            ...visibleSubmenus,
+            [submenuName]: value
+        })
+    }
+
+    const [visibleSubmenus, setVisibleSubmenus] = useState(initializeSubmenuState());
+
+    const getFilteredSubmenus = () => {
+        const filteredSubmenus = submenus.map((submenu) => {
+            const filteredItems = submenu.items.filter((item) =>
+                item.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            return {
+                name: submenu.name,
+                items: filteredItems,
+            };
+        })
+
+        filteredSubmenus.forEach(
+            (submenu) => {
+                if(!visibleSubmenus[submenu.name] && searchQuery.length > 0) {
+                    updateVisibility(submenu.name, true)
+                }
+            }
+        );
+        return filteredSubmenus;
+    }
+
+    const hideAllSubmenus = () => {
+        setVisibleSubmenus(initializeSubmenuState())
+    }
+
+    const handleSearchQuery = (e) => {
+        //hide submenus if searchQuery is deleted
+        if(e.target.value === "") hideAllSubmenus();
+
+        //update state
+        setSearchQuery(e.target.value);
+    }
 
     return (
         <>
             <Head>
-
                 <title>Create Order</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
-                <link rel="stylesheet"
-                      href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"
+                />
             </Head>
-        <div className="menu-flex">
-            <Link href='/order' className="view-order-button grow">View Order</Link>
-            <div className="menu-holder menu-flex">
-                {submenus.map( (submenu,index) => (
-                    <Submenu
-                        name={submenu.name}
-                        items={submenu.items}
-                        key={index}
-                    />
-                ) )}
+            <div className="menu-flex">
+                <Link href="/order" className="view-order-button grow">
+                    View Order
+                </Link>
+                <input className= "search-bar"
+                    type="text"
+                    placeholder="Search Item..."
+                    value={searchQuery}
+                    onChange={handleSearchQuery}
+                />
+                <div className="menu-holder menu-flex">
+                    {getFilteredSubmenus().map((submenu, index) => (
+                        <Submenu
+                            name={submenu.name}
+                            items={submenu.items}
+                            key={index}
+                            visibleState={visibleSubmenus[submenu.name]}
+                            updateVisibleState={updateVisibility}
+                        />
+                    ))}
+                </div>
             </div>
-
-        </div>
-            </>
-    )
+        </>
+    );
 }
 
 export async function getServerSideProps() {
-    //Get menu from /lib/load-menu
-    const menu = await loadMenu()
-    return { props: { menu } }
+    const menu = await loadMenu();
+    return { props: { menu } };
 }
 
+export default withNavBar(Menu);

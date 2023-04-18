@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import withNavBar from "@/components/withNavBar";
 
-export default function Home() {
+function Home() {
   return (
     <>
       <Head>
@@ -25,5 +26,4 @@ export default function Home() {
   )
 }
 
-
-
+export default withNavBar(Home);

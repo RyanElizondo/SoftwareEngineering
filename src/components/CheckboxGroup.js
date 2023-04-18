@@ -11,6 +11,11 @@ export default function CheckboxGroup( {name, options, state, onChange} ) {
         onChange(event);
     };
 
+    // Check that the state object exists and has the expected properties
+    if (!state || typeof state !== 'object' || Object.keys(state).length !== options.length) {
+        return null; // or return an error message
+    }
+
     return (
         <div className="checkbox-options-holder">
             {options.map((option) => (
