@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getPaidOrders, closeMongoConnection} from 'functions/mongoCRUD';
+import { openMongoConnection, getPaidOrders, closeMongoConnection} from '../../functions/mongoCRUD';
 
 // The following function is shared with getStaticProps and API routes from a `lib/` directory
 export async function loadOrders() {
