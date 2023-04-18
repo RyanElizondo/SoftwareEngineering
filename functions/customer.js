@@ -1,8 +1,6 @@
 const {getUsersFromMongo, readUsers, createUser, updateUser, } = require('./mongoCRUD')
 const { openMongoConnection, closeMongoConnection } = require('./mongoCRUD');  //mongoCRUD.js
 const { readUser } = require('./mongoCRUD');
-const Ably = require('ably');
-const ably = new Ably.Realtime(process.env.ABLY_API_KEY);
 
 openMongoConnection();
 
@@ -64,7 +62,7 @@ exports.handler = async (event, context) => { //handler function
         return {
             statusCode: 200,
             headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Allow-Origin': 'https://expressocafeweb.netlify.app/',
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Max-Age': '86400' // 24 hours
