@@ -2,6 +2,7 @@ import {loadUserOrder} from "@/lib/load-user-order";
 import UserOrderItemsList from "@/components/UserOrderItemsList";
 import Link from "next/link";
 import Head from "next/head";
+import {useRouter} from "next/router";
 
 /**
  * Landing page after user successfully places an order.
@@ -10,11 +11,13 @@ import Head from "next/head";
  * @returns {JSX.Element}
  */
 export default function orderConfirmation( {userOrder} ) {
+    const router = useRouter();
+    const { payment_intent_client_secret } = router.query;
+    console.log("client secret in page: " + payment_intent_client_secret)
 
     return (
         <>
             <Head>
-
                 <title>Order Confirmation</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
@@ -43,8 +46,11 @@ export default function orderConfirmation( {userOrder} ) {
 }
 
 
-export async function getServerSideProps() {
-    //Get menu from /lib/load-user-order
-    const userOrder = await loadUserOrder()
+export async function getServerSideProps(context) {
+
+    const clientSecret = context.query.payment_intent_client_secret;
+
+    //Get user order from MongoDB based on query params
+    const userOrder = await loadUserOrder(clientSecret)
     return { props: { userOrder } }
 }

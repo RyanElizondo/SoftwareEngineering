@@ -4,9 +4,16 @@ import { promises as fs } from 'fs';
 const databaseReady = false;
 
 // The following function is shared with getStaticProps and API routes from a `lib/` directory
-export async function loadUserOrder() {
+
+/**
+ * Loads user order data from MongoDB
+ * @param clientSecret Stripe client secret used to identify an individual order
+ * @returns {Promise<any>}
+ */
+export async function loadUserOrder(clientSecret) {
 
     if(databaseReady === true) {
+        //TODO fetch order details from Mongo given stripeClientSecret and return JSON object
 
     } else {
         //Absolute path to json folder
