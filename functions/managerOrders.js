@@ -6,7 +6,6 @@ const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  
 const Ably = require('ably');
 const ably = new Ably.Realtime(process.env.ABLY_API_KEY);
 
-
 openMongoConnection();
 
 exports.handler = async (event, context) => { //handler function

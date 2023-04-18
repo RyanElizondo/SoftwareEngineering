@@ -9,8 +9,6 @@ channel.subscribe('foodprep-orders', (message) => { //subscribe to Received even
     console.log(`Received message: ${message.data}`);
 });
 
-
-
 openMongoConnection();
 
 exports.handler = async (event, context) => { //handler function
@@ -39,14 +37,14 @@ exports.handler = async (event, context) => { //handler function
     } else if(event.httpMethod === 'PUT') {
         //update order status
         const orderObject = { //get order from body
-            orderID: event.path.split('/')[2],
+            _id: event.path.split('/')[2],
             status: 1,
             localeDate: new Date().toLocaleString(),
             firstname: "test",
             array: ["test", "test2"]
         }
         //const id = event.path.split('/')[2]; //get id from url
-        const result = await updateOrderStatus(orderObject.orderID, orderObject.status); //update order status
+        const result = await updateOrderStatus(orderObject._id, orderObject.status); //update order status
 
         const dataForFrontend = { //data to send to frontend
             action: 'addOrder',

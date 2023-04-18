@@ -18,6 +18,8 @@ import {useEffect, useState} from "react";
 
 export default function orders({orders}) {
 
+    console.log(orders[0]);
+
     const dispatch = useDispatch();
 
     const [channel, setChannel] = useState(null);
@@ -28,17 +30,24 @@ export default function orders({orders}) {
 
     //Connect foodprep orders to websocket for client-server communication on orders.
     useEffect(() => {
-        const ably = configureAbly({ key: process.env.ABLY_API_KEY}/*{ authUrl: '/api/authentication/token-auth' }*/)
+        console.log("foodprep connecting to Ably");
+        const ably = configureAbly({ authUrl: 'http://localhost:9999/.netlify/functions/ably-token-request'/*key: process.env.ABLY_API_KEY*/ }/*{ authUrl: '/api/authentication/token-auth' }*/)
 
         ably.connection.on((stateChange) => {
             console.log(stateChange)
         })
 
+        console.log("setting channel to foodprep-orders");
         const _channel = ably.channels.get('foodprep-orders')
+        console.log(_channel);
         _channel.subscribe((message) => {
+            console.log("received message on foodprep: ");
+            console.log(message);
             if(message.data.action === "addOrder") {
+                console.log("foodprep received addOrder message")
                 dispatch(addOrder(message.data.order));
             } else if(message.data.action === "updateOrder") {
+                console.log("foodprep received addOrder message")
                 dispatch(editOrderStatus(message.data.order));
             }
         })
@@ -81,9 +90,10 @@ export default function orders({orders}) {
 
 export const getServerSideProps = wrapper.getServerSideProps( store => async () => {
     //Get menu from /lib/load-orders
-    const ordersObject = await loadOrders()
-    const orders = ordersObject.orders;
-
+    const orders = await loadOrders()
+    //const orders = ordersObject.orders;
+    console.log("received the following orders from load-orders:");
+    console.log(orders);
     store.dispatch(setOrders(orders))
     return {
         props: { orders }

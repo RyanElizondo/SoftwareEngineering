@@ -408,11 +408,14 @@ async function removeInventory(mongoID, stockToRemove){
  */
 async function getPaidOrders() {
     try{
+        console.log("retrieving received and paid orders from mongo")
         let filters = {status: "Received" , paymentStatus: "Paid"}; 
         let ordersArray = await _db.collection('Orders').find(filters).toArray();
 
-        var jsonOrders =  JSON.stringify(ordersArray, null, 2);
-        
+        const jsonOrders =  JSON.stringify(ordersArray);
+
+        console.log("returning from getPaidOrders:");
+        console.log(jsonOrders);
         return jsonOrders;
 
     } catch(e){
