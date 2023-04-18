@@ -5,24 +5,63 @@ import Head from 'next/head';
 import withNavBar from '@/components/withNavBar';
 import { useState } from 'react';
 
+/**
+ * Page for customers to view and customize their order. Dynamically generates based on MongoDB "menu" collection
+ * @param menu object retrieved from MongoDB.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Menu({ menu }) {
     const submenus = menu.submenus;
     const [searchQuery, setSearchQuery] = useState('');
+    const initializeSubmenuState = () => {
+        let initialState = {};
+        submenus.forEach( (submenu) => {
+            initialState[submenu.name] = false;
+        } )
+        return initialState;
+    };
 
-    const filteredSubmenus = submenus.map((submenu) => {
-        const filteredItems = submenu.items.filter((item) =>
-            item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const updateVisibility = (submenuName, value) => {
+        setVisibleSubmenus({
+            ...visibleSubmenus,
+            [submenuName]: value
+        })
+    }
+
+    const [visibleSubmenus, setVisibleSubmenus] = useState(initializeSubmenuState());
+
+    const getFilteredSubmenus = () => {
+        const filteredSubmenus = submenus.map((submenu) => {
+            const filteredItems = submenu.items.filter((item) =>
+                item.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            return {
+                name: submenu.name,
+                items: filteredItems,
+            };
+        })
+
+        filteredSubmenus.forEach(
+            (submenu) => {
+                if(!visibleSubmenus[submenu.name] && searchQuery.length > 0) {
+                    updateVisibility(submenu.name, true)
+                }
+            }
         );
+        return filteredSubmenus;
+    }
 
-        return {
-            name: submenu.name,
-            items: filteredItems,
-        };
-    });
+    const hideAllSubmenus = () => {
+        setVisibleSubmenus(initializeSubmenuState())
+    }
 
     const handleSearchQuery = (e) => {
-        setSearchQuery(e.target.value);
+        //hide submenus if searchQuery is deleted
+        if(e.target.value === "") hideAllSubmenus();
 
+        //update state
+        setSearchQuery(e.target.value);
     }
 
     return (
@@ -47,8 +86,14 @@ function Menu({ menu }) {
                     onChange={handleSearchQuery}
                 />
                 <div className="menu-holder menu-flex">
-                    {filteredSubmenus.map((submenu, index) => (
-                        <Submenu name={submenu.name} items={submenu.items} key={index} />
+                    {getFilteredSubmenus().map((submenu, index) => (
+                        <Submenu
+                            name={submenu.name}
+                            items={submenu.items}
+                            key={index}
+                            visibleState={visibleSubmenus[submenu.name]}
+                            updateVisibleState={updateVisibility}
+                        />
                     ))}
                 </div>
             </div>
