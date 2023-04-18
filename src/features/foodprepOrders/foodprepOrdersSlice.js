@@ -15,10 +15,10 @@ export const foodprepOrdersSlice = createSlice({
             state.orders.push(action.payload.order);
         },
         editOrderStatus: (state, action) => {
-            state.orders.find(order => order.orderID === action.payload.orderID).status = action.payload.newStatus;
+            state.orders.find(order => order._id === action.payload._id).status = action.payload.newStatus;
         },
         removeOrder: (state, action) => {
-            state.orders = state.orders.filter(order => order.orderID !== action.payload.orderID);
+            state.orders = state.orders.filter(order => order._id !== action.payload._id);
         }
     },
     extraReducers: (builder) => {
