@@ -50,6 +50,17 @@ async function readUser(userID){
     }
 }
 
+async function getOrders(){
+    try{
+        let foundUsers =  await _db.collection('Orders').find({}).toArray();
+        console.log(`Found user! Returning them now`);
+
+        return foundUsers;
+    } catch(e){
+        console.log("ERROR: Could not find user, check if passing mongoID object");
+    }
+}
+
 /** This gets the full menu for customer front end
  * @param nothing
  * @return {string} full menu as a JSON string to be parsed into an object for later
@@ -88,4 +99,4 @@ async function getPaidOrders() {
     }
 }
 
-module.exports = {openMongoConnection, closeMongoConnection, getPaidOrders, getMenuFromMongo, readUser}
+module.exports = {openMongoConnection, closeMongoConnection, getPaidOrders, getMenuFromMongo, readUser, getOrders}

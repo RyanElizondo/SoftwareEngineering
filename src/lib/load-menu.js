@@ -2,7 +2,6 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from './mongoNEXT';
 
-
 /**
  * Builds menu object with submenu lists for frontend to build menu
  * @param mongomenu array of menuItems retrieved from MongoDB
@@ -64,13 +63,13 @@ export async function loadMenu() {
         return customerMenu;
         
     } catch(e){
+        console.error(e)
         //use local backup
-
         //Absolute path to json folder
         const jsonDirectory = path.join(process.cwd(), 'json'); 
 
         //Read the json data file data.json
-        const fileContents = await fs.readFile(jsonDirectory + '/menudata.json', 'utf8');
+        const fileContents = await fs.readFile(jsonDirectory + '/menuBACKUP.json', 'utf8');
 
         //Return the content of the data file in json format
         return JSON.parse(fileContents);
