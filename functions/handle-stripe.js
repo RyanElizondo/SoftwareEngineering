@@ -1,4 +1,4 @@
-const { sendContactForm } = require("@/lib/send-email");
+const { sendContactForm } = require("functions/send-email");
 const {openMongoConnection, successfulStripe, unsuccessfulStripe, pendingStripe, readOrder, deleteOrder,
     closeMongoConnection
 } = require("./mongoCRUD");
