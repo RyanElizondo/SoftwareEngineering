@@ -71,8 +71,9 @@ async function createMenuItem(menuJsonObject){
  * @return {new objectID} mongoDB ID that can be used for RUD operations
  */
 async function createOrder(orderJsonObject){
+    const orderMongoObject = {...orderJsonObject, _id: orderJsonObject.stripeClientSecret}
     try{
-        let insertedOrder =  await _db.collection('Orders').insertOne(orderJsonObject); //insert one given a json object
+        let insertedOrder =  await _db.collection('Orders').insertOne(orderMongoObject); //insert one given a json object
         console.log(`Successfully created order!`);
         return insertedOrder.insertedId;
     } catch(e){
@@ -128,7 +129,7 @@ async function readOrder(mongoID){
 }
 
 /*============================READ PLURAL STUFF============================= */
-/** This returns all the documents in the Users collection that match the query 
+/** This returns all the documents in the Users collection that match the query
  * @param {object} JSON object
  * @return {array} of Users that match query, use JSON stringify to make it more readable
  */
@@ -143,7 +144,7 @@ async function readUsers(query){
     }
 }
 
-/** This returns all the documents in the Menu collection that match the query 
+/** This returns all the documents in the Menu collection that match the query
  * @param {object} JSON object
  * @return {array} of Menu Items that match query, use JSON stringify to make it more readable
  */
@@ -159,13 +160,13 @@ async function readMenuItems(query){
     }
 }
 
-/** This returns all the documents in the Orders collection that match the query 
+/** This returns all the documents in the Orders collection that match the query
  * @param {object} JSON object
  *  @return {array} of Orders that match query, use JSON stringify to make it more readable
  */
 async function readOrders(query){
     try{
-        let cursor = _db.collection('Orders').find(query).toArray(); 
+        let cursor = _db.collection('Orders').find(query).toArray();
         console.log(`Found order(s), returning as array`);
 
         return cursor;
@@ -296,9 +297,9 @@ async function getMenuFromMongo() {
  */
 async function getOrdersFromMongo() {
     try{
-        let ordersArray = readOrders({}); 
+        let ordersArray = readOrders({});
 
-        var jsonOrders = await JSON.stringify(ordersArray, null, 2); 
+        var jsonOrders = await JSON.stringify(ordersArray, null, 2);
         
         return jsonOrders;
 
@@ -313,7 +314,7 @@ async function getOrdersFromMongo() {
  */
 async function getUsersFromMongo() {
     try{
-        let usersArray = readUsers({}); 
+        let usersArray = readUsers({});
 
         var jsonUsers =  JSON.stringify(usersArray, null, 2); 
         
@@ -410,7 +411,7 @@ async function removeInventory(mongoID, stockToRemove){
 async function getPaidOrders() {
     try{
         console.log("retrieving received and paid orders from mongo")
-        let filters = {status: "Received" , paymentStatus: "Paid"}; 
+        let filters = {status: "Received" , paymentStatus: "Paid"};
 
         let ordersArray = readOrders(filters);
 
@@ -432,7 +433,7 @@ async function getPaidOrders() {
  */
 async function updateOrderStatus(mongoID, statusCode) { 
     try{
-        
+
         let updatesToBeMade;
      
         if (statusCode == 1){
@@ -458,7 +459,7 @@ async function updateOrderStatus(mongoID, statusCode) {
 async function getSubmenu(submenuString) { 
     try{     
         
-        let filters = {submenu: submenuString}; 
+        let filters = {submenu: submenuString};
 
         let submenuArray = readMenuItems(filters);
 
@@ -479,7 +480,7 @@ async function getSubmenu(submenuString) {
 async function pendingStripe(stripeClientSecret){
 
     let stripeOrder = await createOrder({stripeID: stripeClientSecret});
-    
+
     return stripeOrder;
 }
 
@@ -490,12 +491,10 @@ async function pendingStripe(stripeClientSecret){
  */
 async function successfulStripe(stripeClientSecret, orderTotal){
 
-    let stripeOrder = await readOrder({stripeID: stripeClientSecret});
-    let ID = stripeOrder._id; 
-
     let orderDollars = orderTotal / 100;
-    updateOrder(ID, {paymentStatus: "Paid", total: orderDollars});
-    
+    console.log("updating order");
+    await updateOrder(stripeClientSecret, {paymentStatus: "Paid", total: orderDollars});
+    console.log("Successfully updated order!");
 }
 
 /** Once order unsuccessfully passes through STRIPE, order status is updated to Card Declined or whatever we want to make it
@@ -504,14 +503,20 @@ async function successfulStripe(stripeClientSecret, orderTotal){
  */
 async function unsuccessfulStripe(stripeClientSecret, orderTotal){
 
-    let stripeOrder = await readOrder({stripeID: stripeClientSecret});
-    let ID = stripeOrder._id; 
-
-
-    updateOrder(ID, {paymentStatus: "Card Declined"});
+    //await updateOrder(stripeClientSecret, {paymentStatus: "Card Declined"});
+    console.log('received unsucessful stripe')
     
 }
 
+/** Once order unsuccessfully passes through STRIPE, order status is updated to Card Declined or whatever we want to make it
+ * @param {string} stripe unique client ID
+ * @return nothing
+ */
+async function unsuccessfulStripe(stripeClientSecret, orderTotal) {
+
+    let stripeOrder = await readOrder({stripeID: stripeClientSecret});
+    let ID = stripeOrder._id;
+}
 
 module.exports = {pendingStripe, unsuccessfulStripe, successfulStripe,
     getSubmenu, updateOrderStatus, getPaidOrders, openMongoConnection,
