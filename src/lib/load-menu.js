@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from 'mongoCRUD';
+import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from '../../mongoCRUD';
 
 
 /**
@@ -105,5 +105,7 @@ export async function loadMenu() {
 
         //Return the content of the data file in json format
         return JSON.parse(fileContents);
+    } finally {
+        await closeMongoConnection();
     }
 }
