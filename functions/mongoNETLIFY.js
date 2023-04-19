@@ -72,6 +72,7 @@ async function createMenuItem(menuJsonObject){
  */
 async function createOrder(orderJsonObject){
     const orderMongoObject = {...orderJsonObject, _id: orderJsonObject.stripeClientSecret}
+    delete orderMongoObject.stripeClientSecret;
     try{
         let insertedOrder =  await _db.collection('Orders').insertOne(orderMongoObject); //insert one given a json object
         console.log(`Successfully created order!`);

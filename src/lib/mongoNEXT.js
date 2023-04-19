@@ -88,8 +88,4 @@ async function getPaidOrders() {
     }
 }
 
-
-
-
-
 module.exports = {openMongoConnection, closeMongoConnection, getPaidOrders, getMenuFromMongo, readUser}
