@@ -1,8 +1,8 @@
 /**
  * This is the serverless function that contains the functions for menu API
  */
-const { getMenuFromMongo, readMenuItems, createMenuItem, updateMenuItem, deleteMenuItem} = require('./mongoCRUD')
-const { openMongoConnection, closeMongoConnection } = require('./mongoCRUD');  //mongoCRUD.js
+const { getMenuFromMongo, readMenuItems, createMenuItem, updateMenuItem, deleteMenuItem} = require('./mongoNETLIFY')
+const { openMongoConnection, closeMongoConnection } = require('./mongoNETLIFY');  //mongoCRUD.js
 
 
 openMongoConnection();

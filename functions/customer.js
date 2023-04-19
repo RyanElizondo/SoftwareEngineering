@@ -1,6 +1,4 @@
-const {getUsersFromMongo, readUsers, createUser, updateUser, } = require('./mongoCRUD')
-const { openMongoConnection, closeMongoConnection } = require('./mongoCRUD');  //mongoCRUD.js
-const { readUser } = require('./mongoCRUD');
+const {openMongoConnection, getUsersFromMongo, readUsers, createUser, updateUser, closeMongoConnection} = require('./mongoNETLIFY')
 
 openMongoConnection();
 
@@ -9,7 +7,7 @@ exports.handler = async (event, context) => { //handler function
         //retrieves all customers account data
         // handle GET request: determine if query parameters are provided
         if (Object.keys(event.queryStringParameters).length === 0) {
-            //console.log("hello")
+
             const menu = await getUsersFromMongo(); //get all orders from mongodb
             closeMongoConnection();
             return {

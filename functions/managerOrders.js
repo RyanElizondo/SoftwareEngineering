@@ -1,8 +1,8 @@
 /**
  * This is the serverless function that handles the manager orders page APIs
  */
-const { getOrdersFromMongo, readMenuItems, getPaidOrders, updateOrder, deleteOrder, createOrder} = require('./mongoCRUD')
-const { openMongoConnection, closeMongoConnection } = require('./mongoCRUD');  //mongoCRUD.js
+const { getOrdersFromMongo, readMenuItems, getPaidOrders, updateOrder, deleteOrder, createOrder} = require('./mongoNETLIFY')
+const { openMongoConnection, closeMongoConnection } = require('./mongoNETLIFY');  //mongoCRUD.js
 const Ably = require('ably');
 const ably = new Ably.Realtime(process.env.ABLY_API_KEY);
 
