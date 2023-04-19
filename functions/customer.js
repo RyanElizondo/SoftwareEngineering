@@ -1,4 +1,5 @@
-const {openMongoConnection, getUsersFromMongo, readUsers, createUser, updateUser, closeMongoConnection} = require('./mongoNETLIFY')
+const { getUsersFromMongo, readUsers, createUser, updateUser} = require('./mongoNETLIFY')
+const { openMongoConnection, closeMongoConnection } = require('./mongoNETLIFY');
 
 openMongoConnection();
 
