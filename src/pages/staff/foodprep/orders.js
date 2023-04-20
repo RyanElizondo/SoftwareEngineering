@@ -18,7 +18,7 @@ import {useEffect, useState} from "react";
 
 export default function orders({orders}) {
 
-    console.log(orders[0]);
+    //console.log(orders[0]);
 
     const dispatch = useDispatch();
 
@@ -92,8 +92,6 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async () 
     //Get menu from /lib/load-orders
     const orders = await loadOrders()
     //const orders = ordersObject.orders;
-    console.log("received the following orders from load-orders:");
-    console.log(orders);
     store.dispatch(setOrders(orders))
     return {
         props: { orders }
