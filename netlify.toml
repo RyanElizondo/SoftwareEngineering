@@ -1,8 +1,5 @@
 [build]
   functions = "functions"
 
-[build.environment]
-mongoURI = process.env.mongoURI
-
 [dev]
 targetPort = 5000

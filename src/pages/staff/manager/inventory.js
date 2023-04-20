@@ -36,9 +36,6 @@ const InventoryManagement = ( {menu} ) => {
         )
     }
 
-    console.log("MENU inventory");
-    console.log(menu)
-
     return (
         <div>
             <h2>Inventory Management</h2>
