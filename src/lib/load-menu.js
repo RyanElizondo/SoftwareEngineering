@@ -54,8 +54,8 @@ export async function loadMenu() {
     try{
         await openMongoConnection();
 
-        const mongoMenu = await getMenuFromMongo()
-        const customerMenu = buildFrontendMenus(JSON.parse(mongoMenu));
+        const mongoMenu = getMenuFromMongo()
+        const customerMenu = buildFrontendMenus(JSON.parse(await mongoMenu));
 
         closeMongoConnection();
 
@@ -73,7 +73,5 @@ export async function loadMenu() {
 
         //Return the content of the data file in json format
         return JSON.parse(fileContents);
-    } finally {
-        await closeMongoConnection();
     }
 }

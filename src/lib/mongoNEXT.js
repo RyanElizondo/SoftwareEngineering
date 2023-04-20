@@ -57,9 +57,9 @@ async function readUser(userID){
 async function getMenuFromMongo() {  
     try{
 
-        let menuItemsArray = await _db.collection('Menu').find({}).toArray(); 
+        let menuItemsArray = _db.collection('Menu').find({}).toArray(); 
 
-        var jsonMenu = JSON.stringify(menuItemsArray);
+        var jsonMenu = JSON.stringify(await menuItemsArray);
         
         return jsonMenu;
 

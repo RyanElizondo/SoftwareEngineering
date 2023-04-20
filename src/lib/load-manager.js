@@ -8,12 +8,12 @@ export async function loadManager() {
     try{
         openMongoConnection();
 
-        const mongoMenu = await getMenuFromMongo()
+        const mongoMenu = await getMenuFromMongo();
 
         closeMongoConnection();
         
         //Return the content from the database in frontend JSON workable format
-        return JSON.parse(await mongoMenu);
+        return JSON.parse(mongoMenu);
 
     } catch(e){
         console.log(e);
