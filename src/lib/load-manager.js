@@ -6,13 +6,10 @@ import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from '../.
 export async function loadManager() {
 
     try{
-        await openMongoConnection();
+        openMongoConnection();
 
         const mongoMenu = await getMenuFromMongo()
-        //const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
-        //const mongoOrders = await getFoodprepOrdersFromMongo();
-        //const jsonDirectory = path.join(process.cwd(), 'json');  //Absolute path to json folder
-        //await fs.writeFile (jsonDirectory + './test.json', serverMenu)
+
         console.log(JSON.parse(mongoMenu));
         //Return the content from the database in frontend JSON workable format
         return JSON.parse(mongoMenu);
