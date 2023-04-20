@@ -63,25 +63,7 @@ export default function CheckoutForm() {
         return_url: "http://localhost:3000",
         receipt_email: email,
       },
-    })
-        .then( () => {
-          /* TODO Send client secret and successful payment to server */
-          return fetch("",
-              {
-                method: "PUT",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                  "clientSecret": clientSecret,
-                  "paymentSuccess": error === null
-                })
-              })
-        } )
-        .then( (response) => {
-          console.log(response)
-        })
-        .catch( (error) => {
-          console.log(error)
-        })
+    });
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to

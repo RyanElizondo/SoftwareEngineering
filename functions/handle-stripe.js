@@ -1,4 +1,4 @@
-const { sendContactForm } = require("functions/send-email");
+const { sendContactForm } = require("./send-email");
 const {openMongoConnection, successfulStripe, unsuccessfulStripe, pendingStripe, readOrder, deleteOrder,
     closeMongoConnection
 } = require("./mongoCRUD");
@@ -28,7 +28,8 @@ exports.handler = async (event, context) => {
 
                     console.log("calling successful stripe")
                     await successfulStripe(clientSecret,amount);
-                    sendContactForm(amount);
+                    await sendContactForm(amount);
+                    console.log("Email sent");
                     //TODO send email to customer that order is received.
 
                     break;
@@ -58,7 +59,7 @@ exports.handler = async (event, context) => {
                 body: `Webhook Error: ${err.message}`,
             };
         } finally {
-            await closeMongoConnection();
+           //await closeMongoConnection();
         }
 
     /*} else {
