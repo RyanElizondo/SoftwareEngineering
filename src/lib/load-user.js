@@ -15,14 +15,15 @@ export async function loadUser(userSession) {
     
             return JSON.parse(user);
         } catch(e){
-        //Find the absolute path of the json directory
-        const jsonDirectory = path.join(process.cwd(), 'json');
+            console.error(e)
+            //Find the absolute path of the json directory
+            const jsonDirectory = path.join(process.cwd(), 'json');
 
-        //Read the json data file data.json
-        const fileContents = await fs.readFile(jsonDirectory + '/userBACKUP.json', 'utf8');
+            //Read the json data file data.json
+            const fileContents = await fs.readFile(jsonDirectory + '/userBACKUP.json', 'utf8');
 
-        //Return the content of the data file in json format
-        return JSON.parse(fileContents);
+            //Return the content of the data file in json format
+            return JSON.parse(fileContents);
         }
         
 }

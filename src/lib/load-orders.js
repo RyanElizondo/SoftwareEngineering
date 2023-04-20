@@ -20,7 +20,7 @@ export async function loadOrders() {
         return JSON.parse(mongoOrders);
         
     } catch(e){
-
+        console.error(e)
         //Absolute path to json folder
         const jsonDirectory = path.join(process.cwd(), 'json'); 
 
