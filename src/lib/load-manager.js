@@ -6,11 +6,9 @@ import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from './mo
 export async function loadManager() {
 
     try{
-        openMongoConnection();
+        await openMongoConnection();
 
         const mongoMenu = await getMenuFromMongo();
-
-        closeMongoConnection();
         
         //Return the content from the database in frontend JSON workable format
         return JSON.parse(mongoMenu);
@@ -28,5 +26,7 @@ export async function loadManager() {
 
         //Return the content of the data file in json format
         return JSON.parse(fileContents);
+    } finally {
+        await closeMongoConnection();
     }
 }

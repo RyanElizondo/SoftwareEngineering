@@ -59,8 +59,7 @@ async function getMenuFromMongo() {
 
         let menuItemsArray = _db.collection('Menu').find({}).toArray(); 
 
-        var jsonMenu = JSON.stringify(await menuItemsArray);
-        
+        let jsonMenu = JSON.stringify(await menuItemsArray);
         return jsonMenu;
 
     } catch(e){

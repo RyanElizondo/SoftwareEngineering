@@ -523,3 +523,87 @@ h5.order-item-customization {
 .submenu-button{
   cursor:pointer;
 }
+
+/* Manager Page css */
+.inventory-title {
+  border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
+  width: 100%;
+  text-align: center;
+  padding: 2vmin;
+}
+
+.inventory-holder {
+  display: flex;
+  width: 100vw;
+  background-color: whitesmoke;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inventory-list {
+  display: flex;
+  flex-direction: column;
+  margin: 4vmin;
+  padding: 1vmin;
+  width: 80vw;
+  align-content: space-around;
+  align-items: flex-start;
+}
+
+.item-inventory {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 0.5vh 0;
+}
+
+.inventory-title-holder {
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  justify-content: space-evenly;
+}
+
+.inventory-detail {
+  margin: 0 2vmin;
+  font-size: calc(0.4vw + 0.6em);
+  text-align: center;
+}
+.inventory-detail.item-inventory-title {
+  width: 20%;
+  text-align: left;
+}
+.inventory-detail.item-inventory-submenu {
+  width: 10%;
+  text-align: left;
+}
+.inventory-detail.item-inventory-price {
+  width: 10%;
+}
+
+.inventory-detail.item-inventory-inventory {
+  width: 10%;
+}
+
+.item-inventory-input {
+  width: 10%;
+}
+
+.item-inventory-filler {
+  width: 40%;
+}
+
+.set-inventory-button {
+  width: 15%;
+  font-size: calc(0.7vw + 0.3em);
+}
+
+#odd.item-inventory {
+  background-color: #e9e9e9;
+}
+
+#even.item-inventory {
+  background-color: #ffffff;
+}
