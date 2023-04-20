@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from './mongoNEXT';
+import { openMongoConnection, getMenuFromMongo} from './mongoNEXT';
 
 /**
  * Builds menu object with submenu lists for frontend to build menu
@@ -52,12 +52,12 @@ const buildFrontendMenus = (mongomenu) => {
 export async function loadMenu() {
 
     try{
-        await openMongoConnection();
+        openMongoConnection();
 
         const mongoMenu = getMenuFromMongo()
         const customerMenu = buildFrontendMenus(JSON.parse(await mongoMenu));
-
-        closeMongoConnection();
+ 
+        //closeMongoConnection();
 
         //Return the content from the database in frontend JSON workable format
         return customerMenu;

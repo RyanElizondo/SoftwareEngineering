@@ -58,8 +58,6 @@ const InventoryManagement = ( {menu} ) => {
 
 export async function getServerSideProps() {
     const menu = await loadManager();
-    console.log("MENU");
-    console.log(menu);
     return { props: { menu } };
 }
 

@@ -1,6 +1,7 @@
-const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb'); //mongodb package
-
-var client;
+const { MongoClient, ServerApiVersion} = require('mongodb'); //mongodb package
+var uri = process.env.mongoURI; 
+var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });;
+var connected;
 var _db;
 
 /*============================CONNECTION STUFF============================= */
@@ -9,18 +10,22 @@ var _db;
  * @returns {Promise<void>}
  */
 async function openMongoConnection() {
-    try{
-        let uri = process.env.mongoURI; 
-       
-        client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-        
-        client.connect(); 
 
-        _db = client.db('Expresso'); 
-
-    } catch(e){
-        console.log("ERROR: Could not connect to mongoDB"); 
-    }
+    if (connected) {
+        console.log("connection already made, going to reuse it")
+    } else{
+        try{
+            
+            connected = client.connect(); 
+    
+            _db = client.db('Expresso'); 
+    
+            console.log("created new connection")           
+    
+        } catch(e){
+            console.log("ERROR: Could not connect to mongoDB"); 
+        }
+    }  
 }
 
 /**
@@ -56,7 +61,6 @@ async function readUser(userID){
  */
 async function getMenuFromMongo() {  
     try{
-
         let menuItemsArray = _db.collection('Menu').find({}).toArray(); 
 
         let jsonMenu = JSON.stringify(await menuItemsArray);
@@ -87,4 +91,4 @@ async function getPaidOrders() {
     }
 }
 
-module.exports = {openMongoConnection, closeMongoConnection, getPaidOrders, getMenuFromMongo, readUser}
+module.exports = {client, openMongoConnection, closeMongoConnection, getPaidOrders, getMenuFromMongo, readUser}

@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getPaidOrders, closeMongoConnection} from './mongoNEXT';
+import { openMongoConnection, getPaidOrders} from './mongoNEXT';
 
 // The following function is shared with getStaticProps and API routes from a `lib/` directory
 export async function loadOrders() {
@@ -9,15 +9,15 @@ export async function loadOrders() {
         //load orders for foodprep       
         openMongoConnection();
 
-        const mongoOrders = await getPaidOrders();
+        const mongoOrders = getPaidOrders();
         
         if(mongoOrders === {})
             return [];
 
-        closeMongoConnection();
+        //closeMongoConnection();
 
         //Return the content of the data file in json format
-        return JSON.parse(mongoOrders);
+        return JSON.parse( await mongoOrders);
         
     } catch(e){
         console.error(e)
