@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import {closeMongoConnection, openMongoConnection, readUser} from "../../mongoCRUD";
+import {openMongoConnection, readUser, closeMongoConnection} from "./mongoNEXT";
 
 //TODO @database team: replace json data fetching with a call to MongoDB's menu collection
 const databaseReady = true;
@@ -9,20 +9,28 @@ const databaseReady = true;
 export async function loadUser(userSession) {
 
     if(databaseReady) {
-        console.log("loading user through mongo");
-        await openMongoConnection();
-        console.log("searching for user with id " + userSession.user.userID);
-        const user = await readUser(userSession.user.userID);
-        console.log("user found!!");
-        console.log(user);
-        //await closeMongoConnection();
-        return user;
+        try{ //load user acc
+            openMongoConnection();
+
+            const user = await readUser(userSession);
+    
+            return JSON.parse(user);
+        } catch(e){
+            console.log("Could not get user profile")
+        } finally{
+            try{
+                closeMongoConnection();
+            } catch(e){
+                console.log("Could not close connection");
+            } 
+        };
+        
     } else {
         //Find the absolute path of the json directory
         const jsonDirectory = path.join(process.cwd(), 'json');
 
         //Read the json data file data.json
-        const fileContents = await fs.readFile(jsonDirectory + '/user.json', 'utf8');
+        const fileContents = await fs.readFile(jsonDirectory + '/userBACKUP.json', 'utf8');
 
         //Return the content of the data file in json format
         return JSON.parse(fileContents);

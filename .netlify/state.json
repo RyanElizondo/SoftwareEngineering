@@ -1,0 +1,20 @@
+{
+	"siteId": "4198d9d9-8970-48bd-ac0d-20486b7f34b3",
+	"geolocation": {
+		"data": {
+			"city": "Piscataway",
+			"country": {
+				"code": "US",
+				"name": "United States"
+			},
+			"subdivision": {
+				"code": "NJ",
+				"name": "New Jersey"
+			},
+			"timezone": "America/New_York",
+			"latitude": 40.5511,
+			"longitude": -74.4606
+		},
+		"timestamp": 1680543866449
+	}
+}

@@ -1,7 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from '../../mongoCRUD';
-
+import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from './mongoNEXT';
 
 /**
  * Builds menu object with submenu lists for frontend to build menu
@@ -11,28 +10,20 @@ import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from '../.
 const buildFrontendMenus = (mongomenu) => {
 
     let sandwichItems = [];
-    let serverSandwiches = [];
     let bakeryItems = [];
-    let serverBakery = [];
     let beverageItems = [];
-    let serverBeverages = [];
 
     //iterate through mongo menu and create deep copies for server and customer menu
     for(let i = 0; i < mongomenu.length; i++) {
         var customerMenuItem = mongomenu[i];
-        var serverMenuItem = customerMenuItem;
         delete customerMenuItem._id;
-        //const serverMenuItem = mongomenu[i];
 
         if(customerMenuItem.submenu === "Sandwiches") {
             sandwichItems.push(customerMenuItem);
-            serverSandwiches.push(serverMenuItem);
         } else if(customerMenuItem.submenu === "Bakery") {
             bakeryItems.push(customerMenuItem);
-            serverBakery.push(serverMenuItem);
         } else if(customerMenuItem.submenu === "Beverages") {
             beverageItems.push(customerMenuItem);
-            serverBeverages.push(serverMenuItem);
         }
     }
 
@@ -53,29 +44,8 @@ const buildFrontendMenus = (mongomenu) => {
             }
         ]
     }
-
-    const serverMenu = {
-        "submenus": [
-            {
-                "name": "Sandwiches",
-                "items": serverSandwiches
-            },
-            {
-                "name": "Bakery",
-                "items": serverBakery
-            },
-            {
-                "name": "Beverages",
-                "items": serverBeverages
-            }
-        ]
-    }
-
-    return {
-        "serverMenu": serverMenu,
-        "customerMenu": customerMenu
-    }
-
+  
+    return customerMenu    
 }
 
 // The following function is shared with getStaticProps and API routes from a `lib/` directory
@@ -85,23 +55,21 @@ export async function loadMenu() {
         await openMongoConnection();
 
         const mongoMenu = await getMenuFromMongo()
-        const { customerMenu, serverMenu } = buildFrontendMenus(JSON.parse(mongoMenu));
+        const customerMenu = buildFrontendMenus(JSON.parse(mongoMenu));
 
-        //closeMongoConnection();
+        closeMongoConnection();
 
         //Return the content from the database in frontend JSON workable format
         return customerMenu;
         
     } catch(e){
-        console.log(e); 
-
+        console.error(e)
         //use local backup
-
         //Absolute path to json folder
         const jsonDirectory = path.join(process.cwd(), 'json'); 
 
         //Read the json data file data.json
-        const fileContents = await fs.readFile(jsonDirectory + '/menudata.json', 'utf8');
+        const fileContents = await fs.readFile(jsonDirectory + '/menuBACKUP.json', 'utf8');
 
         //Return the content of the data file in json format
         return JSON.parse(fileContents);

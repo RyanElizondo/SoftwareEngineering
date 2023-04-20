@@ -1,19 +1,62 @@
 import { loadOrders } from "../../../lib/load-orders"
 import { useSelector, useDispatch } from "react-redux"
-import { selectReceivedOrders, selectPreparingOrders, selectReadyOrders } from "@/features/foodprepOrders/foodprepOrdersSlice";
+import {
+    selectReceivedOrders,
+    selectPreparingOrders,
+    selectReadyOrders,
+    addOrder,
+    setOrders,
+    editOrderStatus
+} from "@/features/foodprepOrders/foodprepOrdersSlice";
 import { wrapper } from "@/store";
-import { setOrders } from "../../../features/foodprepOrders/foodprepOrdersSlice"
 import FoodprepOrder from "@/components/FoodprepOrder";
+import * as Ably from 'ably/promises'
+import { configureAbly } from '@ably-labs/react-hooks'
 
 import Head from "next/head";
+import {useEffect, useState} from "react";
 
 export default function orders({orders}) {
 
+    console.log(orders[0]);
+
     const dispatch = useDispatch();
+
+    const [channel, setChannel] = useState(null);
 
     const receivedOrders = useSelector(selectReceivedOrders);
     const preparedOrders = useSelector(selectPreparingOrders);
     const readyOrders = useSelector(selectReadyOrders);
+
+    //Connect foodprep orders to websocket for client-server communication on orders.
+    useEffect(() => {
+        console.log("foodprep connecting to Ably");
+        const ably = configureAbly({ authUrl: 'http://localhost:9999/.netlify/functions/ably-token-request'/*key: process.env.ABLY_API_KEY*/ }/*{ authUrl: '/api/authentication/token-auth' }*/)
+
+        ably.connection.on((stateChange) => {
+            console.log(stateChange)
+        })
+
+        console.log("setting channel to foodprep-orders");
+        const _channel = ably.channels.get('foodprep-orders')
+        console.log(_channel);
+        _channel.subscribe((message) => {
+            console.log("received message on foodprep: ");
+            console.log(message);
+            if(message.data.action === "addOrder") {
+                console.log("foodprep received addOrder message")
+                dispatch(addOrder(message.data.order));
+            } else if(message.data.action === "updateOrder") {
+                console.log("foodprep received addOrder message")
+                dispatch(editOrderStatus(message.data.order));
+            }
+        })
+        setChannel(_channel)
+
+        return () => {
+            _channel.unsubscribe()
+        }
+    }, [])
 
     return (
         <>
@@ -29,15 +72,15 @@ export default function orders({orders}) {
                 <div className="column-holder">
                     <div className="foodprep column">
                         <h2 className="orders-title">Received Orders</h2>
-                        <FoodprepOrder orderList={receivedOrders}/>
+                        <FoodprepOrder orderList={receivedOrders} channel={channel}/>
                     </div>
                     <div className="foodprep column">
                         <h2 className="orders-title">In Progress Orders</h2>
-                        <FoodprepOrder orderList={preparedOrders}/>
+                        <FoodprepOrder orderList={preparedOrders} channel={channel}/>
                     </div>
                     <div className="foodprep column">
                         <h2 className="orders-title">Completed Orders</h2>
-                        <FoodprepOrder orderList={readyOrders}/>
+                        <FoodprepOrder orderList={readyOrders} channel={channel}/>
                     </div>
                 </div>
             </div>
@@ -47,9 +90,10 @@ export default function orders({orders}) {
 
 export const getServerSideProps = wrapper.getServerSideProps( store => async () => {
     //Get menu from /lib/load-orders
-    const ordersObject = await loadOrders()
-    const orders = ordersObject.orders;
-
+    const orders = await loadOrders()
+    //const orders = ordersObject.orders;
+    console.log("received the following orders from load-orders:");
+    console.log(orders);
     store.dispatch(setOrders(orders))
     return {
         props: { orders }

@@ -1,6 +1,5 @@
-const {getUsersFromMongo, readUsers, createUser, updateUser, } = require('../mongoCRUD')
-const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
-const { readUser } = require('../mongoCRUD');
+const { getUsersFromMongo, readUsers, createUser, updateUser} = require('./mongoNETLIFY')
+const { openMongoConnection, closeMongoConnection } = require('./mongoNETLIFY');
 
 openMongoConnection();
 
@@ -9,7 +8,7 @@ exports.handler = async (event, context) => { //handler function
         //retrieves all customers account data
         // handle GET request: determine if query parameters are provided
         if (Object.keys(event.queryStringParameters).length === 0) {
-            //console.log("hello")
+
             const menu = await getUsersFromMongo(); //get all orders from mongodb
             closeMongoConnection();
             return {
@@ -62,7 +61,7 @@ exports.handler = async (event, context) => { //handler function
         return {
             statusCode: 200,
             headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Allow-Origin': 'https://expressocafeweb.netlify.app/',
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Max-Age': '86400' // 24 hours
