@@ -1,4 +1,4 @@
-exports.sendContactForm = async (data) => fetch('functions/contact.js',{
+exports.sendContactForm = async (data) => fetch('./contact',{
         method: "POST",
         body: JSON.stringify(data),
         headers:{

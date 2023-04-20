@@ -20,6 +20,7 @@
     "dotenv": "^16.0.3",
     "micro": "^10.0.1",
     "mongodb": "5.1",
+    "netify": "^1.0.0",
     "next": "^13.1.6",
     "next-auth": "^4.20.1",
     "next-redux-wrapper": "^8.1.0",
