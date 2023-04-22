@@ -7,8 +7,6 @@ const priceObjString = (priceObj) => {
 export default function({item, index, setInventory}) {
 
     const [inputValue, setInputValue] = useState(item.inventory);
-    console.log("RENDERING ITEM");
-    console.log(item);
     const handleInputChange = (e) => {
         const inputNumStr = e.target.value;
 
@@ -21,6 +19,8 @@ export default function({item, index, setInventory}) {
                 setInputValue(e.target.value);
                 const reqInfo = {...item, inventory: inputNum}
                 //make call to server to update menu collection in MongoDB
+                console.log("making a call to netlify/functions/menu")
+                console.log(reqInfo)
                 fetch("http://localhost:9999/.netlify/functions/menu",
                     {
                         method: "PUT",
@@ -44,6 +44,10 @@ export default function({item, index, setInventory}) {
         }
     }
 
+    const removeInventory = (itemName) => {
+        console.log(`Remove item from menu called for ${itemName}`)
+    }
+
     return (
         <li className="item-inventory" key={index + item} id={index % 2 === 0 ? "even" : "odd"}>
             <p className="item-inventory-title inventory-detail">{item.name}</p>
@@ -63,6 +67,12 @@ export default function({item, index, setInventory}) {
                 onClick={() => setInventory(item.name, inputValue)}
             >
                 Set Inventory
+            </button>
+            <button
+                className="remove-inventory-button"
+                onClick={() => removeInventory(item.name)}
+            >
+                Delete
             </button>
         </li>
     )
