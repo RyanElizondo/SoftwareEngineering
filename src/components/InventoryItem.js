@@ -18,6 +18,7 @@ export default function({item, index, setInventory}) {
             } else {
                 setInputValue(e.target.value);
                 const reqInfo = {...item, inventory: inputNum}
+                //TODO Test this server call and see if Netlify updates MongoDB correctly
                 //make call to server to update menu collection in MongoDB
                 console.log("making a call to netlify/functions/menu")
                 console.log(reqInfo)

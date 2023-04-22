@@ -59,7 +59,7 @@ export default function createMenuItem() {
         console.log("Calling Netlify /menu to create new menu item with POST request");
         console.log(newItem);
         //otherwise: add to menu
-        //TODO replace endpoint for production
+        //TODO Test this server call and see if Netlify updates MongoDB correctly
         await fetch("http://localhost:9999/.netlify/functions/menu",
             {
                 method: "POST",
