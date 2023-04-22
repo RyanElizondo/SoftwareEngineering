@@ -1,17 +1,20 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo, closeMongoConnection} from './mongoNEXT';
+import { openMongoConnection, getMenuFromMongo} from './mongoNEXT';
 
 // The following function is shared with getStaticProps and API routes from a `lib/` directory
 export async function loadManager() {
 
     try{
-        await openMongoConnection();
+        openMongoConnection();
 
-        const mongoMenu = await getMenuFromMongo();
+        const mongoMenu = getMenuFromMongo();
         
+        //closeMongoConnection();
+        
+    
         //Return the content from the database in frontend JSON workable format
-        return JSON.parse(mongoMenu);
+        return JSON.parse(await mongoMenu);
 
     } catch(e){
         console.log(e);
@@ -26,7 +29,5 @@ export async function loadManager() {
 
         //Return the content of the data file in json format
         return JSON.parse(fileContents);
-    } finally {
-        await closeMongoConnection();
-    }
-}
+    } 
+}    

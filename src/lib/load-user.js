@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import {openMongoConnection, readUser, closeMongoConnection} from "./mongoNEXT";
+import {openMongoConnection, readUser} from "./mongoNEXT";
 
 
 // The following function is shared with getServerSideProps and API routes from a `lib/` directory
@@ -9,11 +9,11 @@ export async function loadUser(userSession) {
         try{ //load user acc
             openMongoConnection();
 
-            const user = await readUser(userSession);
+            const user = readUser(userSession);
             
-            closeMongoConnection();
+            //closeMongoConnection();
     
-            return JSON.parse(user);
+            return JSON.parse(await user);
         } catch(e){
             console.error(e)
             //Find the absolute path of the json directory
