@@ -1,11 +1,10 @@
-const {openMongoConnection, successfulStripe, unsuccessfulStripe, pendingStripe, readOrder, deleteOrder,
-    closeMongoConnection
-} = require("./mongoNETLIFY");
+const {openMongoConnection, successfulStripe, unsuccessfulStripe} = require("./mongoNETLIFY");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { buffer } = require("micro");
+
+openMongoConnection();
 
 exports.handler = async (event, context) => {
-    await openMongoConnection();
+    
     const body = event.body;
     //if(event.httpMethod === "POST") {
 
@@ -26,17 +25,14 @@ exports.handler = async (event, context) => {
                 case 'payment_intent.succeeded':
 
                     console.log("calling successful stripe")
-                    await successfulStripe(clientSecret,amount);
+                    await successfulStripe(clientSecret,amount); //TODO check if sending valid clientSecret
 
                     //TODO send email to customer that order is received.
 
                     break;
                 case 'payment_intent.payment_failed':
                     // unexpected event AKA fail payment
-                    const paymentFail = await stripe.paymentIntents.retrieve(
-                        stripeEvent.id
-                    )
-                    await unsuccessfulStripe(clientSecret, amount);
+                    await unsuccessfulStripe(clientSecret);
 
                     //TODO send email to customer that order is received.
 
@@ -56,8 +52,6 @@ exports.handler = async (event, context) => {
                 statusCode: 400,
                 body: `Webhook Error: ${err.message}`,
             };
-        } finally {
-            await closeMongoConnection();
         }
 
     /*} else {
