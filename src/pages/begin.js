@@ -36,7 +36,7 @@ const Begin = () => {
                     <link rel="stylesheet"
                           href = "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"/>
                     <h2 className="logo">
-                        <img src = "google.png" alt="LogoHere" /></h2>
+                        <img src = "google.png"/></h2>
                     <button onClick={()=> signIn('google')} className="google-signin">Continue with Google</button>
                     <Link href="/menu" className="login-link2">Continue as Guest</Link>
                 </div>
