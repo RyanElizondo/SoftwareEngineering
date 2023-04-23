@@ -3,8 +3,8 @@ let uri = process.env.mongoURI;
 let OPTIONS = {
     appname: "netlify",
     maxIdleTimeMS: 300000,
-    maxPoolSize: 100,
-    maxConnecting: 2,
+    maxPoolSize: 50,
+    maxConnecting: 5,
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,
