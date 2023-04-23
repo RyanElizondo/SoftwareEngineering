@@ -3,6 +3,9 @@ import { selectItems, selectOrderSubtotal, selectOrderTotal, selectOrderTax } fr
 import OrderItem from '../components/OrderItem'
 import Link from 'next/link';
 import Head from "next/head";
+import { Yanone_Kaffeesatz } from 'next/font/google'
+
+const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 /**
  * Renders the view order page for customers and retrieves customer's order data from the redux store order slice
@@ -23,11 +26,10 @@ export default function Order( ) {
         <>
             <Head>
 
-                <title>View Order</title>
+                <title className={yanone.className}>View Order</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
-                <link rel="stylesheet"
-                      href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
+                
             </Head>
         <div className="order page">
             {currentItems === undefined || currentItems.length === 0 ? noItems : orderTitle}
