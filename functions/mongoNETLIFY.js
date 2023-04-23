@@ -1,7 +1,21 @@
 const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb'); //mongodb package
+let uri = process.env.mongoURI; 
+let OPTIONS = {
+    appname: "netlify",
+    maxIdleTimeMS: 300000,
+    maxPoolSize: 100,
+    maxConnecting: 2,
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  };
+var client = new MongoClient(uri, OPTIONS);
 
-var client;
+var connected = false;
 var _db;
+
 
 /*============================CONNECTION STUFF============================= */
 /**
@@ -9,18 +23,22 @@ var _db;
  * @returns {Promise<void>}
  */
 async function openMongoConnection() {
-    try{
-        let uri = process.env.mongoURI; 
-       
-        client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-        
-        client.connect(); 
 
-        _db = client.db('Expresso'); 
-
-    } catch(e){
-        console.log("ERROR: Could not connect to mongoDB"); 
-    }
+    if (connected) {
+        console.log("connection already made, going to reuse it")
+    } else{
+        try{
+            
+            connected = client.connect(); 
+    
+            _db = client.db('Expresso'); 
+    
+            console.log("created new connection")           
+    
+        } catch(e){
+            console.log("ERROR: Could not connect to mongoDB"); 
+        }
+    }  
 }
 
 /**
@@ -29,7 +47,7 @@ async function openMongoConnection() {
  */
 async function closeMongoConnection(){
     try{
-        await client.close(); //close connection (need to see if await is necessary here, seems like connections do not close without it)
+        client.close(); //close connection (need to see if await is necessary here, seems like connections do not close without it)
     } catch(e){
         console.log("ERROR: Could not close connection to mongoDB");
     }
@@ -68,11 +86,13 @@ async function createMenuItem(menuJsonObject){
 
 /** This creates a User document in the User collection of our mongoDB 
  * @param {object} JSON object
- * @return {string} OAuth string we assign
+ * @return {string} Stripe string we assign
  */
 async function createOrder(orderJsonObject){
     const orderMongoObject = {...orderJsonObject, _id: orderJsonObject.stripeClientSecret}
     delete orderMongoObject.stripeClientSecret;
+    //delete orderMongoObject.items.cardId; //TODO check if this works
+
     try{
         let insertedOrder =  await _db.collection('Orders').insertOne(orderMongoObject); //insert one given a json object
         console.log(`Successfully created order!`);
@@ -82,15 +102,16 @@ async function createOrder(orderJsonObject){
     }
 }
 
-/*============================READ SINGULAR STUFF============================= */
+/*============================READ STUFF============================= */
 /** Reads a user document in the User collection of MongoDB
- * @param {new userID} unique identifier of the user
+ * @param {object} JSON object for queries 
  * @return {object} user document 
  */
-async function readUser(userID){
+async function readUser(query){
     try{
-        let foundUser =  await _db.collection('Users').findOne({userID: userID});
+        let foundUser =  await _db.collection('Users').findOne(query);
         console.log(`Found user! Returning them now`);
+
         return foundUser;
     } catch(e){
         console.log("ERROR: Could not find user, check if passing mongoID object");
@@ -98,28 +119,27 @@ async function readUser(userID){
 }
 
 /** This reads a Menu item document in the Menu collection of our mongoDB 
- * @param {new objectID} mongoDB ID 
+ * @param {object} JSON object for queries 
  * @return {object} menu document 
  */
-async function readMenuItem(mongoID){
+async function readMenuItem(query){
     try{
-        let foundMenuItem = await _db.collection('Menu').findOne({_id: mongoID}); 
+        let foundMenuItem = await _db.collection('Menu').findOne(query); 
         console.log(`Found menu item! Returning it now`); 
         
         return foundMenuItem;
-
     } catch(e){
         console.log("ERROR: Could not find menu item, check if passing mongoID object");
     }
 }
 
 /** This reads an Order document in the Orders collection of our mongoDB 
- * @param {new objectID} mongoDB ID 
+ * @param {object} JSON object for queries 
  * @return {object} order document 
  */
-async function readOrder(mongoID){ 
+async function readOrder(query){ 
     try{
-        let foundOrder = await _db.collection('Orders').findOne({_id: mongoID}); 
+        let foundOrder = await _db.collection('Orders').findOne(query); 
         console.log(`Found order! Returning it now`);
         
         return foundOrder;
@@ -189,14 +209,14 @@ async function stringToMongoID(mongoIDString){
 
 /*============================UPDATE STUFF============================= */
 /** This updates a user document
- * @param {new objectID} mongoDB ID  
- * @param {object} JSON object
+ * @param {object} JSON object for queries 
+ * @param {object} JSON object for updates
  * @return nothing, if you want to check if updates went through, use R operation
  */
-async function updateUser(mongoID, updatesToBeMade){ 
+async function updateUser(query, updatesToBeMade){ 
     try{
 
-        await _db.collection('Users').updateOne({_id: mongoID}, {$set: updatesToBeMade});
+        await _db.collection('Users').updateOne(query, {$set: updatesToBeMade});
         console.log(`Updated user!`);
 
     } catch(e){
@@ -205,13 +225,13 @@ async function updateUser(mongoID, updatesToBeMade){
 }
 
 /** This updates a menu item document
- * @param {new objectID} mongoDB ID  
- * @param {object} JSON object
+ * @param {object} JSON object for queries 
+ * @param {object} JSON object for updates
  * @return nothing, if you want to check if updates went through, use R operation
  */
-async function updateMenuItem(mongoID, updatesToBeMade){ 
+async function updateMenuItem(query, updatesToBeMade){ 
     try{
-        await _db.collection('Menu').updateOne({_id: mongoID}, {$set: updatesToBeMade});
+        await _db.collection('Menu').updateOne(query, {$set: updatesToBeMade});
         console.log(`Updated menu item!`);
 
     } catch(e){
@@ -220,13 +240,13 @@ async function updateMenuItem(mongoID, updatesToBeMade){
 }
 
 /** This updates an order document
- * @param {new objectID} mongoDB ID  
- * @param {object} JSON object
+ * @param {object} JSON object for queries 
+ * @param {object} JSON object for updates
  * @return nothing, if you want to check if updates went through, use R operation
  */
-async function updateOrder(mongoID, updatesToBeMade){ 
+async function updateOrder(query, updatesToBeMade){ 
     try{
-        await _db.collection('Orders').updateOne({_id: mongoID}, {$set: updatesToBeMade});
+        await _db.collection('Orders').updateOne(query, {$set: updatesToBeMade});
         console.log(`Updated order!`);
 
     } catch(e){
@@ -236,12 +256,12 @@ async function updateOrder(mongoID, updatesToBeMade){
 
 /*============================DELETE STUFF============================= */
 /** This deletes a user document
- * @param {new objectID} mongoDB ID  
+ * @param {object} JSON object for queries 
  * @return nothing
  */
-async function deleteUser(mongoID){
+async function deleteUser(query){
     try{    
-        _db.collection('Users').deleteOne({_id: mongoID}); 
+        _db.collection('Users').deleteOne(query); 
         console.log(`Deleted user!`); 
     } catch(e){
         console.log("No user matched the mongo ID. Deleted 0 users.")
@@ -249,12 +269,12 @@ async function deleteUser(mongoID){
 }
 
 /** This deletes a menu item document
- * @param {new objectID} mongoDB ID  
+ * @param {object} JSON object for queries 
  * @return nothing
  */
-async function deleteMenuItem(mongoID){
+async function deleteMenuItem(query){
     try{    
-        _db.collection('Menu').deleteOne({_id: mongoID}); 
+        _db.collection('Menu').deleteOne(query); 
         console.log(`Deleted menu item!`); 
     } catch(e){
         console.log("No menu item matched the mongo ID. Deleted 0 items.")
@@ -262,12 +282,12 @@ async function deleteMenuItem(mongoID){
 }
 
 /** This deletes an order document
- * @param {new objectID} mongoDB ID  
+ * @param {object} JSON object for queries 
  * @return nothing
  */
-async function deleteOrder(mongoID){
+async function deleteOrder(query){
     try{     
-        _db.collection('Orders').deleteOne({_id: mongoID}); 
+        _db.collection('Orders').deleteOne(query); 
         console.log(`Deleted order!`); 
     } catch(e){
         console.log("No order matched the mongo ID. Deleted 0 order.")
@@ -309,22 +329,7 @@ async function getOrdersFromMongo() {
     }
 }
 
-/** This gets the all the users for manager front end
- * @param nothing
- * @return {string} all users as a JSON string to be parsed into an object for later
- */
-async function getUsersFromMongo() {
-    try{
-        let usersArray = readUsers({});
 
-        var jsonUsers =  JSON.stringify(usersArray, null, 2); 
-        
-        return jsonUsers;
-
-    } catch(e){
-        console.log("ERROR: Did not send order json string")
-    }
-}
 
 /*============================POINTS STUFF============================= */
 /** This adds points to a User
