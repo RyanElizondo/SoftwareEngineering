@@ -1,7 +1,19 @@
 const { MongoClient, ServerApiVersion} = require('mongodb'); //mongodb package
-var uri = process.env.mongoURI; 
-var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });;
-var connected;
+let uri = process.env.mongoURI; 
+let OPTIONS = {
+    appname: "Next.js",
+    maxIdleTimeMS: 300000,
+    maxPoolSize: 100,
+    maxConnecting: 2,
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  };
+var client = new MongoClient(uri, OPTIONS);
+
+var connected = false;
 var _db;
 
 /*============================CONNECTION STUFF============================= */
@@ -41,15 +53,15 @@ async function closeMongoConnection(){
 }
 
 /** Reads a user document in the User collection of MongoDB
- * @param {new userID} unique identifier of the user
+ * @param {string} unique string from OAUTH
  * @return {object} user document 
  */
 async function readUser(userID){
     try{
-        let foundUser =  await _db.collection('Users').findOne({_id: userID});
+        let foundUser =  _db.collection('Users').findOne({_id: userID});
         console.log(`Found user! Returning them now`);
 
-        return foundUser;
+        return await foundUser;
     } catch(e){
         console.log("ERROR: Could not find user, check if passing mongoID object");
     }
@@ -91,4 +103,4 @@ async function getPaidOrders() {
     }
 }
 
-module.exports = {client, openMongoConnection, closeMongoConnection, getPaidOrders, getMenuFromMongo, readUser}
+module.exports = {openMongoConnection, closeMongoConnection, getPaidOrders, getMenuFromMongo, readUser}
