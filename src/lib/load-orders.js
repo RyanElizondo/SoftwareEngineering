@@ -9,15 +9,15 @@ export async function loadOrders() {
         //load orders for foodprep       
         openMongoConnection();
 
-        const mongoOrders = getPaidOrders();
+        const paidOrders = getPaidOrders();
         
-        if(mongoOrders === {})
+        if(paidOrders === {})
             return [];
 
         //closeMongoConnection();
 
         //Return the content of the data file in json format
-        return JSON.parse( await mongoOrders);
+        return JSON.parse( await paidOrders);
         
     } catch(e){
         console.error(e)
