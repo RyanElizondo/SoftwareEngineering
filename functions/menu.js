@@ -1,8 +1,9 @@
 /**
  * This is the serverless function that contains the functions for menu API
  */
-const { getMenuFromMongo, readMenuItems, createMenuItem, updateMenuItem, deleteMenuItem} = require('../mongoCRUD')
-const { openMongoConnection, closeMongoConnection } = require('../mongoCRUD');  //mongoCRUD.js
+const { getMenuFromMongo, readMenuItems, createMenuItem, updateMenuItem, deleteMenuItem} = require('./mongoNETLIFY')
+const { openMongoConnection, closeMongoConnection } = require('./mongoNETLIFY');
+
 
 openMongoConnection();
 
@@ -38,10 +39,11 @@ exports.handler = async (event, context) => { //handler function
 
     }else if(event.httpMethod === 'PUT') {
         //updates menu item
-        const id = event.path.split('/')[2]; //get id from url
-        const order = JSON.parse(event.body); //get order from body
-        const result = await updateMenuItem(id, order); //update order status
+        const menuItem = JSON.parse(event.body);
+        const result = await updateMenuItem(menuItem._id, menuItem); //update order status
         closeMongoConnection();
+        console.log("returning result from /menu: ");
+        console.log(result);
         return {
             statusCode: 200,
             body: JSON.stringify(result)
@@ -60,7 +62,7 @@ exports.handler = async (event, context) => { //handler function
         return {
             statusCode: 200,
             headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Allow-Origin': 'https://expressocafeweb.netlify.app/',
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Max-Age': '86400' // 24 hours

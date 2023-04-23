@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import {loadManager} from "@/lib/load-manager";
+import { loadManager } from "@/lib/load-manager";
+import InventoryItem from "@/components/InventoryItem";
+import CreateMenuItem from "@/components/CreateMenuItem"
 
 const InventoryManagement = ( {menu} ) => {
     const [items, setItems] = useState(menu);
@@ -7,45 +9,33 @@ const InventoryManagement = ( {menu} ) => {
     const setInventory = (itemName, amount) => {
         const newItems = [...items];
         const item = newItems.find((item) => item.name === itemName);
-
         if (item) {
             item.inventory = amount;
             setItems(newItems);
         }
     };
-    const priceObjString = (priceObj) => {
-        priceObj.tiers.toString();
-    }
-
-    const renderItem = (item, index) => {
-        return (
-            <li className="item-inventory" key={index}>
-                <h5 className="item-inventory-title">{item.name}</h5>
-                <h6 className="item-inventory-submenu">{item.submenu}</h6>
-                <h6 className="item-inventory-price">{typeof item.price === "object" ? priceObjString(item.price) : item.price}</h6>
-                <h6 className="item-inventory-inventory">{item.inventory}</h6>
-                <input type="text" label={`${item.name}`} />
-                <button
-                    className="decrement-inventory-button"
-                    disabled={item.inventory <= 0}
-                    onClick={() => setInventory(item.name, )}
-                >
-                    Set Inventory
-                </button>
-            </li>
-        )
-    }
-
-    console.log("MENU inventory");
-    console.log(menu)
 
     return (
-        <div>
-            <h2>Inventory Management</h2>
-            <ul>
-                { menu.map((item, i) => ( renderItem(item, i) ) ) }
-            </ul>
+        <div className="manager-page">
+            <div className="inventory-holder">
+                <h2 className="inventory-title">Inventory Management</h2>
+                <ul className="inventory-list">
+                    <li className="item-inventory" key={"-1"}>
+                        <p className="item-inventory-title inventory-detail">Item Name</p>
+                        <p className="item-inventory-submenu inventory-detail">Submenu</p>
+                        <p className="item-inventory-price inventory-detail">Price</p>
+                        <p className="item-inventory-inventory inventory-detail">Inventory</p>
+                        <p className="item-inventory-filler"></p>
+                    </li>
+                    { menu.map((item, i) =>  <InventoryItem item={item} index={i} setInventory={setInventory}/>)  }
+                </ul>
+            </div>
+            <div className="manager-functions-holder">
+                <h2 className="inventory-title">Create Menu Item</h2>
+                <CreateMenuItem />
+            </div>
         </div>
+
     );
 };
 

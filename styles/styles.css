@@ -523,3 +523,162 @@ h5.order-item-customization {
 .submenu-button{
   cursor:pointer;
 }
+
+/* Manager Page css */
+.inventory-title {
+  border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
+  width: 100%;
+  text-align: center;
+  padding: 2vmin;
+  margin: 0;
+}
+
+.inventory-holder {
+  display: flex;
+  width: 100vw;
+  background-color: whitesmoke;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inventory-list {
+  display: flex;
+  flex-direction: column;
+  margin: 4vmin;
+  padding: 1vmin;
+  width: 80vw;
+  align-content: space-around;
+  align-items: flex-start;
+}
+
+.item-inventory {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 0.5vh 0;
+}
+
+.inventory-title-holder {
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  justify-content: space-evenly;
+}
+
+.inventory-detail {
+  margin: 0 2vmin;
+  font-size: calc(0.4vw + 0.6em);
+  text-align: center;
+}
+.inventory-detail.item-inventory-title {
+  width: 20%;
+  text-align: left;
+}
+.inventory-detail.item-inventory-submenu {
+  width: 10%;
+  text-align: left;
+}
+.inventory-detail.item-inventory-price {
+  width: 10%;
+}
+
+.inventory-detail.item-inventory-inventory {
+  width: 10%;
+}
+
+.item-inventory-input {
+  width: 10%;
+}
+
+.item-inventory-filler {
+  width: 40%;
+}
+
+.set-inventory-button {
+  width: 15%;
+  font-size: calc(0.7vw + 0.3em);
+}
+
+.remove-inventory-button {
+  width: 10%;
+  font-size: calc(0.7vw + 0.3em);
+}
+
+#odd.item-inventory {
+  background-color: #e9e9e9;
+}
+
+#even.item-inventory {
+  background-color: #ffffff;
+}
+
+.manager-functions-holder {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-menu-item-holder{
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  margin: 3vmin 5vmin;
+}
+
+.menu-input {
+  width: 75%;
+}
+
+.create-menu-subtitle {
+  width: 50%;
+  margin: 2vh 0;
+}
+
+.create-customization {
+  display: flex;
+  flex-direction: column;
+  margin: 1vmin;
+  padding: 1.5vmin;
+  border-radius: 1vmin;
+  background-color: #e6e6e6;
+}
+
+.manager-functions-add-customization {
+  margin: 1vmin;
+  width: 45%;
+}
+
+.manager-functions-add-menu-item {
+  margin: 3vmin 1vmin 0 1vmin;
+  width: 80vw;
+  padding: 2vmin 0;
+  border-radius: 1vmin;
+}
+
+.customization-holder {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+}
+
+.customization-input-holder {
+  padding: 0.1vh 0 0.5vh 0;
+  border-bottom: 1px rgba(50, 50, 93, 0.2) solid;
+}
+
+.customization-input {
+  margin: 1vmin 0;
+}
+
+.customization-buttons-holder {
+  display: flex;
+  flex-direction: row;
+}
+
+.all-customizations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90vw;
+}

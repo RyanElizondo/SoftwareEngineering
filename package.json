@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ably-labs/react-hooks": "^2.1.1",
+    "@netlify/functions": "^1.0.0",
+    "@netlify/plugin-nextjs": "^4.35.0",
     "@next/font": "13.1.6",
     "@reduxjs/toolkit": "^1.9.3",
     "@stripe/react-stripe-js": "^2.0.0",
     "@stripe/stripe-js": "^1.49.0",
+    "ably": "^1.2.39",
     "dotenv": "^16.0.3",
+    "micro": "^10.0.1",
     "mongodb": "5.1",
     "next": "^13.1.6",
     "next-auth": "^4.20.1",

@@ -1,7 +1,1 @@
-{
-  "version": 3,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {}
-}
+{"version":3,"routes":{},"dynamicRoutes":{},"preview":{"previewModeId":"6ab4e33434c849fa80ed28e6151a2fe5","previewModeSigningKey":"ce24fe8ae94ffdfdcc2f95c5588bd1e17be2799054339e56190a1047ad4c6a0e","previewModeEncryptionKey":"d584eb515df6815e0853758249ad963583d05347872dc21f00c22501e8a7ff96"},"notFoundRoutes":[]}
