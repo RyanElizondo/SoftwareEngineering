@@ -43,7 +43,7 @@ const LoyaltyProgram = () => {
 
     return (
         <div>
-            <h1>Welcome User/Guest</h1>
+            <h1>Welcome User/Guest!</h1>
 
             {/* Registered users */}
             {isRegisteredUser && points > 0 && (
