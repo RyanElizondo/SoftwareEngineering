@@ -39,12 +39,14 @@ const LoyaltyProgram = () => {
         setCost(0);
     };
 
+    const isRegisteredUser = firstName !== "" && email !== "";
+
     return (
         <div>
-            <h1>Loyalty Program</h1>
+            <h1>Welcome User/Guest</h1>
 
             {/* Registered users */}
-            {points > 0 && (
+            {isRegisteredUser && points > 0 && (
                 <div>
                     <h2>Registered Users</h2>
                     <p>Enter the cost of your purchase:</p>
@@ -58,7 +60,7 @@ const LoyaltyProgram = () => {
             )}
 
             {/* Unregistered users */}
-            {points === 0 && (
+            {!isRegisteredUser && (
                 <div>
                     <h2>Unregistered Users</h2>
                     <p>Please provide your information:</p>
