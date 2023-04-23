@@ -8,9 +8,9 @@ const Begin = () => {
     // If user is signed in, either sign out or continue to menu.
     if (status === 'authenticated') {
         return (
-            <div>
-                <p>Welcome, {data.user.name}</p>
-                <button onClick={()=> signOut()}>Sign out</button>
+            <div className= "welcome-page">
+                <pc className = "welcome-user">Welcome, {data.user.name}</pc>
+                <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
                 <Link href="/menu" className="login-link2">Continue to Menu</Link>
             </div>
         );

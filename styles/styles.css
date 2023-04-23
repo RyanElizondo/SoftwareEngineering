@@ -124,17 +124,15 @@ div.page {
 }
 
 .google-signin,
-.login-link2 {
+.login-link2,
+.sign-out{
   padding: 2vmin;
-  width: 60vw; /* adjust the width to your desired size */
-  text-align: center;
-  background-color: blanchedalmond;
-  border-radius: 1.5vmin;
+  width: 60vw;
   margin: 2vmin;
   transition: all 0.3s;
-  font-size: 1.2em; /* add this line to make the font size slightly bigger */
-  text-decoration: none;
-  font-family: 'Roboto Slab', serif;
+  font-size: 20px;
+  text-decoration: #996633;
+  font-family:"Arial Black";
   color:black;
 }
 
@@ -144,6 +142,7 @@ div.page {
   background-color: saddlebrown;
   transform: translateY(-20px);
 }
+
 
 
 /*Food Prep Edits*/
@@ -681,4 +680,26 @@ h5.order-item-customization {
   flex-direction: column;
   align-items: center;
   width: 90vw;
+}
+.welcome-page{
+  text-align:center;
+  border-bottom: solid;
+  border-bottom-width: 0.50vh;
+  border-bottom-color: black;
+  border-bottom-left-radius: 20vh;
+  border-bottom-right-radius: 20vh;
+  border-top-left-radius: 20vh;
+  border-top-right-radius: 20vh;
+  margin: 1.2vmin 1.5vmin;
+  color:black;
+  background-color:antiquewhite;
+  font-family: "Arial Narrow";
+  font-size:10vh;
+}
+.welcome-user{
+  margin: 1.2vmin 1.5vmin;
+  color:black;
+  background-color:antiquewhite;
+  font-family: "Berlin Sans FB";
+  font-size:10vh;
 }
