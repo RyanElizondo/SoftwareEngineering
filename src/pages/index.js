@@ -1,17 +1,19 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import withNavBar from "@/components/withNavBar";
+import { Yanone_Kaffeesatz } from 'next/font/google'
+
+const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 function Home() {
   return (
     <>
       <Head>
 
-        <title>Expresso Café</title>
+        <title className={yanone.className}>Expresso Café</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-          <link rel="stylesheet"
-                href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
+          
       </Head>
       <main>
         <div className='bg-image'>

@@ -3,8 +3,8 @@ let uri = process.env.mongoURI;
 let OPTIONS = {
     appname: "Next.js",
     maxIdleTimeMS: 300000,
-    maxPoolSize: 100,
-    maxConnecting: 2,
+    maxPoolSize: 30,
+    maxConnecting: 5,
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,

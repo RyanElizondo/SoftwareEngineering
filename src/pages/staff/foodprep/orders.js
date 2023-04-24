@@ -15,6 +15,9 @@ import { configureAbly } from '@ably-labs/react-hooks'
 
 import Head from "next/head";
 import {useEffect, useState} from "react";
+import { Yanone_Kaffeesatz } from 'next/font/google'
+
+const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 export default function orders({orders}) {
 
@@ -61,11 +64,10 @@ export default function orders({orders}) {
     return (
         <>
             <Head>
-                <title>Order Queue</title>
+                <title className={yanone.className}>Order Queue</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
-                <link rel="stylesheet"
-                      href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
+            
             </Head>
             <div className="foodprep-page">
                 <h1 className="foodprep-title">Food Preparation List</h1>

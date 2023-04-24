@@ -1,6 +1,10 @@
 import {useState} from "react";
 import { useRouter } from 'next/router';
 import Head from "next/head";
+import { Yanone_Kaffeesatz } from 'next/font/google'
+
+const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
+
 const Login = () => {
     const router = useRouter();
 
@@ -34,11 +38,10 @@ const Login = () => {
         <>
             <Head>
 
-                <title>Staff Login</title>
+                <title className={yanone.className}>Staff Login</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
-                <link rel="stylesheet"
-                      href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap"/>
+                
             </Head>
 
 
