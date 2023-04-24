@@ -1,1 +1,7 @@
-{"version":3,"routes":{},"dynamicRoutes":{},"preview":{"previewModeId":"1150fd72350c9e2d27670ddaa15bd3e8","previewModeSigningKey":"feff951c59e7c7e7284d81a66b8fbdabf663b43fbbb3a81dc9e0324a10efc9e3","previewModeEncryptionKey":"d7a256d0b012a55fb99f4e49f766a6821b0d216eeb73f19b11566fdfea134c0a"},"notFoundRoutes":[]}
+{
+  "version": 3,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {}
+}

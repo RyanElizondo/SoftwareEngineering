@@ -24,6 +24,7 @@ exports.handler = async (event, context) => { //handler function
             break;
         }    
         case 'PUT':{ //update order status
+            /*
             const orderObject = { //get order from body
                 _id: event.path.split('/')[2],
                 status: 1,
@@ -31,8 +32,11 @@ exports.handler = async (event, context) => { //handler function
                 firstname: "test",
                 array: ["test", "test2"]
             }
+            */
+
+            const orderObject = JSON.parse(event.body);
             
-            updateOrderStatus(orderObject._id, orderObject.status); //update order status
+            updateOrderStatus(orderObject.data.object._id, orderObject.data.object.status); //update order status
 
             const dataForFrontend = { //data to send to frontend
                 action: 'addOrder',
