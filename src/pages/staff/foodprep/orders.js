@@ -31,7 +31,7 @@ export default function orders({orders}) {
     //Connect foodprep orders to websocket for client-server communication on orders.
     useEffect(() => {
         console.log("foodprep connecting to Ably");
-        const ably = configureAbly({ authUrl: 'http://localhost:9999/.netlify/functions/ably-token-request'/*key: process.env.ABLY_API_KEY*/ }/*{ authUrl: '/api/authentication/token-auth' }*/)
+        const ably = configureAbly({ authUrl: 'https://expressocafeweb.netlify.app/.netlify/functions/ably-token-request'/*key: process.env.ABLY_API_KEY*/ }/*{ authUrl: '/api/authentication/token-auth' }*/)
 
         ably.connection.on((stateChange) => {
             console.log(stateChange)
