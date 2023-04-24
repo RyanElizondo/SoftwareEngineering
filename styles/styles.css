@@ -742,3 +742,11 @@ h5.order-item-customization {
   font-family: "Berlin Sans FB";
   font-size:10vh;
 }
+.container23 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.staff-login2{
+  margin-left:20vmin;
+}

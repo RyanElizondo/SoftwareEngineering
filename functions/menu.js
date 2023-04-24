@@ -14,7 +14,6 @@ exports.handler = async (event, context) => { //handler function
     switch(event.httpMethod){
         case 'POST':{ //adds menu item to the menu 
             const addMenuItem = await createMenuItem();
-            
             bodyMessage = JSON.stringify(addMenuItem)       
             break;
         }
@@ -30,14 +29,14 @@ exports.handler = async (event, context) => { //handler function
         }    
         case 'PUT':{ //updates menu item
             const menuItem = JSON.parse(event.body);
-            updateMenuItem(menuItem.name, menuItem.updates); //TODO check if query by name works
+            updateMenuItem(menuItem.data.object.name, menuItem.updates); //TODO check if query by name works
 
             bodyMessage = JSON.stringify(`Menu item Updated`);
             break;
         }       
         case 'DELETE':{ //deletes menu item
-            const id = event.path.split('/')[2];
-            deleteMenuItem(id); //delete menu TODO check if id is value JSON object
+            const menuItem = JSON.parse(event.body);
+            deleteMenuItem(menuItem.data.object.name); //delete menu TODO check if id is value JSON object
     
             bodyMessage = JSON.stringify("Order Deleted");
             break;

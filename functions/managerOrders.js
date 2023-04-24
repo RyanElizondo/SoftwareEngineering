@@ -12,11 +12,13 @@ exports.handler = async (event, context) => { //handler function
 
     let status = 200;
     let bodyMessage;
+
+    console.log(event.body);
     
     switch(event.httpMethod){
         case 'POST':{ //add order
-            const orderData = JSON.parse(event.body); 
-            const addedOrder = await createOrder(orderData); 
+            const orderData = JSON.parse(event.body);
+            const addedOrder = await createOrder(orderData.data.object._id);
             
             bodyMessage = JSON.stringify(`Customer added with ID: ${addedOrder}`); //TODO check if I can just use the event.body._id instead, so we dont have to await for createOrder
             break;
@@ -35,16 +37,16 @@ exports.handler = async (event, context) => { //handler function
             break;
         }    
         case 'PUT':{ //update ANY order attribute
-            const id = event.path.split('/')[2]; 
-            const order = JSON.parse(event.body); 
+            const order = JSON.parse(event.body);
+            const id = order.data.object._id;
             updateOrder(id, order); //update order status TODO check if id is value JSON object
       
             bodyMessage = JSON.stringify("Order Updated");
             break;
         }       
         case 'DELETE':{ //delete order
-            const id = event.path.split('/')[2]; //get id from url
-            deleteOrder(id); //delete order TODO check if id is value JSON object
+            const order = JSON.parse(event.body);
+            deleteOrder(order.data.object._id); //delete order TODO check if id is value JSON object
     
             bodyMessage = JSON.stringify("Order Deleted");
             break;
