@@ -12,9 +12,7 @@ const authOptions = {
         strategy: 'jwt'
     },*/
     callbacks: {
-        
         async session({session, token}) {
-            console.log(session)
             session.user.userID = token.sub;
             return session;
         }
