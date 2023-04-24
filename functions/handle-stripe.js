@@ -30,6 +30,10 @@ exports.handler = async (event, context) => {
 
                     //TODO send email to customer that order is received.
 
+                    //TODO update user's points and order history after successful payment using Mongo functions to update Users collection
+
+                    //TODO update menu database using Mongo functions to update Menu collection
+
                     break;
                 case 'payment_intent.payment_failed':
                     // unexpected event AKA fail payment
