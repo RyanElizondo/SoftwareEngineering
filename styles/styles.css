@@ -14,7 +14,6 @@ div.page {
   padding-top: 4vh;
 }
 .bg-image {
-  background-image: url('../public/landingpage.webp');
   background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/landingpage.webp');
   max-width: 100%;
   min-height: 100vh;
@@ -143,6 +142,39 @@ div.page {
   transform: translateY(-20px);
 }
 
+h1.confirmation-detail.name {
+  color:saddlebrown;
+  background: burlywood;
+  margin: 10vmin;
+  padding: 2vmin;
+  font-size: 5vmin;
+  border-radius: 1vmin;
+}
+
+div.confirmation-holder {
+  color: saddlebrown;
+  font-size: 3vmin;
+  background: burlywood;
+}
+
+a.return-home-button {
+  color:rebeccapurple;
+  background: blanchedalmond;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 10vmin;
+  padding: 2vmin;
+  border-radius: 1vmin;
+}
+
+.confirmation-picture{
+  background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/confirmation.jpeg');
+}
+
+a.return-button.grow {
+
+  text-decoration: none;
+}
 
 
 /*Food Prep Edits*/
@@ -418,6 +450,13 @@ h5.order-item-customization {
   background-color: blanchedalmond;
   border-radius: 1.5vmin;
   margin: 2vmin 0;
+}
+
+.confirmation-holder {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 4vmin;
+  border-radius: 1vmin;
 }
 
 .grow { transition: all .2s ease-in-out; }
