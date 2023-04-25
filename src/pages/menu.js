@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Head from 'next/head';
 import withNavBar from '@/components/withNavBar';
 import { useState } from 'react';
+import {useSelector} from "react-redux";
+import {selectNumItems} from "@/features/order/orderSlice";
 
 /**
  * Page for customers to view and customize their order. Dynamically generates based on MongoDB "menu" collection
@@ -12,6 +14,8 @@ import { useState } from 'react';
  * @constructor
  */
 function Menu({ menu }) {
+    const numItems = useSelector(selectNumItems);
+
     const submenus = menu.submenus;
     const [searchQuery, setSearchQuery] = useState('');
     const initializeSubmenuState = () => {
@@ -77,7 +81,7 @@ function Menu({ menu }) {
             </Head>
             <div className="menu-flex">
                 <Link href="/order" className="view-order-button grow">
-                    View Order
+                    {`View Order ${ numItems > 0 ? `(${numItems})` : ""}`}
                 </Link>
                 <input className= "search-bar"
                     type="text"

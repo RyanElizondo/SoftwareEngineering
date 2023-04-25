@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useId, useState } from 'react';
 import { useRouter } from 'next/router'
-import { addItem } from '../features/order/orderSlice'
+import { addItem, selectCartId } from '../features/order/orderSlice'
 import MenuItemCustomization from "../components/MenuItemCustomization";
-import {selectCartId} from "../features/order/orderSlice";
 
 /**
  * A flexible React component that represents a menu item
@@ -71,7 +70,10 @@ export default function MenuItem( {name, customizations, price, inventory} ){
         dispatch(addItem({item: orderItem}));
 
         //redirect to /order to allow viewer to see their order
-        router.push('/order');
+        //router.push('/order');
+
+        //play animation to indicate to customer that their order has been added
+        console.log("added item to redux store");
     }
 
     const updateCustomState = (type, customName, value) => {
