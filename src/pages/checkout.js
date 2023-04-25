@@ -24,13 +24,24 @@ export default function App() {
     "items": clientItems
   }
 
+  const buildOrder = (orderItems) => {
+
+      const newItems = orderItems.map( item => {
+          return {...item, customizations: Object.entries(item.customizations)}
+      })
+      console.log("new order items for foodprep: ");
+      console.log(newItems);
+      return newItems
+
+  }
+
   React.useEffect(() => {
 
     // Create PaymentIntent as soon as the page loads
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: clientItems }),
+      body: JSON.stringify({ items: buildOrder(clientItems) }),
     })
       .then((res) => res.json())
       .then((data) => {

@@ -6,8 +6,8 @@ import { openMongoConnection, getPaidOrders} from './mongoNEXT';
 export async function loadOrders() {
 
     try{
-        //load orders for foodprep       
-        openMongoConnection();
+        //load orders for foodprep
+        await openMongoConnection();
 
         const paidOrders = getPaidOrders();
         
