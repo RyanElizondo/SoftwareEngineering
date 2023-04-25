@@ -14,7 +14,6 @@ div.page {
   padding-top: 4vh;
 }
 .bg-image {
-  background-image: url('../public/landingpage.webp');
   background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/landingpage.webp');
   max-width: 100%;
   min-height: 100vh;
@@ -124,17 +123,15 @@ div.page {
 }
 
 .google-signin,
-.login-link2 {
+.login-link2,
+.sign-out{
   padding: 2vmin;
-  width: 60vw; /* adjust the width to your desired size */
-  text-align: center;
-  background-color: blanchedalmond;
-  border-radius: 1.5vmin;
+  width: 60vw;
   margin: 2vmin;
   transition: all 0.3s;
-  font-size: 1.2em; /* add this line to make the font size slightly bigger */
-  text-decoration: none;
-  font-family: 'Roboto Slab', serif;
+  font-size: 20px;
+  text-decoration: #996633;
+  font-family:"Arial Black";
   color:black;
 }
 
@@ -143,6 +140,40 @@ div.page {
   color: white;
   background-color: saddlebrown;
   transform: translateY(-20px);
+}
+
+h1.confirmation-detail.name {
+  color:saddlebrown;
+  background: burlywood;
+  margin: 10vmin;
+  padding: 2vmin;
+  font-size: 5vmin;
+  border-radius: 1vmin;
+}
+
+div.confirmation-holder {
+  color: saddlebrown;
+  font-size: 3vmin;
+  background: burlywood;
+}
+
+a.return-home-button {
+  color:rebeccapurple;
+  background: blanchedalmond;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 10vmin;
+  padding: 2vmin;
+  border-radius: 1vmin;
+}
+
+.confirmation-picture{
+  background-image: linear-gradient(rgba(0,0,0,0.527),rgba(0, 0, 0, 0.5)), url('../public/confirmation.jpeg');
+}
+
+a.return-button.grow {
+
+  text-decoration: none;
 }
 
 
@@ -421,6 +452,13 @@ h5.order-item-customization {
   margin: 2vmin 0;
 }
 
+.confirmation-holder {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 4vmin;
+  border-radius: 1vmin;
+}
+
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
 
@@ -681,4 +719,34 @@ h5.order-item-customization {
   flex-direction: column;
   align-items: center;
   width: 90vw;
+}
+.welcome-page{
+  text-align:center;
+  border-bottom: solid;
+  border-bottom-width: 0.50vh;
+  border-bottom-color: black;
+  border-bottom-left-radius: 20vh;
+  border-bottom-right-radius: 20vh;
+  border-top-left-radius: 20vh;
+  border-top-right-radius: 20vh;
+  margin: 1.2vmin 1.5vmin;
+  color:black;
+  background-color:antiquewhite;
+  font-family: "Arial Narrow";
+  font-size:10vh;
+}
+.welcome-user{
+  margin: 1.2vmin 1.5vmin;
+  color:black;
+  background-color:antiquewhite;
+  font-family: "Berlin Sans FB";
+  font-size:10vh;
+}
+.container23 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.staff-login2{
+  margin-left:20vmin;
 }

@@ -14,7 +14,9 @@ export async function loadOrders() {
         if(paidOrders === {})
             return [];
 
-        //closeMongoConnection();
+        //uncomment this if you want to look at what it returns
+        const jsonDirectory = path.join(process.cwd(), 'json'); 
+        await fs.writeFile(jsonDirectory + '/ordersMONGO.json', await paidOrders);    
 
         //Return the content of the data file in json format
         return JSON.parse( await paidOrders);

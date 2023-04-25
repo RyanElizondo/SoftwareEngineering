@@ -60,7 +60,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "https://expressocafeweb.netlify.app/",
+        return_url: "https://expressocafeweb.netlify.app/order-confirmation",
         receipt_email: email,
       },
     });

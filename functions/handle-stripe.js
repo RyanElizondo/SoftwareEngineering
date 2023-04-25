@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 const { sendContactForm } = require("./send-email");
 const {openMongoConnection, successfulStripe, unsuccessfulStripe, pendingStripe, readOrder, deleteOrder,
     closeMongoConnection
 } = require("./mongoNETLIFY");
+=======
+const {openMongoConnection, successfulStripe, unsuccessfulStripe, addPoints, removeInventory} = require("./mongoNETLIFY");
+>>>>>>> c31360e8fa889283228447937543cf1860076f0b
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { buffer } = require("micro");
+
+openMongoConnection();
 
 exports.handler = async (event, context) => {
-    await openMongoConnection();
+    
     const body = event.body;
     //if(event.httpMethod === "POST") {
 
@@ -27,18 +32,24 @@ exports.handler = async (event, context) => {
                 case 'payment_intent.succeeded':
 
                     console.log("calling successful stripe")
+<<<<<<< HEAD
                     await successfulStripe(clientSecret,amount);
                     await sendContactForm(amount);
                     console.log("Email sent");
+=======
+                    await successfulStripe(clientSecret,amount); //TODO check if sending valid clientSecret
+
+>>>>>>> c31360e8fa889283228447937543cf1860076f0b
                     //TODO send email to customer that order is received.
 
+                    //TODO update user's points and order history after successful payment using Mongo functions to update Users collection
+                    await addPoints(clientSecret, amount); //update order status
+                    //TODO update menu database using Mongo functions to update Menu collection
+                    await removeInventory(clientSecret, amount); //update order status
                     break;
                 case 'payment_intent.payment_failed':
                     // unexpected event AKA fail payment
-                    const paymentFail = await stripe.paymentIntents.retrieve(
-                        stripeEvent.id
-                    )
-                    await unsuccessfulStripe(clientSecret, amount);
+                    await unsuccessfulStripe(clientSecret);
 
                     //TODO send email to customer that order is received.
 
@@ -58,8 +69,11 @@ exports.handler = async (event, context) => {
                 statusCode: 400,
                 body: `Webhook Error: ${err.message}`,
             };
+<<<<<<< HEAD
         } finally {
            //await closeMongoConnection();
+=======
+>>>>>>> c31360e8fa889283228447937543cf1860076f0b
         }
 
     /*} else {

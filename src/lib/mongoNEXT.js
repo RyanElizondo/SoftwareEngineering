@@ -3,8 +3,8 @@ let uri = process.env.mongoURI;
 let OPTIONS = {
     appname: "Next.js",
     maxIdleTimeMS: 300000,
-    maxPoolSize: 100,
-    maxConnecting: 2,
+    maxPoolSize: 30,
+    maxConnecting: 5,
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,
@@ -94,7 +94,7 @@ async function getPaidOrders() {
         
         let ordersArray = _db.collection('Orders').find({paymentStatus: "Paid"}).toArray(); 
 
-        const jsonOrders =  JSON.stringify(await ordersArray);
+        const jsonOrders =  JSON.stringify(await ordersArray, null, 2);
 
         return jsonOrders;
 

@@ -1,0 +1,19 @@
+{
+  "orderID": 1,
+  "firstName": "Lucas",
+  "status": "Received",
+  "localeDate": "3/12/2023, 6:50:21 PM",
+  "TotalCost": "$10.63",
+  "items": [
+    {
+      "itemName": "Avocado BLT",
+      "itemQuantity": 1,
+      "customization": ["NO lettuce"]
+    },
+    {
+      "itemName": "Hazelnut Coffee",
+      "itemQuantity": 1,
+      "customization": ["Medium", "3 Cream", "2 Regular Sugar"]
+    }
+  ]
+}

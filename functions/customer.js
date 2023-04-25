@@ -1,30 +1,61 @@
-const { getUsersFromMongo, readUsers, createUser, updateUser} = require('./mongoNETLIFY')
-const { openMongoConnection, closeMongoConnection } = require('./mongoNETLIFY');
+const { createUser, readUsers, updateUser, deleteUser} = require('./mongoNETLIFY')
+const { openMongoConnection } = require('./mongoNETLIFY');
 
 openMongoConnection();
 
 exports.handler = async (event, context) => { //handler function
-    if(event.httpMethod === 'GET') {
-        //retrieves all customers account data
-        // handle GET request: determine if query parameters are provided
-        if (Object.keys(event.queryStringParameters).length === 0) {
+    let status = 200;
+    let bodyMessage;
+    
+    switch(event.httpMethod){
+        case 'POST':{ //adds customer account data to the database
+            const customerData = JSON.parse(event.body);
+            const addedCustomer = await createUser(customerData);
+            
+            bodyMessage = JSON.stringify(`Customer added with ID: ${addedCustomer}`);
+            break;
+        }
+        case 'GET':{ //get customer account data from database using queries 
+            let query = {};
+            if (Object.keys(event.queryStringParameters).length !== 0) {
+                query = event.queryStringParameters; 
+            }
+            const usersArray = await readUsers(query); 
 
-            const menu = await getUsersFromMongo(); //get all orders from mongodb
-            closeMongoConnection();
+            bodyMessage = JSON.stringify(usersArray, null, 2);
+            break;
+        }    
+        case 'PUT':{ //update customer account data
+            const updates = JSON.parse(event.body); 
+            updateUser(updates.data.object.userID, updates); //TODO check if this is passed a valid id JSON object
+
+            bodyMessage= JSON.stringify("User Updated");
+            break;
+        }       
+        case 'DELETE':{ //deletes customer account data
+            const customerData = JSON.parse(event.body);
+            deleteUser(customerData.data.object.userID); //TODO check if this is passed a valid id JSON object
+            bodyMessage= JSON.stringify("User Deleted");
+            break;
+        }    
+        case 'OPTIONS':{
             return {
                 statusCode: 200,
-                body: JSON.stringify(menu)
+                headers: {
+                    'Access-Control-Allow-Origin': 'https://expressocafeweb.netlify.app/',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                    'Access-Control-Allow-Headers': 'Content-Type',
+                    'Access-Control-Max-Age': '86400' // 24 hours
+                },
+                body: ''
             }
-        } else {
-            //GET filtered results from mongodb and parse query string
-            const filter = event.queryStringParameters; //get filter from query string
-            const users = await readUsers(filter); //read menu items from mongodb
-            closeMongoConnection();
-            return { 
-                statusCode: 200,
-                body: JSON.stringify(menu)
-            }
+        }    
+        default:{
+            status = 405;
+            bodyMessage = JSON.stringify({ message: 'Method Not Allowed' });
+            break;
         }
+<<<<<<< HEAD
 
     } else if (event.httpMethod === 'POST') {
         //adds customer account data to the database
@@ -73,6 +104,12 @@ exports.handler = async (event, context) => { //handler function
             statusCode: 405,
             body: JSON.stringify({ message: 'Method Not Allowed' })
         };
+=======
+>>>>>>> c31360e8fa889283228447937543cf1860076f0b
     }
-
+    
+    return {
+        statusCode: status,
+        body: bodyMessage
+    }
 }
