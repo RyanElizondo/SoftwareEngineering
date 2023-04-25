@@ -94,7 +94,7 @@ async function getPaidOrders() {
         
         let ordersArray = _db.collection('Orders').find({paymentStatus: "Paid"}).toArray(); 
 
-        const jsonOrders =  JSON.stringify(await ordersArray);
+        const jsonOrders =  JSON.stringify(await ordersArray, null, 2);
 
         return jsonOrders;
 

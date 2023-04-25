@@ -6,23 +6,23 @@ const priceObjString = (priceObj) => {
 
 export default function({item, index, setInventory}) {
 
-    const [inputValue, setInputValue] = useState(item.inventory);
-    const handleInputChange = (e) => {
-        const inputNumStr = e.target.value;
-
+    const handleSetInventory = (e) => {
+        const input = e.target.value;
+        console.log("setting inventory received")
         try {
-            const inputNum = parseInt(inputNumStr);
+            const inputNum = input
             if(inputNum < 0 || isNaN(inputNum)) {
-                setInputValue(0);
-                return;
+                setInventory(item.name, 0);
+                //return;
             } else {
-                setInputValue(e.target.value);
+                console.log("line 18")
+                setInventory(item.name, e.target.value);
                 const reqInfo = {...item, inventory: inputNum}
                 //TODO Test this server call and see if Netlify updates MongoDB correctly
                 //make call to server to update menu collection in MongoDB
                 console.log("making a call to netlify/functions/menu")
                 console.log(reqInfo)
-                fetch("https://expressocafeweb.netlify.app/.netlify/functions/menu",
+                fetch("http://localhost:9999/.netlify/functions/menu",
                     {
                         method: "PUT",
                         headers: {
@@ -58,14 +58,13 @@ export default function({item, index, setInventory}) {
             <input type="number"
                    label={`${item.name}`}
                    className="item-inventory-input"
-                   value={inputValue}
-                   onChange={handleInputChange}
+                   value={item.inventory}
+                   onChange={(e) => setInventory(item.name, e.target.value)}
                    min="0"
             />
             <button
                 className="set-inventory-button"
-                disabled={item.inventory <= 0}
-                onClick={() => setInventory(item.name, inputValue)}
+                onClick={handleSetInventory}
             >
                 Set Inventory
             </button>

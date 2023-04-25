@@ -2,16 +2,10 @@
 
 export default function CreateCustomizationOptions({customizationState, updateHandler}) {
 
-    console.log("customization state: ");
-    console.log(customizationState);
-
     const onAddNewOption = () => {
         if(customizationState.type === "Boolean" || customizationState.type === "Number") return;
         //customizationState.options.push(optionValue)
-        console.log("Adding new option");
         updateHandler("options", [...customizationState.options, `Option #${customizationState.options.length+1} Name`])
-        console.log("OPTIONS UPDATE: ");
-        console.log(customizationState);
     }
 
     const onRemoveOption = () => {
@@ -28,8 +22,6 @@ export default function CreateCustomizationOptions({customizationState, updateHa
             else if(value === "true") value = true;
         }
         const newCustom = {...customizationState, [optionName]: value}
-        console.log("received NEW OPTION: " + optionName + " with value " + value )
-        console.log(newCustom);
         updateHandler("options", value);
     }
 

@@ -1,4 +1,4 @@
-const {openMongoConnection, successfulStripe, unsuccessfulStripe} = require("./mongoNETLIFY");
+const {openMongoConnection, successfulStripe, unsuccessfulStripe, addPoints, removeInventory} = require("./mongoNETLIFY");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 openMongoConnection();
@@ -30,9 +30,9 @@ exports.handler = async (event, context) => {
                     //TODO send email to customer that order is received.
 
                     //TODO update user's points and order history after successful payment using Mongo functions to update Users collection
-
+                    await addPoints(clientSecret, amount); //update order status
                     //TODO update menu database using Mongo functions to update Menu collection
-
+                    await removeInventory(clientSecret, amount); //update order status
                     break;
                 case 'payment_intent.payment_failed':
                     // unexpected event AKA fail payment
