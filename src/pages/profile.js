@@ -1,7 +1,6 @@
-//import { loadUser } from "../lib/load-user";
+import { loadUser } from "../lib/load-user";
 import withNavBar from "@/components/withNavBar";
 import { useSession } from "next-auth/react";
-import { readUser, openMongoConnection } from '../lib/mongoCRUD'
 import { getSession } from "next-auth/react"
 
 function Profile({ user }) {
@@ -76,9 +75,12 @@ export async function getServerSideProps(context) {
     }
     //Get user from /lib/load-user
 
-    await openMongoConnection();
+    /*await openMongoConnection();
     const userUnformatted = await readUser(session.user.userID);
-    const user = JSON.parse(JSON.stringify(userUnformatted));
+    const user = JSON.parse(JSON.stringify(userUnformatted));*/
+
+    const user = await loadUser(session.user.userID);
+
     return { props: { user }  };
 }
 

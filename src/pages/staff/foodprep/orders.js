@@ -18,7 +18,7 @@ import {useEffect, useState} from "react";
 
 export default function orders({orders}) {
 
-    console.log(orders[0]);
+    //console.log(orders[0]);
 
     const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ export default function orders({orders}) {
     //Connect foodprep orders to websocket for client-server communication on orders.
     useEffect(() => {
         console.log("foodprep connecting to Ably");
-        const ably = configureAbly({ authUrl: 'http://localhost:9999/.netlify/functions/ably-token-request'/*key: process.env.ABLY_API_KEY*/ }/*{ authUrl: '/api/authentication/token-auth' }*/)
+        const ably = configureAbly({ authUrl: 'https://expressocafeweb.netlify.app/.netlify/functions/ably-token-request'/*key: process.env.ABLY_API_KEY*/ }/*{ authUrl: '/api/authentication/token-auth' }*/)
 
         ably.connection.on((stateChange) => {
             console.log(stateChange)
@@ -92,8 +92,6 @@ export const getServerSideProps = wrapper.getServerSideProps( store => async () 
     //Get menu from /lib/load-orders
     const orders = await loadOrders()
     //const orders = ordersObject.orders;
-    console.log("received the following orders from load-orders:");
-    console.log(orders);
     store.dispatch(setOrders(orders))
     return {
         props: { orders }

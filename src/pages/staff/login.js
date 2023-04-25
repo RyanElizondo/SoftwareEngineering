@@ -20,6 +20,10 @@ const Login = () => {
             setLoggedIn(true)
             router.push('/staff/foodprep/orders')
         }
+        else if (username === "manager" && password === "manager123"){
+            setLoggedIn(true)
+            router.push('/staff/manager/inventory')
+        }
         else {
             alert("Incorrect username or password, please try again!");
         }

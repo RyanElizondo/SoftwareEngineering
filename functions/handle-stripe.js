@@ -1,7 +1,7 @@
 const { sendContactForm } = require("./send-email");
 const {openMongoConnection, successfulStripe, unsuccessfulStripe, pendingStripe, readOrder, deleteOrder,
     closeMongoConnection
-} = require("./mongoCRUD");
+} = require("./mongoNETLIFY");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { buffer } = require("micro");
 

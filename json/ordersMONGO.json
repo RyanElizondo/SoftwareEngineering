@@ -1,0 +1,28 @@
+[
+  {
+    "_id": "pi_3My0hLGH4RYfNvx81OeyXFYK_secret_CwnglbZC9qqTZ0T96cXylCbOD",
+    "status": "Received",
+    "paymentStatus": "Paid",
+    "localeDate": "4/17/2023",
+    "localeTime": "6:38:59 PM",
+    "items": [
+      {
+        "name": "Jelly Donut Latte",
+        "customizations": {
+          "Size": "Large",
+          "Dairy": "Milk",
+          "Dairy Amount": "2",
+          "Sugar": "Regular",
+          "Sugar Amount": 0,
+          "Whipped cream": true,
+          "Decaf espresso": false,
+          "Double espresso": false
+        },
+        "cartId": 1,
+        "quantity": "3",
+        "price": 15
+      }
+    ],
+    "total": 15.94
+  }
+]

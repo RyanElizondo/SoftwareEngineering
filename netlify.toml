@@ -1,8 +1,5 @@
 [build]
   functions = "functions"
 
-[build.environment]
-mongoURI= "mongodb+srv://databaseAdmin:jGG2Q3RY2AOQ8jST@cluster0.khxufgh.mongodb.net/?retryWrites=true&w=majority"
-
 [dev]
 targetPort = 5000
