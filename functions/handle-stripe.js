@@ -42,8 +42,6 @@ exports.handler = async (event, context) => {
                     // unexpected event AKA fail payment
                     await unsuccessfulStripe(clientSecret);
 
-                    //TODO send email to customer that order is received.
-
                     break;
                 default:
                     break;

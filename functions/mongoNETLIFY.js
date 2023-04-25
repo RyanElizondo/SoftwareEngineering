@@ -381,7 +381,8 @@ async function successfulStripe(stripeClientSecret, orderTotal){
  */
 async function unsuccessfulStripe(stripeClientSecret){
 
-    await updateOrder(stripeClientSecret, {paymentStatus: "Card Declined"});
+    //await updateOrder(stripeClientSecret, {paymentStatus: "Card Declined"});
+    await deleteOrder(stripeClientSecret);
     
 }
 
