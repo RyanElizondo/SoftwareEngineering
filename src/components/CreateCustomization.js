@@ -3,7 +3,7 @@ import CreateCustomizationOptions from "@/components/CreateCustomizationOptions"
 const getInitialOptions = (type) => {
     if(type === "Number") return {min: 0, max: 5}
     else if(type === "Boolean") return false;
-    else if(type === "Checkbox" || type === "Radio button")  return ["Option #1 Name", "Option #2 Name"];
+    else if(type === "Checkbox" || type === "Radio button")  return ["", ""];
 }
 
 export default function CreateCustomization({updateHandler, customizationState, index }) {
@@ -28,6 +28,7 @@ export default function CreateCustomization({updateHandler, customizationState, 
                         type="text"
                         value={customizationState.name}
                         onChange={(e) => handleChange("name", e.target.value)}
+                        placeholder="Customization name"
                     />
                 </label>
             </div>
