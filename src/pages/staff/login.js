@@ -1,6 +1,9 @@
 import Head from "next/head";
-import { useSession, signIn } from 'next-auth/react'
 import Link from "next/link";
+import { useSession, signIn, signOut } from 'next-auth/react'
+import { Yanone_Kaffeesatz } from 'next/font/google'
+
+const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 const Login = () => {
     const { data, status } = useSession()
@@ -30,7 +33,11 @@ const Login = () => {
             
             <div className="page">
                 <div className="login-links-holder">
-                    <button onClick={()=> signIn('credentials')} >Continue to Login</button>
+                    <link rel="stylesheet"
+                          href = "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"/>
+                    <h2 className="logo">
+                        <img src = "google.png"/></h2>
+                    <button onClick={()=> signIn()} className="google-signin">Continue to Login</button>
                 </div>
             </div>
     
