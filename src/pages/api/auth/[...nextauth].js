@@ -5,16 +5,19 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 const authOptions = {
     providers: [
         GoogleProvider({
-            profile(profile) {
-                return { role: profile.role ?? 'customer' }
-            },
             clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            profile(profile) {
+                return {
+                    id: profile.sub,
+                    name: profile.name,
+                    email: profile.email,
+                    image: profile.picture,
+                    role: 'customer'
+                }
+            }
         }),
         CredentialsProvider({
-            profile(profile) {
-                return { role: profile.role ?? 'manager' }
-            },
             name: 'Manager Login',
             credentials: {
                 username: { label: 'Username', type: 'text' },
@@ -30,9 +33,6 @@ const authOptions = {
             }
         }),
         CredentialsProvider({
-            profile(profile) {
-                return { role: profile.role ?? 'foodprep' }
-            },
             name: 'FoodPrep Login',
             credentials: {
                 username: { label: 'Username', type: 'text' },

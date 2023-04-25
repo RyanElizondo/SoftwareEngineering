@@ -7,7 +7,6 @@ const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 const Begin = () => {
     const { data, status } = useSession()
-    
 
     // If user is signed in, either sign out or continue to menu.
     if (status === 'authenticated') {
@@ -16,7 +15,7 @@ const Begin = () => {
                 <pc className = "welcome-user">Welcome, {data.user.name}</pc>
                 <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
                 <Link href="/menu" className="login-link2">Continue to Menu</Link>
-            </div>
+            </div>  
         );
 
     // If user is not signed in, either sign in with google or continue as guest.

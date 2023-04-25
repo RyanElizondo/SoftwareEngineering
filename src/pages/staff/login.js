@@ -7,7 +7,6 @@ const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 const Login = () => {
     const { data, status } = useSession()
-    
 
     // If user is signed in, either sign out or continue to menu.
     if (status === 'authenticated') {
