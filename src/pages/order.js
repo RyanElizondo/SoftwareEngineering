@@ -3,7 +3,7 @@ import { selectItems, selectOrderSubtotal, selectOrderTotal, selectOrderTax } fr
 import OrderItem from '../components/OrderItem'
 import Link from 'next/link';
 import Head from "next/head";
-import { Yanone_Kaffeesatz } from 'next/font/google'
+import { Yanone_Kaffeesatz } from '@next/font/google'
 
 const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 

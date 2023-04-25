@@ -1,5 +1,5 @@
 import { selectOrderTotal } from '@/features/order/orderSlice';
-import { mailOptions, transporter } from '../../components/nodemailer';
+import { mailOptions, transporter } from '../../lib/nodemailer';
 
 const handler = async (req, res) => {
 if(req.method === "POST"){

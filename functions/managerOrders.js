@@ -62,77 +62,11 @@ exports.handler = async (event, context) => { //handler function
                 },
                 body: ''
             }
-<<<<<<< HEAD
-        } else if(event.queryStringParameters === '/managerorders/?status=paid'){
-            await openMongoConnection();
-            const menu = await getPaidOrders();
-            await closeMongoConnection();
-            return {
-                statusCode: 200,
-                body: JSON.stringify(menu)
-            }
-
-        } else {
-            //GET filtered results from mongodb and parse query string
-            const filter = event.queryStringParameters; //get filter from query string
-            const menu = await readMenuItems(filter); //read menu items from mongodb
-            closeMongoConnection();
-            return { 
-                statusCode: 200,
-                body: JSON.stringify(menu)
-            }
-        }
-
-    } else if(event.httpMethod === 'PUT') {
-        await openMongoConnection();
-        //update order status
-        const id = event.path.split('/')[2]; //get id from url
-        const order = JSON.parse(event.body); //get order from body
-        const result = await updateOrder(id, order); //update order status
-        await closeMongoConnection();
-        return {
-            statusCode: 200,
-            body: JSON.stringify(result)
-        }
-
-    } else if (event.httpMethod === 'DELETE') {
-        await openMongoConnection();
-        //delete order
-        const id = event.path.split('/')[2]; //get id from url
-        const result = await deleteOrder(id); //delete order
-        await closeMongoConnection();
-        return {
-            statusCode: 200,
-            body: JSON.stringify(result)
-        }
-    }else if (event.httpMethod === 'POST') {
-        await openMongoConnection();
-        //add order
-        const orderObject = JSON.parse(event.body); //get order from body
-        const result = await createOrder(orderObject); //add order
-        await closeMongoConnection();
-        return {
-            statusCode: 200,
-            body: JSON.stringify(result)
-        }
-    } else if (event.httpMethod === 'OPTIONS') {
-        /* TODO update access-control-allow-origin when merging to main */
-        return {
-            statusCode: 200,
-            headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:3000',
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Max-Age': '86400' // 24 hours
-            },
-            body: ''
-=======
         }    
         default:{
             status = 405;
             bodyMessage = JSON.stringify({ message: 'Method Not Allowed' });
             break;
->>>>>>> c31360e8fa889283228447937543cf1860076f0b
         }
     }
     

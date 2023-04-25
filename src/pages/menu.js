@@ -2,7 +2,7 @@ import { loadMenu } from '../lib/load-menu';
 import Submenu from '../components/Submenu';
 import Link from 'next/link';
 import Head from 'next/head';
-import withNavBar from '@/components/withNavBar';
+import withNavBar from '../components/withNavBar';
 import { useState } from 'react';
 
 /**
