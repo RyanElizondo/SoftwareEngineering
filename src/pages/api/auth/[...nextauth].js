@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
-import Credentials from 'next-auth/providers/credentials';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 const authOptions = {
     providers: [
@@ -8,27 +8,37 @@ const authOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET
         }),
-        Credentials({
+        CredentialsProvider({
             name: 'Manager Login',
             credentials: {
                 username: { label: 'Username', type: 'text' },
                 password: { label: 'Password', type: 'password' }
             },
-            authorize: async (credentials) => {
-                const { username, password } = credentials;
-                if (username === process.env.foodprep_username &&
-                    password === process.env.foodprep_password) {
-                    return Promise.resolve({ id: 1, name: 'FoodPrep' })
-                } else if (username === process.env.manager_username &&
-                            password === process.env.manager_password) {
-                    return Promise.resolve({ id: 2, name: 'Manager' })
-                } else return Promise.resolve(null);
+            async authorize(credentials) {
+                const user = { id: '1', name: 'Manager' };
+                if (credentials.username === process.env.MANAGER_USERNAME &&
+                    credentials.password === process.env.MANAGER_PASSWORD)
+                    return user;
+                else
+                    return null;
+            }
+        }),
+        CredentialsProvider({
+            name: 'FoodPrep Login',
+            credentials: {
+                username: { label: 'Username', type: 'text' },
+                password: { label: 'Password', type: 'password' }
+            },
+            async authorize(credentials) {
+                const user = { id: '2', name: 'FoodPrep' };
+                if (credentials.username === process.env.FOODPREP_USERNAME &&
+                    credentials.password === process.env.FOODPREP_PASSWORD)
+                    return user;
+                else
+                    return null;
             }
         })
     ],
-    /*session: {
-        strategy: 'jwt'
-    },*/
     callbacks: {
         async session({session, token}) {
             session.user.userID = token.sub;
