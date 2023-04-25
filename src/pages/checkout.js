@@ -49,7 +49,7 @@ export default function App() {
           reqInfo.stripeClientSecret = data.clientSecret;
         /* TODO call server endpoint to add client secret and orderItems to server database */
           console.log("making HTTP request to send client order")
-        return fetch("https://expressocafeweb.netlify.app/.netlify/functions/managerOrders",
+        return fetch(`${process.env.BASE_URL}/.netlify/functions/managerOrders`,
             {
               method: "POST",
               headers: {

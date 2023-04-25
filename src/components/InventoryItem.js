@@ -22,7 +22,7 @@ export default function({item, index, setInventory}) {
                 //make call to server to update menu collection in MongoDB
                 console.log("making a call to netlify/functions/menu")
                 console.log(reqInfo)
-                fetch("http://localhost:9999/.netlify/functions/menu",
+                fetch(`${process.env.BASE_URL}/.netlify/functions/menu`,
                     {
                         method: "PUT",
                         headers: {
