@@ -12,8 +12,6 @@ export default function({user}) {
     console.log(user);
     const { data: session, sessionStatus } = useSession();
     const clientTotal = useSelector(selectOrderSubtotal);
-    console.log("client total");
-    console.log(clientTotal);
     const earnPoints = parseFloat(clientTotal) * 10;
     console.log(earnPoints);
     console.log(typeof earnPoints);
@@ -74,7 +72,7 @@ export default function({user}) {
             <div className="confirm-order-holder">
                 <p className="confirm-order-title">{`You will earn ${earnPoints} points for this order.`}</p>
                 <p className="confirm-order-subtitle">{`You currently have ${user !== null && (user.points !== undefined && user.points !== null) ? `${user.points}` : "0"} points`}</p>
-                <Link href="/checkout" className="return-button grow">Place order</Link>
+                <Link href="/checkout" className="return-button grow">Continue to payment</Link>
             </div>
 
         )

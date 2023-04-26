@@ -17,19 +17,20 @@ export default function OrderItem( {item} ) {
     const generateCustomization = (pair, index) => {
         let displayStr = pair[1];
         if(typeof pair[1] === "boolean") { //customization is a checkbox boolean
-            displayStr = pair[1] ? `${pair[0]}` : `No ${pair[0].toLowerCase()}`;
+            displayStr = pair[1] ? `• ${pair[0]}` : `• No ${pair[0].toLowerCase()}`;
         } else if(typeof pair[1] === "string") { //customization is a radiobutton
-            displayStr = `${pair[0]}: ${pair[1]}`
+            displayStr = `• ${pair[0]}: ${pair[1]}`
         } else if(typeof pair[1] === "object") { //customization is a checkbox group
             const selections = Object.entries(pair[1]);
+            displayStr = "";
             selections.forEach(selection => {
-                displayStr += selection[1] ? `Has ${selection[0].toLowerCase()}\n` : `No ${selection[0].toLowerCase()}\n`
+                displayStr += selection[1] ? `• Has ${selection[0].toLowerCase()}\n` : `• No ${selection[0].toLowerCase()}\n`
             })
         } else if(typeof pair[1] === "number") {
-            displayStr = `${pair[1]} ${pair[0]}`
+            displayStr = `• ${pair[1]} ${pair[0]}`
         }
         return (
-            <h5 className="order-item-customization" key={index}>{displayStr}</h5>
+            <p className="order-item-customization" key={index}>{displayStr}</p>
         )
     }
 

@@ -14,6 +14,7 @@ import {selectNumItems} from "../features/order/orderSlice";
  * @constructor
  */
 function Menu({ menu }) {
+    console.log(menu);
     const numItems = useSelector(selectNumItems);
 
     const submenus = menu.submenus;

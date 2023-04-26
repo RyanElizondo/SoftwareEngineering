@@ -17,6 +17,8 @@ exports.handler = async (event, context) => {
                 case 'payment_intent.succeeded':
 
                     console.log("calling successful stripe")
+                    console.log("STRIPE BODY");
+                    console.log(bodyObj)
                     await successfulStripe(clientSecret,amount); //TODO check if sending valid clientSecret
 
                     //update menu database using Mongo functions to update Menu collection
