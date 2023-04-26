@@ -30,7 +30,9 @@ exports.handler = async (event, context) => { //handler function
         }    
         case 'PUT':{ //updates menu item
             const menuItem = JSON.parse(event.body);
-            updateMenuItem(menuItem.data.object.name, menuItem.updates); //TODO check if query by name works
+            console.log(menuItem.name)
+            console.log(menuItem.inventory)
+            updateMenuItem({name: menuItem.name}, {inventory: menuItem.inventory}); //TODO check if query by name works
 
             bodyMessage = JSON.stringify(`Menu item Updated`);
             break;

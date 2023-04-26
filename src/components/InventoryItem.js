@@ -17,14 +17,14 @@ export default function({item, index, setInventory}) {
         try {
                 
                 setInventory(item.name, input);
-                const reqInfo = {...item, inventory: input};
+                const reqInfo =  {...item, inventory: input};
                 //TODO Test this server call and see if Netlify updates MongoDB correctly
                 //make call to server to update menu collection in MongoDB
-
-                fetch(`${process.env.BACKEND_URL}.netlify/functions/menu`,
+                //let body = JSON.stringify(reqInfo,null,2)
+                fetch(`http://localhost:9999/.netlify/functions/menu`,
                     {
                         method: "PUT",
-                        body: JSON.stringify(reqInfo),
+                        body: JSON.stringify(reqInfo,null,2),
                         headers: {
                             "Content-Type": "application/json"
                         }
