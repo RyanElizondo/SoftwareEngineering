@@ -18,6 +18,7 @@ const authOptions = {
             }
         }),
         CredentialsProvider({
+            id: 'manager-login',
             name: 'Manager Login',
             credentials: {
                 username: { label: 'Username', type: 'text' },
@@ -33,6 +34,7 @@ const authOptions = {
             }
         }),
         CredentialsProvider({
+            id: 'foodprep-login',
             name: 'FoodPrep Login',
             credentials: {
                 username: { label: 'Username', type: 'text' },
