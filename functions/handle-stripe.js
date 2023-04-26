@@ -6,24 +6,19 @@ openMongoConnection();
 exports.handler = async (event, context) => {
     
     const body = event.body;
-    console.log(body)
+
         try {
 
-            //const stripeEvent = event;
+
             const bodyObj = JSON.parse(body);
             const clientSecret = bodyObj.data.object.client_secret
             const amount = bodyObj.data.object.amount;
             switch(bodyObj.type){
                 case 'payment_intent.succeeded':
 
-                    console.log("calling successful stripe")
-                    console.log("STRIPE BODY");
-                    console.log(bodyObj)
-                    await successfulStripe(clientSecret,amount); //TODO check if sending valid clientSecret
+                    await successfulStripe(clientSecret,amount); //changes paymentStatus & adds total 
 
-                    //update menu database using Mongo functions to update Menu collection
-                    //TODO TEST this call
-                    await removeInventory(clientSecret); //update order status
+                    await removeInventory(clientSecret); //removes inventory
                     
                     //TODO send email to customer that order is received.
 

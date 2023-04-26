@@ -311,15 +311,18 @@ async function addInventory(mongoID, stockToAdd){
  */
 async function removeInventory(stripeString){
     try{
-
+        //console.log(stripeString)
         let order = await _db.collection('Orders').findOne({_id: stripeString})
-       
+        //console.log(order)
         let itemsArray = order.items;
 
-        for (let i = 0; i < itemsArray.length(); i++){
+        console.log(typeof    itemsArray[0])
+        for (let i = 0; i < itemsArray.length; i++){
 
             let name = itemsArray[i].name
-            let stockToRemove = -1 * itemsArray[i].quantity //make negative
+            console.log(typeof name)
+            let stockToRemove = -1 * parseInt(itemsArray[i].quantity) //make negative
+            console.log(typeof stockToRemove)
             _db.collection('Menu').updateOne({name: name}, {$inc: {inventory: stockToRemove}})
         }
 

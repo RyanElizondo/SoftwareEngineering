@@ -37,7 +37,7 @@ exports.handler = async (event, context) => { //handler function
         case 'PUT':{ //update ANY order attribute
             const order = JSON.parse(event.body);
             const id = order.data.object._id;
-            updateOrder(id, order); //update order status TODO check if id is value JSON object
+            updateOrder(id, order); 
       
             bodyMessage = JSON.stringify("Order Updated");
             break;
