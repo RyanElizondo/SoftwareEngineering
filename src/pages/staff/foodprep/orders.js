@@ -16,10 +16,21 @@ import { configureAbly } from '@ably-labs/react-hooks'
 import Head from "next/head";
 import {useEffect, useState} from "react";
 import { Yanone_Kaffeesatz } from 'next/font/google'
+import { useSession } from 'next-auth/react';
 
 const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 export default function orders({orders}) {
+
+    const {data, status} = useSession();
+    console.log(data);
+    if (data?.user.role === "customer") {
+        return <p>Access Denied</p>
+    }
+
+    if (status !== "authenticated") {
+        return <p>Access Denied</p>
+    }
 
     //console.log(orders[0]);
 
