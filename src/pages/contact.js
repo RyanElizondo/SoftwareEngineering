@@ -1,4 +1,4 @@
-import withNavBar from "@/components/withNavBar";
+import withNavBar from "../components/withNavBar";
 
 function contact() {
     return(

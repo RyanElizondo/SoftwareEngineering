@@ -7,7 +7,7 @@ import {
     addOrder,
     setOrders,
     editOrderStatus
-} from "@/features/foodprepOrders/foodprepOrdersSlice";
+} from "../../../features/foodprepOrders/foodprepOrdersSlice";
 import { wrapper } from "@/store";
 import FoodprepOrder from "@/components/FoodprepOrder";
 import * as Ably from 'ably/promises'

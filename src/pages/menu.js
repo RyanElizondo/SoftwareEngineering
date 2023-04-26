@@ -5,7 +5,7 @@ import Head from 'next/head';
 import withNavBar from '../components/withNavBar';
 import { useState } from 'react';
 import {useSelector} from "react-redux";
-import {selectNumItems} from "@/features/order/orderSlice";
+import {selectNumItems} from "../features/order/orderSlice";
 
 /**
  * Page for customers to view and customize their order. Dynamically generates based on MongoDB "menu" collection

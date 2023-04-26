@@ -12,6 +12,7 @@
     "@ably-labs/react-hooks": "^2.1.1",
     "@netlify/functions": "^1.0.0",
     "@netlify/plugin-nextjs": "^4.35.0",
+    "@next/font": "^13.3.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@stripe/react-stripe-js": "^2.0.0",
     "@stripe/stripe-js": "^1.49.0",

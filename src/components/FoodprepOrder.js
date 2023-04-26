@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { editOrderStatus, removeOrder } from "@/features/foodprepOrders/foodprepOrdersSlice";
+import { editOrderStatus, removeOrder } from "../features/foodprepOrders/foodprepOrdersSlice";
 
 const getButtonName = (status) => {
     switch(status) {
