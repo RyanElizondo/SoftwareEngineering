@@ -38,7 +38,7 @@ export default function App() {
   React.useEffect(() => {
     console.log("calling create payment intent");
     // Create PaymentIntent as soon as the page loads
-    fetch("/api/create-payment-intent", {
+    fetch("http://localhost:3000/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: buildOrder(clientItems) }),

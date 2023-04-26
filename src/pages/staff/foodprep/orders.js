@@ -9,9 +9,9 @@ import {
     editOrderStatus
 } from "../../../features/foodprepOrders/foodprepOrdersSlice";
 import { wrapper } from "@/store";
-import FoodprepOrder from "@/components/FoodprepOrder";
-import * as Ably from 'ably/promises'
-import { configureAbly } from '@ably-labs/react-hooks'
+import FoodprepOrder from "../../../components/FoodprepOrder";
+//import * as Ably from 'ably/promises'
+//import { configureAbly } from '@ably-labs/react-hooks'
 
 import Head from "next/head";
 import {useEffect, useState} from "react";
@@ -23,18 +23,17 @@ const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 export default function orders({orders}) {
     console.log("ORDERS:");
     console.log(orders);
-
+    const dispatch = useDispatch();
     const receivedOrders = useSelector(selectReceivedOrders);
     const preparedOrders = useSelector(selectPreparingOrders);
     const readyOrders = useSelector(selectReadyOrders);
-    const dispatch = useDispatch();
     const [channel, setChannel] = useState(null);
     const {data, status} = useSession();
 
     //Connect foodprep orders to websocket for client-server communication on orders.
-    useEffect(() => {
+    /*useEffect(() => {
         console.log("foodprep connecting to Ably");
-        const ably = configureAbly({ authUrl: 'https://expressocafeweb.netlify.app/.netlify/functions/ably-token-request'/*key: process.env.ABLY_API_KEY*/ }/*{ authUrl: '/api/authentication/token-auth' }*/)
+        const ably = configureAbly({ authUrl: 'https://expressocafeweb.netlify.app/.netlify/functions/ably-token-request })
 
         ably.connection.on((stateChange) => {
             //console.log(stateChange)
@@ -59,7 +58,7 @@ export default function orders({orders}) {
         return () => {
             _channel.unsubscribe()
         }
-    }, [])
+    }, [])*/
 
     if (data?.user.role === "customer") {
         return (
@@ -76,7 +75,8 @@ export default function orders({orders}) {
             </div>
         )
     }
-
+console.log("RECEVIED ORDERS");
+    console.log(receivedOrders);
     return (
         <>
             <Head>
@@ -90,15 +90,15 @@ export default function orders({orders}) {
                 <div className="column-holder">
                     <div className="foodprep column">
                         <h2 className="orders-title">Received Orders</h2>
-                        <FoodprepOrder orderList={receivedOrders} channel={channel}/>
+                        <FoodprepOrder orderList={receivedOrders} /*channel={channel}*//>
                     </div>
                     <div className="foodprep column">
                         <h2 className="orders-title">In Progress Orders</h2>
-                        <FoodprepOrder orderList={preparedOrders} channel={channel}/>
+                        <FoodprepOrder orderList={preparedOrders} /*channel={channel}*//>
                     </div>
                     <div className="foodprep column">
                         <h2 className="orders-title">Completed Orders</h2>
-                        <FoodprepOrder orderList={readyOrders} channel={channel}/>
+                        <FoodprepOrder orderList={readyOrders} /*channel={channel}*//>
                     </div>
                 </div>
             </div>

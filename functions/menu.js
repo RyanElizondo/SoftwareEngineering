@@ -1,7 +1,7 @@
 /**
  * This is the serverless function that contains the functions for menu API
  */
-const { createMenuItem, readMenuItems, updateMenuItem, deleteMenuItem} = require('./mongoNETLIFY')
+const { createMenuItem, readMenuItems, updateMenuItem, deleteMenuItem, deleteOrder} = require('./mongoNETLIFY')
 const { openMongoConnection } = require('./mongoNETLIFY');
 
 
@@ -40,9 +40,11 @@ exports.handler = async (event, context) => { //handler function
         }       
         case 'DELETE':{ //deletes menu item
             const menuItem = JSON.parse(event.body);
-            deleteMenuItem({name: menuItem.name}); 
-    
-            bodyMessage = JSON.stringify("Order Deleted");
+            deleteMenuItem({name: menuItem.name});
+            console.log(menuItem);
+            console.log("menu calling deleteMenuItem for name " + menuItem)
+            await deleteMenuItem(menuItem);
+            bodyMessage = JSON.stringify("Menu item deleted with name " + menuItem);
             break;
         }    
         case 'OPTIONS':{

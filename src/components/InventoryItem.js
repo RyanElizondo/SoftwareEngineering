@@ -4,7 +4,7 @@ const priceObjString = (priceObj) => {
     return Object.values(priceObj.tiers).toString();
 }
 
-export default function({item, index, setInventory}) {
+export default function({item, index, setInventory, deleteItem}) {
 
     const handleSetInventory = (e) => {
         let input = parseInt(item.inventory) 
@@ -40,6 +40,29 @@ export default function({item, index, setInventory}) {
 
     const removeInventory = (itemName) => {
         console.log(`Remove item from menu called for ${itemName}`)
+        deleteItem(itemName);
+        try {
+            fetch("http://localhost:9999/.netlify/functions/menu",
+                {
+                    method: "DELETE",
+                    body: JSON.stringify(itemName),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+            ).then(response => response.json())
+                .then(data => {
+                    // Handle API response
+                    console.log("manager orders DELETE response data")
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle API error
+                    console.error(error);
+                });
+        } catch(e) {
+            console.log(e)
+        }
     }
 
     return (

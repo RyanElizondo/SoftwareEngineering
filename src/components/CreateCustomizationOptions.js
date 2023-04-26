@@ -53,7 +53,7 @@ export default function CreateCustomizationOptions({customizationState, updateHa
                             key={i}
                             value={customizationState.options[i]}
                             onChange={(e) => handleOptionArrayChange(e.target.value, i) }
-                            placeholder={`Option #${i}`}
+                            placeholder={`Option #${i+1}`}
                         />
                     ))}
                 </ul>

@@ -33,6 +33,11 @@ const InventoryManagement = ( {menu} ) => {
         }
     };
 
+    const deleteItem = (itemName) => {
+        const newItemsArray = items.filter( item => item.name !== itemName)
+        setItems(newItemsArray);
+    }
+
     return (
         <div className="manager-page">
             <div className="inventory-holder">
@@ -45,7 +50,7 @@ const InventoryManagement = ( {menu} ) => {
                         <p className="item-inventory-inventory inventory-detail">Inventory</p>
                         <p className="item-inventory-filler"></p>
                     </li>
-                    { items.map((item, i) =>  <InventoryItem item={item} index={i} setInventory={setInventory}/>)  }
+                    { items.map((item, i) =>  <InventoryItem item={item} index={i} setInventory={setInventory} deleteItem={deleteItem}/>)  }
                 </ul>
             </div>
             <div className="manager-functions-holder">

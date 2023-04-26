@@ -224,9 +224,9 @@ async function deleteUser(query){
  * @param {object} JSON object for queries 
  * @return nothing
  */
-async function deleteMenuItem(query){
+async function deleteMenuItem(itemName){
     try{    
-        _db.collection('Menu').deleteOne(query); 
+        _db.collection('Menu').deleteOne({name: itemName});
         console.log(`Deleted menu item!`); 
     } catch(e){
         console.log("No menu item matched the mongo ID. Deleted 0 items.")
@@ -237,9 +237,9 @@ async function deleteMenuItem(query){
  * @param {object} JSON object for queries 
  * @return nothing
  */
-async function deleteOrder(query){
+async function deleteOrder(itemName){
     try{     
-        _db.collection('Orders').deleteOne(query); 
+        await _db.collection('Orders').deleteOne({name: itemName});
         console.log(`Deleted order!`); 
     } catch(e){
         console.log("No order matched the mongo ID. Deleted 0 order.")

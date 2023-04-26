@@ -63,19 +63,20 @@ export default function FoodprepOrder({orderList, channel}) {
         <div className="food-prep-orders-holder">
             {orderList.map((order, index) => (
                     <div className= "foodprep-order-holder" key={order._id + "0" + index}>
-                        <h2 className="foodprep-order-title" key={order._id + "1" + index}>Order</h2>
+                        <h2 className="foodprep-order-title" key={order._id + "1" + index}>{`Order ${order._id.slice(-4)}`}</h2>
                         <p className="foodprep-order-status" key={order._id + "2" + index}>Status: {order.status}</p>
                         <h3 className="foodprep-order-date" key={order._id + "3" + index}>Date Received: {order.localeDate}</h3>
+                        <h3 className="foodprep-order-date" key={order._id + "3" + index}>Time Received: {order.localeTime}</h3>
                         {/*<p className="foodprep-order-name" key={order._id + "4" + index}>First
                             Name: {order.firstName}</p>*/}
                         <ul className="foodprep-order-items-holder" key={order._id + "5"}>
                             {order.items.map((item, i) => (
-                                <li className="foodprep-order-item" key={item.itemName + i}>
-                                    {item.itemQuantity} x {item.itemName}
-                                    {item.customization && item.customization.length > 0 && (
+                                <li className="foodprep-order-item" key={item.name + i + index + order._id}>
+                                    {item.quantity} x {item.name}
+                                    {item.customizations && item.customizations.length > 0 && (
                                         <ul className="foodprep-order-item-customization-holder" key={order._id + "6"  + i + index}>
-                                            {item.customization.map(c => (
-                                                <li key={c + i + index}>{c}</li>
+                                            {item.customizations.map(c => (
+                                                <li key={c + i + index + item.name}>{c}</li>
                                             ))}
                                         </ul>
                                     )}
