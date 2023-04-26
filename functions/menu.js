@@ -8,8 +8,47 @@ const { openMongoConnection } = require('./mongoNETLIFY');
 openMongoConnection();
 
 exports.handler = async (event, context) => { //handler function
+    const headers = {
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Max-Age': '86400' // 24 hours
+    }
+
+    console.log("received event of type " + event.httpMethod);
     let status = 200;
     let bodyMessage;
+
+    if(event.httpMethod === "OPTIONS") {
+        console.log("OPTIONS");
+        return {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Max-Age': '86400' // 24 hours
+            },
+            body: 'ok'
+        }
+    } else if(event.httpMethod === "PUT") {
+        const menuItem = JSON.parse(event.body);
+        console.log("MENU ITEM!");
+        console.log(menuItem);
+        await updateMenuItem(menuItem._id, menuItem.updates); //TODO check if query by name works
+        bodyMessage = JSON.stringify(`Menu item Updated`);
+        return {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Max-Age': '86400' // 24 hours
+            },
+            body: bodyMessage
+        }
+    }
+
     
     switch(event.httpMethod){
         case 'POST':{ //adds menu item to the menu 
@@ -45,7 +84,7 @@ exports.handler = async (event, context) => { //handler function
             return {
                 statusCode: 200,
                 headers: {
-                    'Access-Control-Allow-Origin': `${process.env.BASE_URL}`,
+                    'Access-Control-Allow-Origin': 'http://localhost:3000',
                     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Access-Control-Max-Age': '86400' // 24 hours

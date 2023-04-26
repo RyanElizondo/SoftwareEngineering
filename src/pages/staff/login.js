@@ -14,9 +14,9 @@ const Login = () => {
             return (
             <div className= "welcome-page">
                 <p className = "welcome-user">Welcome, {data.user.name}</p>
-                <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
                 <Link href="/staff/foodprep/orders" className="login-link2">View Orders</Link>
                 <Link href="/staff/manager/inventory" className="login-link2">View Inventory</Link>
+                <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
             </div>
             );
         } else {
