@@ -24,13 +24,24 @@ export default function App() {
     "items": clientItems
   }
 
+  const buildOrder = (orderItems) => {
+
+      const newItems = orderItems.map( item => {
+          return {...item, customizations: Object.entries(item.customizations)}
+      })
+      console.log("new order items for foodprep: ");
+      console.log(newItems);
+      return newItems
+
+  }
+
   React.useEffect(() => {
 
     // Create PaymentIntent as soon as the page loads
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: clientItems }),
+      body: JSON.stringify({ items: buildOrder(clientItems) }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -38,7 +49,7 @@ export default function App() {
           reqInfo.stripeClientSecret = data.clientSecret;
         /* TODO call server endpoint to add client secret and orderItems to server database */
           console.log("making HTTP request to send client order")
-        return fetch("https://expressocafeweb.netlify.app/.netlify/functions/managerOrders",
+        return fetch(`${process.env.BACKEND_URL}/.netlify/functions/managerOrders`,
             {
               method: "POST",
               headers: {

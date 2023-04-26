@@ -2,7 +2,7 @@ const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb'); //mongodb
 let uri = process.env.mongoURI; 
 let OPTIONS = {
     appname: "netlify",
-    maxIdleTimeMS: 300000,
+    maxIdleTimeMS: 1800000,
     maxPoolSize: 50,
     maxConnecting: 5,
     serverApi: {
@@ -385,7 +385,8 @@ async function successfulStripe(stripeClientSecret, orderTotal){
  */
 async function unsuccessfulStripe(stripeClientSecret){
 
-    await updateOrder(stripeClientSecret, {paymentStatus: "Card Declined"});
+    //await updateOrder(stripeClientSecret, {paymentStatus: "Card Declined"});
+    await deleteOrder(stripeClientSecret);
     
 }
 

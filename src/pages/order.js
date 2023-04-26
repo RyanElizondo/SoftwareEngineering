@@ -43,7 +43,7 @@ export default function Order( ) {
                 <h5 className="order-detail">{`Total: $${total}`}</h5>
             </div>
             <Link href="/menu" className="return-button grow">Back to menu</Link>
-            <Link href="/checkout" className="return-button grow">Place order</Link>
+            <Link href="/confirm-order" className="return-button grow">Place order</Link>
         </div>
 </>
     )

@@ -6,8 +6,8 @@ import { openMongoConnection, getPaidOrders} from './mongoNEXT';
 export async function loadOrders() {
 
     try{
-        //load orders for foodprep       
-        openMongoConnection();
+        //load orders for foodprep
+        await openMongoConnection();
 
         const paidOrders = getPaidOrders();
         
@@ -15,8 +15,8 @@ export async function loadOrders() {
             return [];
 
         //uncomment this if you want to look at what it returns
-        const jsonDirectory = path.join(process.cwd(), 'json'); 
-        await fs.writeFile(jsonDirectory + '/ordersMONGO.json', await paidOrders);    
+        //const jsonDirectory = path.join(process.cwd(), 'json'); 
+        //await fs.writeFile(jsonDirectory + '/ordersMONGO.json', await paidOrders);    
 
         //Return the content of the data file in json format
         return JSON.parse( await paidOrders);

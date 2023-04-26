@@ -15,6 +15,21 @@ const authOptions = {
         async session({session, token}) {
             session.user.userID = token.sub;
             return session;
+        },
+        async signIn({ user }) {
+            await fetch("http://localhost:9999/.netlify/functions/customer", {
+                method: "PUT",
+                body: JSON.stringify(user)
+            })
+                .then((response) => response.json())
+                .then(data => {
+                    console.log(data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            return true
+
         }
     }
 };
