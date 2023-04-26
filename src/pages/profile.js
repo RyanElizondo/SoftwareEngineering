@@ -12,7 +12,7 @@ function Profile({ user }) {
     const renderPastOrder = () => {
         return (
             <>
-                {<h2 className="past-orders">Past Orders</h2>}
+                <h2 className="past-orders">Past Orders</h2>
                 {/*TODO fetch past orders. pastOrders.map((order, index) => (
                         <div key={index} className= "order-pasts">
                         <div></div>
@@ -37,6 +37,15 @@ function Profile({ user }) {
         )
     }
 
+    const renderNoOrders = () => {
+        return (
+            <>
+                <h2 className="past-orders">Past Orders</h2>
+                <p className="user-info">No orders, yet.</p>
+            </>
+        )
+    }
+
     const generateProfilePage = (user) => {
         const {name, email} = session.user;
         console.log(session);
@@ -49,7 +58,10 @@ function Profile({ user }) {
 
                     <label>Name:</label> {name}
 
-                    <label> Points:{ user !== null && user?.points !== undefined || user?.points !== null ? user.points : 0 /*TODO ADD points*/} </label>
+                    <label> Points:{ user !== null && (user.points !== undefined && user.points !== null) ? `${user.points}` : "0" /*TODO ADD points*/} </label>
+                </div>
+                <div className="past-orders-holder">
+                    {user !== null && (user.pastOrders !== null && user.pastOrders !== undefined) ? renderPastOrder() : renderNoOrders()}
                 </div>
             </div>
         );
