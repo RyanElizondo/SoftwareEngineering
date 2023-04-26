@@ -5,9 +5,10 @@ const { createMenuItem, readMenuItems, updateMenuItem, deleteMenuItem} = require
 const { openMongoConnection } = require('./mongoNETLIFY');
 
 
-openMongoConnection();
+
 
 exports.handler = async (event, context) => { //handler function
+    openMongoConnection();
     let status = 200;
     let bodyMessage;
     

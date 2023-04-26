@@ -25,10 +25,10 @@ const InventoryManagement = ( {menu} ) => {
     //console.log(items);
 
     const setInventory = (itemName, amount) => {
-        console.log("received set inventory");
+        //console.log("received set inventory");
 
         const item = items.find((item) => item.name === itemName);
-        if (item) {
+        if (!item) {//TODO i think this is for new items? i changed the if statement but I could be wrong
             const newItem = {...item, inventory: amount}
             console.log(newItem);
             const newItemsArray = items.map( item => {

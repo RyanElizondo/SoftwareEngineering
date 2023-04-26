@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import withNavBar from "../components/withNavBar";
-import { Yanone_Kaffeesatz } from '@next/font/google'
+import { Yanone_Kaffeesatz } from 'next/font/google'
 const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 function Home() {
