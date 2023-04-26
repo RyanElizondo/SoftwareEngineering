@@ -5,7 +5,8 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
-
+import { useSession } from "next-auth/react"
+import { sendContactForm } from "../lib/send-email";
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
@@ -13,6 +14,7 @@ export default function CheckoutForm() {
   const [email, setEmail] = React.useState('');
   const [message, setMessage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
+  const { data: session, stats } = useSession();
 
   React.useEffect(() => {
     if (!stripe) {
@@ -60,10 +62,22 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "https://expressocafeweb.netlify.app/order-confirmation",
+        return_url: "http://localhost:3000/",
         receipt_email: email,
       },
-    });
+    }).then(
+        sendEmail(session,stats)
+    );
+
+      function sendEmail(session, stats){
+      if ( stats === "authenticated"){
+        console.log("Request authenticated"); //does not reach this point
+        sendContactForm(session.user.name,session.user.email);
+      }
+      else{
+        console.log("account not regestered")
+      }
+    }
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
@@ -73,7 +87,7 @@ export default function CheckoutForm() {
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
-      setMessage("An unexpected error occurred.");
+      setMessage("Unexpected error has occured");
     }
 
     setIsLoading(false);
