@@ -2,8 +2,24 @@ import React, { useState } from "react";
 import { loadManager } from "@/lib/load-manager";
 import InventoryItem from "@/components/InventoryItem";
 import CreateMenuItem from "@/components/CreateMenuItem"
+import { useSession } from 'next-auth/react'
 
 const InventoryManagement = ( {menu} ) => {
+
+    const {data, status} = useSession();
+
+    if (data?.user.role === "customer") {
+        return <p>Access Denied</p>
+    }
+
+    if (status !== "authenticated") {
+        return <p>Access Denied</p>
+    }
+
+    if (data?.user.name !== "Manager") {
+        return <p>Access Denied</p>
+    }
+
     const [items, setItems] = useState(menu);
     //console.log("ITEMS");
     //console.log(items);

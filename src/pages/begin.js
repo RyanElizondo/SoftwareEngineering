@@ -7,7 +7,6 @@ const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 const Begin = () => {
     const { data, status } = useSession()
-    
 
     // If user is signed in, either sign out or continue to menu.
     if (status === 'authenticated') {
@@ -16,7 +15,7 @@ const Begin = () => {
                 <pc className = "welcome-user">Welcome, {data.user.name}</pc>
                 <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
                 <Link href="/menu" className="login-link2">Continue to Menu</Link>
-            </div>
+            </div>  
         );
 
     // If user is not signed in, either sign in with google or continue as guest.
@@ -37,7 +36,7 @@ const Begin = () => {
                           href = "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"/>
                     <h2 className="logo">
                         <img src = "google.png"/></h2>
-                    <button onClick={()=> signIn('google')} className="google-signin">Continue with Google</button>
+                    <button onClick={()=> signIn()} className="google-signin">Continue with Google</button>
                     <Link href="/menu" className="login-link2">Continue as Guest</Link>
                 </div>
             </div>
