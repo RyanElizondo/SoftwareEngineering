@@ -6,10 +6,10 @@ openMongoConnection();
 exports.handler = async (event, context) => {
     
     const body = event.body;
-
+    console.log(body)
         try {
 
-            const stripeEvent = event;
+            //const stripeEvent = event;
             const bodyObj = JSON.parse(body);
             const clientSecret = bodyObj.data.object.client_secret
             const amount = bodyObj.data.object.amount;
@@ -19,15 +19,17 @@ exports.handler = async (event, context) => {
                     console.log("calling successful stripe")
                     await successfulStripe(clientSecret,amount); //TODO check if sending valid clientSecret
 
+                    //update menu database using Mongo functions to update Menu collection
+                    //TODO TEST this call
+                    await removeInventory(clientSecret); //update order status
+                    
                     //TODO send email to customer that order is received.
 
                     //update user's points and order history after successful payment using Mongo functions to update Users collection
                     //TODO TEST this call
-                    await addPoints(clientSecret, amount); //update order status
+                    //await addPoints(clientSecret, amount); //update order status
 
-                    //update menu database using Mongo functions to update Menu collection
-                    //TODO TEST this call
-                    await removeInventory(clientSecret, amount); //update order status
+                    
 
                     break;
                 case 'payment_intent.payment_failed':

@@ -304,14 +304,22 @@ async function addInventory(mongoID, stockToAdd){
  * @param {int} inventory to remove to menu item
  * @return nothing, R if you want to check if points went through
  */
-async function removeInventory(mongoID, stockToRemove){
+async function removeInventory(stripeString){
     try{
 
-        if(Math.sign(stockToRemove) != -1 ) 
-            stockToRemove = stockToRemove * -1;
+        let order = await _db.collection('Orders').findOne({_id: stripeString})
+       
+        let itemsArray = order.items;
 
-        await _db.collection('Menu').updateOne({_id: mongoID}, {$inc: {inventory: stockToRemove}});
-        console.log(`removed stock from item!`);
+        for (let i = 0; i < itemsArray.length(); i++){
+
+            let name = itemsArray[i].name
+            let stockToRemove = -1 * itemsArray[i].quantity //make negative
+            _db.collection('Menu').updateOne({name: name}, {$inc: {inventory: stockToRemove}})
+        }
+
+        //await _db.collection('Menu').updateOne({_id: mongoID}, {$inc: {inventory: stockToRemove}});
+        console.log(`removed stock from items!`);
  
 
     } catch(e){
