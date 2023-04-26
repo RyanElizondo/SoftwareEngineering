@@ -26,7 +26,7 @@ const customerAuthOptions = {
             return session;
         },
         async signIn({ user }) {
-            await fetch("http://localhost:9999/.netlify/functions/customer", {
+            await fetch("https://expressocafeweb.netlify.app/.netlify/functions/customer", {
                 method: "PUT",
                 body: JSON.stringify(user)
             })
@@ -155,7 +155,7 @@ const allAuthOptions = {
             return session;
         },
         async signIn({ user }) {
-            await fetch("http://localhost:9999/.netlify/functions/customer", {
+            await fetch("https://expressocafeweb.netlify.app/.netlify/functions/customer", {
                 method: "PUT",
                 body: JSON.stringify(user)
                 })

@@ -14,7 +14,7 @@ export default function({item, index, setInventory}) {
         try {
                 setInventory(item.name, input); 
                 const reqInfo = {...item, inventory: input}
-                fetch("http://localhost:9999/.netlify/functions/menu",
+                fetch("https://expressocafeweb.netlify.app/.netlify/functions/menu",
                     {
                         method: "PUT",
                         body: JSON.stringify(reqInfo,null,2),

@@ -112,7 +112,7 @@ export default function createMenuItem() {
         //TODO JSON PASSED IS INCORRECT CAUSE newItem has the lines ending in ; and not , so not a valid JSON
         console.log("Calling POST method on /menu");
         console.log(newItem);
-        await fetch('http://localhost:9999/.netlify/functions/menu',
+        await fetch('https://expressocafeweb.netlify.app/.netlify/functions/menu',
             {
                 method: "POST",
                 body: JSON.stringify(newItem),

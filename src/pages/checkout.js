@@ -38,7 +38,7 @@ export default function App() {
   React.useEffect(() => {
     console.log("calling create payment intent");
     // Create PaymentIntent as soon as the page loads
-    fetch("/api/create-payment-intent", {
+    fetch("https://expressocafeweb.netlify.app/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: buildOrder(clientItems) }),
@@ -49,7 +49,7 @@ export default function App() {
           reqInfo.stripeClientSecret = data.clientSecret;
         /* TODO call server endpoint to add client secret and orderItems to server database */
           console.log("making HTTP request to send client order")
-        return fetch(`http://localhost:9999/.netlify/functions/managerOrders`,
+        return fetch('https://expressocafeweb.netlify.app/.netlify/functions/managerOrders',
             {
               method: "POST",
               headers: {

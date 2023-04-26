@@ -1,5 +1,5 @@
 export const sendContactForm = async (data) => 
-fetch("http://localhost:3000/api/contact",{
+fetch("https://expressocafeweb.netlify.app/api/contact",{
         method: "POST",
         body: JSON.stringify(data),
         headers:{
