@@ -20,17 +20,11 @@ const InventoryManagement = ( {menu} ) => {
         return <p>Access Denied</p>
     }
 
-
-    //console.log("ITEMS");
-    //console.log(items);
-
     const setInventory = (itemName, amount) => {
-        //console.log("received set inventory");
 
         const item = items.find((item) => item.name === itemName);
-        if (!item) {//TODO i think this is for new items? i changed the if statement but I could be wrong
+        if (item) {
             const newItem = {...item, inventory: amount}
-            console.log(newItem);
             const newItemsArray = items.map( item => {
                 if(item.name === itemName) return newItem;
                 else return item

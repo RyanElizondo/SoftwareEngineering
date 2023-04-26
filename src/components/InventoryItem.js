@@ -7,14 +7,12 @@ const priceObjString = (priceObj) => {
 export default function({item, index, setInventory}) {
 
     const handleSetInventory = (e) => {
-        //const input = e.target.value //item.inventory;
-        let input = 5;
+        let input = parseInt(item.inventory) 
+        if(input < 0 || isNaN(input)) {
+            input = 0;
+        } 
         try {
-
-            if(input < 0 || isNaN(input)) {
-                setInventory(item.name, 0);
-            } else {
-                setInventory(item.name, item.inventory); //what value do you want here for item.inventory?
+                setInventory(item.name, input); 
                 const reqInfo = {...item, inventory: input}
                 fetch("http://localhost:9999/.netlify/functions/menu",
                     {
@@ -35,7 +33,7 @@ export default function({item, index, setInventory}) {
                         console.error(error);
                     });
             
-        }} catch(e) {
+        } catch(e) {
             console.log(e)
         }
     }

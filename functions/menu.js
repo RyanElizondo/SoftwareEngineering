@@ -28,16 +28,16 @@ exports.handler = async (event, context) => { //handler function
             bodyMessage = JSON.stringify(menuArray, null, 2)
             break;
         }    
-        case 'PUT':{ //updates menu item
+        case 'PUT':{ //updates menu item inventory
             const menuItem = JSON.parse(event.body); 
-            updateMenuItem({name: menuItem.name}, {inventory: menuItem.inventory}); //TODO check if query by name works
+            updateMenuItem({name: menuItem.name}, {inventory: menuItem.inventory});
        
             bodyMessage = JSON.stringify(`Menu item Updated`);
             break;
         }       
         case 'DELETE':{ //deletes menu item
             const menuItem = JSON.parse(event.body);
-            deleteMenuItem(menuItem.data.object.name); //delete menu TODO check if id is value JSON object
+            deleteMenuItem({name: menuItem.name}); 
     
             bodyMessage = JSON.stringify("Order Deleted");
             break;
