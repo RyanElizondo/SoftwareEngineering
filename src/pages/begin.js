@@ -13,7 +13,7 @@ const Begin = () => {
     if (status === 'authenticated') {
         return (
             <div className= "welcome-page">
-                <pc className = "welcome-user">Welcome, {data.user.name}</pc>
+                <p className = "welcome-user">Welcome, {data.user.name}</p>
                 <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
                 <Link href="/menu" className="login-link2">Continue to Menu</Link>
             </div>

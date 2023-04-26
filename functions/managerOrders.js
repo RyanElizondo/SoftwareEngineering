@@ -72,6 +72,9 @@ exports.handler = async (event, context) => { //handler function
     
     return {
         statusCode: status,
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: bodyMessage
     }
 }

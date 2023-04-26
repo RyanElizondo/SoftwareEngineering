@@ -17,6 +17,9 @@ const authOptions = {
             return session;
         },
         async signIn({ user }) {
+            console.log("running sign in callback")
+            console.log(user);
+            console.log(typeof user);
             await fetch("http://localhost:9999/.netlify/functions/customer", {
                 method: "PUT",
                 body: JSON.stringify(user)

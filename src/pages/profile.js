@@ -9,6 +9,34 @@ function Profile({ user }) {
 
     //const { email, name, pastOrders, points } = user;
 
+    const renderPastOrder = () => {
+        return (
+            <>
+                {<h2 className="past-orders">Past Orders</h2>}
+                {/*TODO fetch past orders. pastOrders.map((order, index) => (
+                        <div key={index} className= "order-pasts">
+                        <div></div>
+                        <div>Order ID: {order.orderID}</div>
+                        <div>Order Date: {order.localeDate}</div>
+                        <div>Order Total: {order.TotalCost}</div>
+                        <div>Total Items: {order.items.reduce((total, item) => total + item.itemQuantity, 0)}</div>
+                        <div>
+                        Items:
+                    {order.items.map((item, index) => (
+                        <div key={index}>
+                        <div>Item Name: {item.itemName}</div>
+                        <div>Item Quantity: {item.itemQuantity}</div>
+                        <div>Customization: {item.customization}</div>
+                        </div>
+                        ))}
+                        </div>
+                        </div>
+                        ))}
+                    {pastOrders.length === 0 && <div>No past orders found.</div>}*/}
+            </>
+        )
+    }
+
     const generateProfilePage = (user) => {
         const {name, email} = session.user;
         console.log(session);
@@ -21,29 +49,8 @@ function Profile({ user }) {
 
                     <label>Name:</label> {name}
 
-                    <label> Points:{/*TODO ADD points*/} </label>
+                    <label> Points:{ user !== null && user?.points !== undefined || user?.points !== null ? user.points : 0 /*TODO ADD points*/} </label>
                 </div>
-                {<h2 className="past-orders">Past Orders</h2>}
-                {/*TODO fetch past orders. pastOrders.map((order, index) => (
-                    <div key={index} className= "order-pasts">
-                    <div></div>
-                    <div>Order ID: {order.orderID}</div>
-                    <div>Order Date: {order.localeDate}</div>
-                    <div>Order Total: {order.TotalCost}</div>
-                    <div>Total Items: {order.items.reduce((total, item) => total + item.itemQuantity, 0)}</div>
-                    <div>
-                    Items:
-                {order.items.map((item, index) => (
-                    <div key={index}>
-                    <div>Item Name: {item.itemName}</div>
-                    <div>Item Quantity: {item.itemQuantity}</div>
-                    <div>Customization: {item.customization}</div>
-                    </div>
-                    ))}
-                    </div>
-                    </div>
-                    ))}
-                {pastOrders.length === 0 && <div>No past orders found.</div>}*/}
             </div>
         );
     }
@@ -80,7 +87,7 @@ export async function getServerSideProps(context) {
     const user = JSON.parse(JSON.stringify(userUnformatted));*/
 
     const user = await loadUser(session.user.userID);
-
+    console.log(user);
     return { props: { user }  };
 }
 
