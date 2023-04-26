@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import {useSession, signIn, signOut} from 'next-auth/react';
-import { Yanone_Kaffeesatz } from 'next/font/google'
+import { Yanone_Kaffeesatz } from '@next/font/google'
 
 const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
@@ -13,7 +13,7 @@ const Begin = () => {
     if (status === 'authenticated') {
         return (
             <div className= "welcome-page">
-                <pc className = "welcome-user">Welcome, {data.user.name}</pc>
+                <p className = "welcome-user">Welcome, {data.user.name}</p>
                 <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
                 <Link href="/menu" className="login-link2">Continue to Menu</Link>
             </div>

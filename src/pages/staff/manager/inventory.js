@@ -5,13 +5,21 @@ import CreateMenuItem from "@/components/CreateMenuItem"
 
 const InventoryManagement = ( {menu} ) => {
     const [items, setItems] = useState(menu);
+    //console.log("ITEMS");
+    //console.log(items);
 
     const setInventory = (itemName, amount) => {
-        const newItems = [...items];
-        const item = newItems.find((item) => item.name === itemName);
+        console.log("received set inventory");
+
+        const item = items.find((item) => item.name === itemName);
         if (item) {
-            item.inventory = amount;
-            setItems(newItems);
+            const newItem = {...item, inventory: amount}
+            console.log(newItem);
+            const newItemsArray = items.map( item => {
+                if(item.name === itemName) return newItem;
+                else return item
+            })
+            setItems(newItemsArray);
         }
     };
 
@@ -27,7 +35,7 @@ const InventoryManagement = ( {menu} ) => {
                         <p className="item-inventory-inventory inventory-detail">Inventory</p>
                         <p className="item-inventory-filler"></p>
                     </li>
-                    { menu.map((item, i) =>  <InventoryItem item={item} index={i} setInventory={setInventory}/>)  }
+                    { items.map((item, i) =>  <InventoryItem item={item} index={i} setInventory={setInventory}/>)  }
                 </ul>
             </div>
             <div className="manager-functions-holder">

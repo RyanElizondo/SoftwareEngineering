@@ -3,6 +3,7 @@ import UserOrderItemsList from "@/components/UserOrderItemsList";
 import Link from "next/link";
 import Head from "next/head";
 import {useRouter} from "next/router";
+import { sendContactForm } from "../lib/send-email";
 
 /**
  * Landing page after user successfully places an order.
@@ -49,8 +50,8 @@ export default function orderConfirmation( {userOrder} ) {
 export async function getServerSideProps(context) {
 
     const clientSecret = context.query.payment_intent_client_secret;
-
     //Get user order from MongoDB based on query params
     const userOrder = await loadUserOrder(clientSecret)
+    sendContactForm(clientSecret.firstName,clientSecret.TotalCost);
     return { props: { userOrder } }
 }

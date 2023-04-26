@@ -12,11 +12,27 @@ const authOptions = {
         strategy: 'jwt'
     },*/
     callbacks: {
-        
         async session({session, token}) {
-            console.log(session)
             session.user.userID = token.sub;
             return session;
+        },
+        async signIn({ user }) {
+            console.log("running sign in callback")
+            console.log(user);
+            console.log(typeof user);
+            await fetch("http://localhost:9999/.netlify/functions/customer", {
+                method: "PUT",
+                body: JSON.stringify(user)
+            })
+                .then((response) => response.json())
+                .then(data => {
+                    console.log(data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            return true
+
         }
     }
 };

@@ -26,8 +26,11 @@ exports.handler = async (event, context) => { //handler function
             break;
         }    
         case 'PUT':{ //update customer account data
-            const updates = JSON.parse(event.body); 
-            updateUser(updates.data.object.userID, updates); //TODO check if this is passed a valid id JSON object
+            console.log("received PUT in /customer")
+            const updates = JSON.parse(event.body);
+            console.log("updates: ")
+            console.log(updates);
+            await updateUser(updates.id, updates); //TODO check if this is passed a valid id JSON object
 
             bodyMessage= JSON.stringify("User Updated");
             break;
@@ -42,7 +45,7 @@ exports.handler = async (event, context) => { //handler function
             return {
                 statusCode: 200,
                 headers: {
-                    'Access-Control-Allow-Origin': 'https://expressocafeweb.netlify.app/',
+                    'Access-Control-Allow-Origin': `${process.env.BASE_URL}`,
                     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Access-Control-Max-Age': '86400' // 24 hours
@@ -59,6 +62,9 @@ exports.handler = async (event, context) => { //handler function
     
     return {
         statusCode: status,
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: bodyMessage
     }
 }

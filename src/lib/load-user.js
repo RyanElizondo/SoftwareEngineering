@@ -9,11 +9,10 @@ export async function loadUser(userSession) {
         try{ //load user acc
             openMongoConnection();
 
-            const user = readUser(userSession);
-            
+            const user = await readUser(userSession);
             //closeMongoConnection();
     
-            return JSON.parse(await user);
+            return user;
         } catch(e){
             console.error(e)
             //Find the absolute path of the json directory

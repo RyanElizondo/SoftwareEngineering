@@ -1,17 +1,16 @@
-
-
+/**
+ * Renders a
+ * @param customizationState
+ * @param updateHandler
+ * @returns {JSX.Element|*}
+ * @constructor
+ */
 export default function CreateCustomizationOptions({customizationState, updateHandler}) {
-
-    console.log("customization state: ");
-    console.log(customizationState);
 
     const onAddNewOption = () => {
         if(customizationState.type === "Boolean" || customizationState.type === "Number") return;
         //customizationState.options.push(optionValue)
-        console.log("Adding new option");
         updateHandler("options", [...customizationState.options, `Option #${customizationState.options.length+1} Name`])
-        console.log("OPTIONS UPDATE: ");
-        console.log(customizationState);
     }
 
     const onRemoveOption = () => {
@@ -28,8 +27,6 @@ export default function CreateCustomizationOptions({customizationState, updateHa
             else if(value === "true") value = true;
         }
         const newCustom = {...customizationState, [optionName]: value}
-        console.log("received NEW OPTION: " + optionName + " with value " + value )
-        console.log(newCustom);
         updateHandler("options", value);
     }
 
@@ -56,6 +53,7 @@ export default function CreateCustomizationOptions({customizationState, updateHa
                             key={i}
                             value={customizationState.options[i]}
                             onChange={(e) => handleOptionArrayChange(e.target.value, i) }
+                            placeholder={`Option #${i}`}
                         />
                     ))}
                 </ul>
@@ -76,7 +74,11 @@ export default function CreateCustomizationOptions({customizationState, updateHa
             <div className="options-holder" id="boolean">
                 <label className="customization-input">
                     Default value
-                    <input type="checkbox" value={customizationState.options} onChange={(e) => handleChange("options", e.target.checked)}/>
+                    <input
+                        type="checkbox"
+                        value={customizationState.options}
+                        onChange={(e) => handleChange("options", e.target.checked)}
+                    />
                 </label>
             </div>
         )
@@ -87,11 +89,21 @@ export default function CreateCustomizationOptions({customizationState, updateHa
             <div className="options-holder" id="number">
                 <label className="customization-input">
                     Min:
-                    <input type="number" value={customizationState.options.min} min="0" onChange={(e) => handleNumberChange(true, e.target.value)} />
+                    <input
+                        type="number"
+                        value={customizationState.options.min}
+                        min="0"
+                        onChange={(e) => handleNumberChange(true, e.target.value)}
+                    />
                 </label>
                 <label className="customization-input">
                     Max:
-                    <input type="number" value={customizationState.options.max} min="0" onChange={(e) => handleNumberChange(false, e.target.value)}/>
+                    <input
+                        type="number"
+                        value={customizationState.options.max}
+                        min="0"
+                        onChange={(e) => handleNumberChange(false, e.target.value)}
+                    />
                 </label>
             </div>
         )

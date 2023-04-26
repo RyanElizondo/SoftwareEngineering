@@ -2,7 +2,7 @@ const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb'); //mongodb
 let uri = process.env.mongoURI; 
 let OPTIONS = {
     appname: "netlify",
-    maxIdleTimeMS: 300000,
+    maxIdleTimeMS: 1800000,
     maxPoolSize: 50,
     maxConnecting: 5,
     serverApi: {
@@ -156,13 +156,17 @@ async function readOrders(query){
  * @param {object} JSON object for updates
  * @return nothing, if you want to check if updates went through, use R operation
  */
-async function updateUser(query, updatesToBeMade){ 
+async function updateUser(userID, updatesToBeMade){
     try{
-
-        await _db.collection('Users').updateOne(query, {$set: updatesToBeMade});
+        delete updatesToBeMade.id
+        await _db.collection('Users').updateOne({_id: userID}, {$set: updatesToBeMade}, {
+            upsert: true
+        });
         console.log(`Updated user!`);
 
     } catch(e){
+        console.log("error");
+        console.log(e);
         console.log("ERROR: Could not update user, check if they exist first");
     }
 }
@@ -381,7 +385,8 @@ async function successfulStripe(stripeClientSecret, orderTotal){
  */
 async function unsuccessfulStripe(stripeClientSecret){
 
-    await updateOrder(stripeClientSecret, {paymentStatus: "Card Declined"});
+    //await updateOrder(stripeClientSecret, {paymentStatus: "Card Declined"});
+    await deleteOrder(stripeClientSecret);
     
 }
 

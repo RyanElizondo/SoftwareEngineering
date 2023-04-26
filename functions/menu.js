@@ -29,7 +29,7 @@ exports.handler = async (event, context) => { //handler function
         }    
         case 'PUT':{ //updates menu item
             const menuItem = JSON.parse(event.body);
-            updateMenuItem(menuItem.data.object.name, menuItem); //TODO check if query by name works
+            updateMenuItem(menuItem.data.object.name, menuItem.updates); //TODO check if query by name works
 
             bodyMessage = JSON.stringify(`Menu item Updated`);
             break;
@@ -45,7 +45,7 @@ exports.handler = async (event, context) => { //handler function
             return {
                 statusCode: 200,
                 headers: {
-                    'Access-Control-Allow-Origin': 'https://expressocafeweb.netlify.app/',
+                    'Access-Control-Allow-Origin': `${process.env.BASE_URL}`,
                     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Access-Control-Max-Age': '86400' // 24 hours

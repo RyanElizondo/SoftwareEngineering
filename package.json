@@ -25,5 +25,8 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "stripe": "^11.18.0"
+  },
+  "devDependencies": {
+    "typescript": "5.0.4"
   }
 }

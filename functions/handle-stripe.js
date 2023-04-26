@@ -6,16 +6,8 @@ openMongoConnection();
 exports.handler = async (event, context) => {
     
     const body = event.body;
-    //if(event.httpMethod === "POST") {
 
         try {
-
-            // check the webhook to make sure it’s valid
-            /*const stripeEvent = stripe.webhooks.constructEvent(
-                body,
-                event.headers['stripe-signature'],
-                process.env.STRIPE_WEBHOOK_SECRET
-            );*/
 
             const stripeEvent = event;
             const bodyObj = JSON.parse(body);
@@ -29,16 +21,18 @@ exports.handler = async (event, context) => {
 
                     //TODO send email to customer that order is received.
 
-                    //TODO update user's points and order history after successful payment using Mongo functions to update Users collection
+                    //update user's points and order history after successful payment using Mongo functions to update Users collection
+                    //TODO TEST this call
                     await addPoints(clientSecret, amount); //update order status
-                    //TODO update menu database using Mongo functions to update Menu collection
+
+                    //update menu database using Mongo functions to update Menu collection
+                    //TODO TEST this call
                     await removeInventory(clientSecret, amount); //update order status
+
                     break;
                 case 'payment_intent.payment_failed':
                     // unexpected event AKA fail payment
                     await unsuccessfulStripe(clientSecret);
-
-                    //TODO send email to customer that order is received.
 
                     break;
                 default:
@@ -57,15 +51,5 @@ exports.handler = async (event, context) => {
                 body: `Webhook Error: ${err.message}`,
             };
         }
-
-    /*} else {
-        return {
-            statusCode: 405,
-            headers: {
-                "Allow": "POST"
-            },
-            body: JSON.stringify({ message: 'Method Not Allowed' }),
-        }
-    }*/
 
 };
