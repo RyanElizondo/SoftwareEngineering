@@ -78,7 +78,6 @@ export default function createMenuItem() {
         const newCustoms = newItem.customizations.map( (custom, i) =>
             index === i ? customization : custom
         )
-        console.log({...newItem, "customizations": newCustoms})
         setNewItem({...newItem, "customizations": newCustoms})
     }
 
@@ -94,10 +93,10 @@ export default function createMenuItem() {
     const submitMenuItem = async () => {
         //TODO check robustness of verifyItem function
         //console.log("verifying new menu item");
-        //if(!verifyItem(newItem)) {
-        //    console.log("failed check");
-        //    return;
-       // }
+        if(!verifyItem(newItem)) {
+            console.log("failed check");
+            return;
+        }
 
         //let correction = JSON.stringify({
         //    name: newItem.name,
@@ -111,10 +110,12 @@ export default function createMenuItem() {
         
         //otherwise: add to menu
         //TODO JSON PASSED IS INCORRECT CAUSE newItem has the lines ending in ; and not , so not a valid JSON
+        console.log("Calling POST method on /menu");
+        console.log(newItem);
         await fetch('http://localhost:9999/.netlify/functions/menu',
             {
                 method: "POST",
-                body: JSON.stringify(correction,null,2),
+                body: JSON.stringify(newItem),
                 headers: {
                     "Content-Type": "application/json"
                 }

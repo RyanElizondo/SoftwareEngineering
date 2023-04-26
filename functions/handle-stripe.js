@@ -17,17 +17,11 @@ exports.handler = async (event, context) => {
                 case 'payment_intent.succeeded':
 
                     console.log("calling successful stripe")
+                    console.log("STRIPE BODY");
+                    console.log(bodyObj)
                     await successfulStripe(clientSecret,amount); //TODO check if sending valid clientSecret
 
                     //TODO send email to customer that order is received.
-
-                    //update user's points and order history after successful payment using Mongo functions to update Users collection
-                    //TODO TEST this call
-                    await addPoints(clientSecret, amount); //update order status
-
-                    //update menu database using Mongo functions to update Menu collection
-                    //TODO TEST this call
-                    await removeInventory(clientSecret, amount); //update order status
 
                     break;
                 case 'payment_intent.payment_failed':

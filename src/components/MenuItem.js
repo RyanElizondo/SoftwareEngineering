@@ -35,16 +35,16 @@ export default function MenuItem( {name, customizations, price, inventory} ){
         for(let i = 0; i < customizations.length; i++) {
             const custom = customizations[i];
             let state = {};
-            if(custom.type === "checkbox") {
+            if(custom.type.toLowerCase() === "checkbox") {
                 //convert options array to state object
                 custom.options.forEach( option => {
                     state[option] = false
                 })
-            } else if(custom.type === "radiobutton") {
+            } else if(custom.type === "radiobutton" || custom.type === "Radio button") {
                 state = custom.options[0];
-            } else if(custom.type==="boolean") {
+            } else if(custom.type.toLowerCase()==="boolean") {
                 state = custom.options;
-            } else if(custom.type==="number") {
+            } else if(custom.type.toLowerCase()==="number") {
                 state = custom.options.min;
             }
             initialCustomState = {...initialCustomState, [custom.name]: state}
@@ -79,14 +79,14 @@ export default function MenuItem( {name, customizations, price, inventory} ){
     const updateCustomState = (type, customName, value) => {
 
         let finalVal = value;
-        if(type==="boolean") finalVal = !customState[customName];
+        if(type.toLowerCase()==="boolean") finalVal = !customState[customName];
 
-        else if(type==="checkbox") {
+        else if(type.toLowerCase()==="checkbox") {
             const checkboxGroup = customState[customName];
             checkboxGroup[value] = !checkboxGroup[value];
             finalVal = checkboxGroup;
 
-        } else if(type==="radiobutton" && typeof price==="object") {
+        } else if((type==="radiobutton" || type === "Radio button") && typeof price==="object") {
             //update price if price is dependent on a customization
             if(typeof price === "object") {
                 const dependent = price.dependent;

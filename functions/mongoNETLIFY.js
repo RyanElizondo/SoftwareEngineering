@@ -75,7 +75,12 @@ async function createUser(userJsonObject){
  */
 async function createMenuItem(menuJsonObject){
     try{
-        let insertedMenu = await _db.collection('Menu').insertOne(menuJsonObject);
+        //convert price and inventory to numbers from strings
+        const withNumbers = {...menuJsonObject,
+            price: parseInt(menuJsonObject.price),
+            inventory: parseInt(menuJsonObject.inventory)
+        }
+        let insertedMenu = await _db.collection('Menu').insertOne(withNumbers);
         console.log(`Successfully created menu item!`); 
 
         return  insertedMenu.insertedId;

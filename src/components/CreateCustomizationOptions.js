@@ -10,7 +10,7 @@ export default function CreateCustomizationOptions({customizationState, updateHa
     const onAddNewOption = () => {
         if(customizationState.type === "Boolean" || customizationState.type === "Number") return;
         //customizationState.options.push(optionValue)
-        updateHandler("options", [...customizationState.options, `Option #${customizationState.options.length+1} Name`])
+        updateHandler("options", [...customizationState.options, ""])
     }
 
     const onRemoveOption = () => {

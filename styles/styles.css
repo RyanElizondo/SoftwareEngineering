@@ -343,6 +343,10 @@ a.return-button.grow {
   background-color: rgb(75, 67, 52);
 }
 
+.menu-holder {
+  margin-bottom: 8vh;
+}
+
 .submenu-holder {
   display: block;
   width: auto;
@@ -401,6 +405,9 @@ h5.menu-item-title {
   margin: 2vmin 0;
   width: 100%;
   max-width: 60vmax;
+  white-space: pre-wrap;
+  padding: 0 0 0.5vh 0;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.21);
 }
 
 h6{
@@ -481,6 +488,13 @@ h5.order-item-customization {
   background-color: rgba(0, 0, 0, 0.4);
   padding: 4vmin;
   border-radius: 1vmin;
+}
+
+.confirm-order-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5vmin;
 }
 
 .grow { transition: all .2s ease-in-out; }

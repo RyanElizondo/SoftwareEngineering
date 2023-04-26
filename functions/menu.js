@@ -13,8 +13,11 @@ exports.handler = async (event, context) => { //handler function
     let bodyMessage;
    
     switch(event.httpMethod){
-        case 'POST':{ //adds menu item to the menu 
-            const addMenuItem = await createMenuItem();
+        case 'POST':{ //adds menu item to the menu
+            console.log("Received menu POST method");
+            const newItem = JSON.parse(event.body);
+            console.log(newItem);
+            const addMenuItem = await createMenuItem(newItem);
             bodyMessage = JSON.stringify(addMenuItem)       
             break;
         }

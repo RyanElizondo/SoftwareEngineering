@@ -13,7 +13,7 @@ import CheckboxGroup from "../components/CheckboxGroup";
 export default function MenuItemCustomization( {itemName, name, type, options, updateHandler, customState}) {
 
     const handleOptionChange = (event) => {
-        if(type === "checkbox") {
+        if(type.toLowerCase() === "checkbox") {
             updateHandler(type, name, event.target.id);
         } else {
             updateHandler(type, name, event.target.value);
@@ -21,7 +21,7 @@ export default function MenuItemCustomization( {itemName, name, type, options, u
     }
 
     const generateInputType = (name, type, options) => {
-        if(type === 'boolean') {
+        if(type.toLowerCase() === 'boolean') {
             return (
                 <label className="boolean-label">
                     {`${name}:`}
@@ -33,7 +33,7 @@ export default function MenuItemCustomization( {itemName, name, type, options, u
                     />
                 </label>
             )
-        } else if(type === 'radiobutton') {
+        } else if(type === 'radiobutton' || type === 'Radio button') {
             return (
                 <div className='radiobutton-holder'>
                     <h6>{`${name}: `}</h6>
@@ -46,7 +46,7 @@ export default function MenuItemCustomization( {itemName, name, type, options, u
                     />
                 </div>
             )
-        } else if(type === 'checkbox') {
+        } else if(type.toLowerCase() === 'checkbox' || type === "Checkbox") {
             //Generate a checkbox
             return (
                 <div className='checkboxgroup-holder'>
@@ -60,7 +60,7 @@ export default function MenuItemCustomization( {itemName, name, type, options, u
                 </div>
             )
 
-        } else if(type === 'number') {
+        } else if(type.toLowerCase() === 'number') {
             return (
                 <div className="number-input-holder">
                     <h6>{`${name}: `}</h6>

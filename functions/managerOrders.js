@@ -12,13 +12,11 @@ exports.handler = async (event, context) => { //handler function
 
     let status = 200;
     let bodyMessage;
-
-    console.log(event.body);
     
     switch(event.httpMethod){
         case 'POST':{ //add order
             const orderData = JSON.parse(event.body);
-            const addedOrder = await createOrder(orderData.data.object._id);
+            const addedOrder = await createOrder(orderData);
             
             bodyMessage = JSON.stringify(`Customer added with ID: ${addedOrder}`); //TODO check if I can just use the event.body._id instead, so we dont have to await for createOrder
             break;

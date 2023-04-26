@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { openMongoConnection, getMenuFromMongo} from './mongoNEXT';
+import {openMongoConnection, getMenuFromMongo, closeMongoConnection} from './mongoNEXT';
 
 /**
  * Builds menu object with submenu lists for frontend to build menu
@@ -13,22 +13,31 @@ const buildFrontendMenus = (mongomenu) => {
     let bakeryItems = [];
     let beverageItems = [];
 
+    let submenus = {}
+
     //iterate through mongo menu and create deep copies for server and customer menu
     for(let i = 0; i < mongomenu.length; i++) {
-        var customerMenuItem = mongomenu[i];
+        const customerMenuItem = mongomenu[i];
         delete customerMenuItem._id;
 
-        if(customerMenuItem.submenu === "Sandwiches") {
+        /*if(customerMenuItem.submenu === "Sandwiches") {
             sandwichItems.push(customerMenuItem);
         } else if(customerMenuItem.submenu === "Bakery") {
             bakeryItems.push(customerMenuItem);
         } else if(customerMenuItem.submenu === "Beverages") {
             beverageItems.push(customerMenuItem);
+        }*/
+
+        const submenu = customerMenuItem.submenu;
+        if(!submenus[submenu]) {
+            submenus[submenu] = [];
         }
+        submenus[submenu].push(customerMenuItem);
+
     }
 
     //build menus
-    const customerMenu = {
+    /*const customerMenu = {
         "submenus": [
             {
                 "name": "Sandwiches",
@@ -43,6 +52,15 @@ const buildFrontendMenus = (mongomenu) => {
                 "items": beverageItems
             }
         ]
+    }*/
+
+    // convert submenus object to an array of submenu objects
+    const submenuArray = Object.keys(submenus).map(submenuName => {
+        return { name: submenuName, items: submenus[submenuName] };
+    });
+
+    const customerMenu = {
+        submenus: submenuArray
     }
   
     return customerMenu    
@@ -52,7 +70,7 @@ const buildFrontendMenus = (mongomenu) => {
 export async function loadMenu() {
 
     try{
-        openMongoConnection();
+        await openMongoConnection();
 
         const mongoMenu = getMenuFromMongo()
         const customerMenu = buildFrontendMenus(JSON.parse(await mongoMenu));
@@ -73,5 +91,7 @@ export async function loadMenu() {
 
         //Return the content of the data file in json format
         return JSON.parse(fileContents);
+    } finally {
+        //await closeMongoConnection();
     }
 }
