@@ -1,7 +1,7 @@
 import {useState} from "react";
 import { useRouter } from 'next/router';
 import Head from "next/head";
-import { Yanone_Kaffeesatz } from 'next/font/google'
+import { Yanone_Kaffeesatz } from '@next/font/google'
 
 const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
