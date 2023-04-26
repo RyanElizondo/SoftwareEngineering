@@ -1,8 +1,9 @@
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import url from 'url';
 
-const authOptions = {
+const customerAuthOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -16,7 +17,38 @@ const authOptions = {
                     role: 'customer'
                 }
             }
-        }),
+        })
+    ],
+    callbacks: {
+        async session({session, token}) {
+            session.user.userID = token.sub;
+            session.user.role = token.role;
+            return session;
+        },
+        async signIn({ user }) {
+            await fetch("http://localhost:9999/.netlify/functions/customer", {
+                method: "PUT",
+                body: JSON.stringify(user)
+            })
+                .then((response) => response.json())
+                .then(data => {
+                    console.log(data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            return true
+
+        },
+        async jwt({token, user}) {
+            if(user) token.role = user.role;
+            return token;
+        }
+    }
+};
+
+const staffAuthOptions = {
+    providers: [
         CredentialsProvider({
             id: 'manager-login',
             name: 'Manager Login',
@@ -57,18 +89,8 @@ const authOptions = {
             return session;
         },
         async signIn({ user }) {
-            await fetch("http://localhost:9999/.netlify/functions/customer", {
-                method: "PUT",
-                body: JSON.stringify(user)
-            })
-                .then((response) => response.json())
-                .then(data => {
-                    console.log(data)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-            return true
+            console.log("Staff signed in user: ");
+            console.log(user);
 
         },
         async jwt({token, user}) {
@@ -77,4 +99,17 @@ const authOptions = {
         }
     }
 };
-export default (req, res) => NextAuth(req, res, authOptions);
+
+export default (req, res) => {
+    const referringUrl = req.headers.referer;
+    const referringUrlObj = url.parse(referringUrl);
+    const referringPath = referringUrlObj.pathname;
+    console.log("PATH!");
+    console.log(referringPath);
+    if(referringPath === '/staff/login') {
+        NextAuth(req, res, staffAuthOptions);
+    } else {
+        NextAuth(req, res, customerAuthOptions);
+    }
+
+};
