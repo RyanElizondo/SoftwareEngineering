@@ -93,23 +93,32 @@ export default function createMenuItem() {
 
     const submitMenuItem = async () => {
         //TODO check robustness of verifyItem function
-        console.log("verifying new menu item");
-        if(!verifyItem(newItem)) {
-            console.log("failed check");
-            return;
-        }
+        //console.log("verifying new menu item");
+        //if(!verifyItem(newItem)) {
+        //    console.log("failed check");
+        //    return;
+       // }
 
-        console.log("Calling Netlify /menu to create new menu item with POST request");
-        console.log(newItem);
+        //let correction = JSON.stringify({
+        //    name: newItem.name,
+        //    submenu: newItem.submenu,
+        //    customizations: newItem.customizations,
+        //    price: parseInt(newItem.price),
+        //    inventory: parseInt(newItem.inventory), 
+            
+        //},null,2);
+        
+        
         //otherwise: add to menu
-        //TODO Test this server call and see if Netlify updates MongoDB correctly
+        //TODO JSON PASSED IS INCORRECT CAUSE newItem has the lines ending in ; and not , so not a valid JSON
         await fetch('http://localhost:9999/.netlify/functions/menu',
             {
                 method: "POST",
+                body: JSON.stringify(correction,null,2),
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify(newItem)
+                }
+                
             }
         ).then(response => response.json())
             .then(data => {
