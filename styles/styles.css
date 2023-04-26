@@ -129,6 +129,7 @@ div.page {
   width: 60vw;
   margin: 2vmin;
   transition: all 0.3s;
+  background-color: white;
   font-size: 20px;
   text-decoration: #996633;
   font-family:"Arial Black";

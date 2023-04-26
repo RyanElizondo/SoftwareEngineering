@@ -5,8 +5,8 @@ import CreateMenuItem from "@/components/CreateMenuItem"
 
 const InventoryManagement = ( {menu} ) => {
     const [items, setItems] = useState(menu);
-    console.log("ITEMS");
-    console.log(items);
+    //console.log("ITEMS");
+    //console.log(items);
 
     const setInventory = (itemName, amount) => {
         console.log("received set inventory");
