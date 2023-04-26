@@ -141,7 +141,7 @@ export default function MenuItem( {name, customizations, price, inventory} ){
             <button onClick={handleAddItem}>
                 {`Add to order $${priceState * quantity}`}
             </button>
-            <h6 className="menu-item-inventory">{`${inventory} in stock`}</h6>
+            
         </div>
     )
 }

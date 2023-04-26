@@ -2,9 +2,9 @@ const { MongoClient, ServerApiVersion} = require('mongodb'); //mongodb package
 let uri = process.env.mongoURI; 
 let OPTIONS = {
     appname: "Next.js",
-    maxIdleTimeMS: 300000,
-    maxPoolSize: 30,
-    maxConnecting: 5,
+    maxIdleTimeMS: 1800000,
+    //maxPoolSize: 30,
+    //maxConnecting: 5,
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,
@@ -76,6 +76,7 @@ async function getMenuFromMongo() {
         let menuItemsArray = _db.collection('Menu').find({}).toArray(); 
 
         let jsonMenu = JSON.stringify(await menuItemsArray);
+        //console.log(jsonMenu)
         return jsonMenu;
 
     } catch(e){
