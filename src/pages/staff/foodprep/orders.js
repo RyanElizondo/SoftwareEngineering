@@ -21,26 +21,15 @@ import { useSession } from 'next-auth/react';
 const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
 export default function orders({orders}) {
-
-    const {data, status} = useSession();
-    console.log(data);
-    if (data?.user.role === "customer") {
-        return <p>Access Denied</p>
-    }
-
-    if (status !== "authenticated") {
-        return <p>Access Denied</p>
-    }
-
-    //console.log(orders[0]);
-
-    const dispatch = useDispatch();
-
-    const [channel, setChannel] = useState(null);
+    console.log("ORDERS:");
+    console.log(orders);
 
     const receivedOrders = useSelector(selectReceivedOrders);
     const preparedOrders = useSelector(selectPreparingOrders);
     const readyOrders = useSelector(selectReadyOrders);
+    const dispatch = useDispatch();
+    const [channel, setChannel] = useState(null);
+    const {data, status} = useSession();
 
     //Connect foodprep orders to websocket for client-server communication on orders.
     useEffect(() => {
@@ -48,12 +37,12 @@ export default function orders({orders}) {
         const ably = configureAbly({ authUrl: 'https://expressocafeweb.netlify.app/.netlify/functions/ably-token-request'/*key: process.env.ABLY_API_KEY*/ }/*{ authUrl: '/api/authentication/token-auth' }*/)
 
         ably.connection.on((stateChange) => {
-            console.log(stateChange)
+            //console.log(stateChange)
         })
 
-        console.log("setting channel to foodprep-orders");
+        //console.log("setting channel to foodprep-orders");
         const _channel = ably.channels.get('foodprep-orders')
-        console.log(_channel);
+        //console.log(_channel);
         _channel.subscribe((message) => {
             console.log("received message on foodprep: ");
             console.log(message);
@@ -71,6 +60,22 @@ export default function orders({orders}) {
             _channel.unsubscribe()
         }
     }, [])
+
+    if (data?.user.role === "customer") {
+        return (
+            <div>
+                <p>Access Denied</p>
+            </div>
+        )
+    }
+
+    if (status !== "authenticated") {
+        return (
+            <div>
+                <p>Access Denied</p>
+            </div>
+        )
+    }
 
     return (
         <>

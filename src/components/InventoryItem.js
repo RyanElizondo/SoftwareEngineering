@@ -7,21 +7,25 @@ const priceObjString = (priceObj) => {
 export default function({item, index, setInventory}) {
 
     const handleSetInventory = (e) => {
-        //let input = e.target.value;
-        let input =3; //testing value
-
-        if(input < 0 || isNaN(input)) {
-            input = 0
-        }
-        
+        const input = item.inventory;
+        console.log("setting inventory received ")
+        console.log(input);
         try {
-                
-                setInventory(item.name, input);
-                const reqInfo =  {...item, inventory: input};
+            const inputNum = parseInt(input);
+            if(inputNum < 0 || isNaN(inputNum)) {
+                setInventory(item.name, 0);
+                //return;
+            } else {
+                console.log("line 18")
+                setInventory(item.name, item.inventory);
+                console.log(inputNum);
+                const reqInfo = {...item, inventory: inputNum}
+                console.log(reqInfo);
                 //TODO Test this server call and see if Netlify updates MongoDB correctly
                 //make call to server to update menu collection in MongoDB
-                //let body = JSON.stringify(reqInfo,null,2)
-                fetch(`http://localhost:9999/.netlify/functions/menu`,
+                console.log("making a call to netlify/functions/menu")
+                console.log(reqInfo)
+                fetch("http://localhost:9999/.netlify/functions/menu",
                     {
                         method: "PUT",
                         body: JSON.stringify(reqInfo,null,2),

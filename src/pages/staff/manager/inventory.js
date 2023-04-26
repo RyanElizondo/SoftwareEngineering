@@ -5,7 +5,7 @@ import CreateMenuItem from "@/components/CreateMenuItem"
 import { useSession } from 'next-auth/react'
 
 const InventoryManagement = ( {menu} ) => {
-
+    const [items, setItems] = useState(menu);
     const {data, status} = useSession();
 
     if (data?.user.role === "customer") {
@@ -20,7 +20,7 @@ const InventoryManagement = ( {menu} ) => {
         return <p>Access Denied</p>
     }
 
-    const [items, setItems] = useState(menu);
+
     //console.log("ITEMS");
     //console.log(items);
 
