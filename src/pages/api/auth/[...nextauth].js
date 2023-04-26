@@ -172,22 +172,16 @@ const allAuthOptions = {
 export default (req, res) => {
     try {
         const referringUrl = req.headers.referer;
-        console.log("REFERRER");
-        console.log(referringUrl);
         const referringUrlObj = url.parse(referringUrl);
         const referringPath = referringUrlObj.pathname;
-        console.log("PATH!");
-        console.log(referringPath);
         if(referringPath === '/staff/login') {
             NextAuth(req, res, staffAuthOptions);
         } else if(referringPath === '/begin') {
-            console.log('calling customerAuth');
             NextAuth(req, res, customerAuthOptions);
         } else {
             NextAuth(req, res, allAuthOptions);
         }
     } catch(e) {
-        console.log("RENDERING ALL AUTH OPTIONS");
         NextAuth(req, res, allAuthOptions);
     }
 

@@ -789,3 +789,11 @@ h5.order-item-customization {
 .staff-login2{
   margin-left:20vmin;
 }
+
+.order-directions {
+  background-color: white;
+  width: 60vw;
+  padding: 7vmin 5vmin;
+  margin: 5vmin 0;
+  border-radius: 4vmin;
+}

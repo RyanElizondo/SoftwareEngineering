@@ -5,14 +5,18 @@ const calculateOrderAmount = (items) => {
   // Replace this constant with a calculation of the order's amount
   // Calculate the order total on the server to prevent
   // people from directly manipulating the amount on the client
-  fetch ('https://expressocafe.netlify.app/functions/verifyOrderPrices')
+  /*fetch ('http://localhost:9999/.netlify/functions/verifyOrderPrices', {
+    method: "POST",
+    body: JSON.stringify(items)
+  })
     .then(response => response.json())
     .then(data => {
+      console.log("calculate order amount data");
         console.log(data)
     })
     .catch(error => {
         console.log(error)
-    })
+    })*/
 
 
   return ((items.reduce( (prev, curr) => prev + curr.price, 0) * 1.0625)).toFixed(2) * 100;

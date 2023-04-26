@@ -67,6 +67,17 @@ async function readUser(userID){
     }
 }
 
+async function readOrder(clientSecret) {
+    try {
+        const order = await _db.collection('Orders').findOne({_id: clientSecret});
+        console.log("Found order! Returning now");
+        return order;
+    } catch(e) {
+        console.log("ERROR: Could not find order");
+        console.log(clientSecret);
+    }
+}
+
 /** This gets the full menu for customer front end
  * @param nothing
  * @return {string} full menu as a JSON string to be parsed into an object for later
@@ -104,4 +115,10 @@ async function getPaidOrders() {
     }
 }
 
-module.exports = {openMongoConnection, closeMongoConnection, getPaidOrders, getMenuFromMongo, readUser}
+module.exports = {
+    openMongoConnection,
+    closeMongoConnection,
+    getPaidOrders,
+    getMenuFromMongo,
+    readUser,
+    readOrder}
