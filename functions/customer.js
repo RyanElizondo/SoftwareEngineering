@@ -10,6 +10,7 @@ exports.handler = async (event, context) => { //handler function
     switch(event.httpMethod){
         case 'POST':{ //adds customer account data to the database
             const customerData = JSON.parse(event.body);
+            delete customerData.image;
             const addedCustomer = await createUser(customerData);
             
             bodyMessage = JSON.stringify(`Customer added with ID: ${addedCustomer}`);
@@ -30,6 +31,7 @@ exports.handler = async (event, context) => { //handler function
             const updates = JSON.parse(event.body);
             console.log("updates: ")
             console.log(updates);
+            delete updates.image;
             await updateUser(updates.id, updates); //TODO check if this is passed a valid id JSON object
 
             bodyMessage= JSON.stringify("User Updated");
