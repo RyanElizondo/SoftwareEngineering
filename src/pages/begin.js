@@ -13,8 +13,8 @@ const Begin = () => {
         return (
             <div className= "welcome-page">
                 <p className = "welcome-user">Welcome, {data.user.name}</p>
-                <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
                 <Link href="/menu" className="login-link2">Continue to Menu</Link>
+                <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
             </div>  
         );
 
