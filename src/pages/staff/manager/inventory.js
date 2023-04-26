@@ -5,7 +5,7 @@ import CreateMenuItem from "@/components/CreateMenuItem"
 import { useSession } from 'next-auth/react'
 
 const InventoryManagement = ( {menu} ) => {
-
+    const [items, setItems] = useState(menu);
     const {data, status} = useSession();
 
     if (data?.user.role === "customer") {
@@ -20,15 +20,15 @@ const InventoryManagement = ( {menu} ) => {
         return <p>Access Denied</p>
     }
 
-    const [items, setItems] = useState(menu);
+
     //console.log("ITEMS");
     //console.log(items);
 
     const setInventory = (itemName, amount) => {
-        console.log("received set inventory");
+        //console.log("received set inventory");
 
         const item = items.find((item) => item.name === itemName);
-        if (item) {
+        if (!item) {//TODO i think this is for new items? i changed the if statement but I could be wrong
             const newItem = {...item, inventory: amount}
             console.log(newItem);
             const newItemsArray = items.map( item => {

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { editOrderStatus, removeOrder } from "@/features/foodprepOrders/foodprepOrdersSlice";
+import { editOrderStatus, removeOrder } from "../features/foodprepOrders/foodprepOrdersSlice";
 
 const getButtonName = (status) => {
     switch(status) {
@@ -66,7 +66,8 @@ export default function FoodprepOrder({orderList, channel}) {
                         <h2 className="foodprep-order-title" key={order._id + "1" + index}>Order</h2>
                         <p className="foodprep-order-status" key={order._id + "2" + index}>Status: {order.status}</p>
                         <h3 className="foodprep-order-date" key={order._id + "3" + index}>Date Received: {order.localeDate}</h3>
-                        <p className="foodprep-order-name" key={order._id + "4" + index}>First Name: {order.firstName}</p>
+                        {/*<p className="foodprep-order-name" key={order._id + "4" + index}>First
+                            Name: {order.firstName}</p>*/}
                         <ul className="foodprep-order-items-holder" key={order._id + "5"}>
                             {order.items.map((item, i) => (
                                 <li className="foodprep-order-item" key={item.itemName + i}>

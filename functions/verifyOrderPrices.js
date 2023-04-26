@@ -7,25 +7,27 @@ exports.handler = async (event, context) => { //handler function
     let bodyMessage;
 
     switch(event.httpMethod){
-        case 'GET':{ //get Item Prices
+        case 'POST':{ //get Item Prices
             const itemPriceArray = JSON.parse(event.body);
             const itemPrices = await getItemPrices(itemPriceArray);
-            bodyMessage = itemPrices;
+            bodyMessage = JSON.stringify(itemPrices);
             break;
             }
         case 'OPTIONS':{
             return {
                 statusCode: 200,
                 headers: {
-                    'Access-Control-Allow-Origin': `${process.env.BASE_URL}`,
+                    'Access-Control-Allow-Origin': "http://localhost:3000",
                     'Access-Control-Allow-Methods': 'GET, PUT',
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Access-Control-Max-Age': '86400' // 24 hours
-                },
-                body: ''
+                }
             }
         }
-
+            return {
+                statusCode: status,
+                body: bodyMessage
+            }
     }
 }
 

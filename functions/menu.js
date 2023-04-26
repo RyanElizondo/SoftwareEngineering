@@ -5,12 +5,13 @@ const { createMenuItem, readMenuItems, updateMenuItem, deleteMenuItem} = require
 const { openMongoConnection } = require('./mongoNETLIFY');
 
 
-openMongoConnection();
+
 
 exports.handler = async (event, context) => { //handler function
+    openMongoConnection();
     let status = 200;
     let bodyMessage;
-    
+   
     switch(event.httpMethod){
         case 'POST':{ //adds menu item to the menu 
             const addMenuItem = await createMenuItem();
@@ -28,9 +29,9 @@ exports.handler = async (event, context) => { //handler function
             break;
         }    
         case 'PUT':{ //updates menu item
-            const menuItem = JSON.parse(event.body);
-            updateMenuItem(menuItem.data.object.name, menuItem.updates); //TODO check if query by name works
-
+            const menuItem = JSON.parse(event.body); 
+            updateMenuItem({name: menuItem.name}, {inventory: menuItem.inventory}); //TODO check if query by name works
+       
             bodyMessage = JSON.stringify(`Menu item Updated`);
             break;
         }       
@@ -45,7 +46,7 @@ exports.handler = async (event, context) => { //handler function
             return {
                 statusCode: 200,
                 headers: {
-                    'Access-Control-Allow-Origin': `${process.env.BASE_URL}`,
+                    'Access-Control-Allow-Origin': 'http://localhost:3000',
                     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Access-Control-Max-Age': '86400' // 24 hours

@@ -6,16 +6,8 @@ openMongoConnection();
 exports.handler = async (event, context) => {
     
     const body = event.body;
-    //if(event.httpMethod === "POST") {
 
         try {
-
-            // check the webhook to make sure it’s valid
-            /*const stripeEvent = stripe.webhooks.constructEvent(
-                body,
-                event.headers['stripe-signature'],
-                process.env.STRIPE_WEBHOOK_SECRET
-            );*/
 
             const stripeEvent = event;
             const bodyObj = JSON.parse(body);
@@ -59,15 +51,5 @@ exports.handler = async (event, context) => {
                 body: `Webhook Error: ${err.message}`,
             };
         }
-
-    /*} else {
-        return {
-            statusCode: 405,
-            headers: {
-                "Allow": "POST"
-            },
-            body: JSON.stringify({ message: 'Method Not Allowed' }),
-        }
-    }*/
 
 };

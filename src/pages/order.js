@@ -3,7 +3,7 @@ import { selectItems, selectOrderSubtotal, selectOrderTotal, selectOrderTax } fr
 import OrderItem from '../components/OrderItem'
 import Link from 'next/link';
 import Head from "next/head";
-import { Yanone_Kaffeesatz } from '@next/font/google'
+import { Yanone_Kaffeesatz } from 'next/font/google'
 
 const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
 
@@ -13,6 +13,8 @@ const yanone = Yanone_Kaffeesatz({ subsets: ['latin'], weight: '700'});
  * @constructor
  */
 export default function Order( ) {
+    const router = useRouter();
+
     const currentItems = useSelector(selectItems);
     const noItems = <h2 className="order-title">No items added to order</h2>
     const orderTitle = <h2 className="order-title">Current order</h2>
@@ -20,6 +22,14 @@ export default function Order( ) {
     const subtotal = useSelector(selectOrderSubtotal);
     const total = useSelector(selectOrderTotal);
     const tax = useSelector(selectOrderTax)
+
+    const handlePlaceOrder = () => {
+        if(subtotal === "0.00") {
+            alert("Please add an item to your cart before placing order");
+        } else {
+            router.push('/confirm-order')
+        }
+    }
 
     //render currentItems as a list of orderItems
     return (
@@ -43,7 +53,7 @@ export default function Order( ) {
                 <h5 className="order-detail">{`Total: $${total}`}</h5>
             </div>
             <Link href="/menu" className="return-button grow">Back to menu</Link>
-            <Link href="/confirm-order" className="return-button grow">Place order</Link>
+            <button onClick={handlePlaceOrder} className="return-button grow">Place order</button>
         </div>
 </>
     )

@@ -1,4 +1,3 @@
-import { selectOrderTotal } from '@/features/order/orderSlice';
 import { mailOptions, transporter } from '../../lib/nodemailer';
 
 const CONTACT_MESSAGE_FIELDS = {

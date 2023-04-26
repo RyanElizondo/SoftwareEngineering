@@ -103,7 +103,7 @@ export default function createMenuItem() {
         console.log(newItem);
         //otherwise: add to menu
         //TODO Test this server call and see if Netlify updates MongoDB correctly
-        await fetch(`${process.env.BACKEND_URL}/.netlify/functions/menu`,
+        await fetch('http://localhost:9999/.netlify/functions/menu',
             {
                 method: "POST",
                 headers: {

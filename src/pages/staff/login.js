@@ -13,10 +13,10 @@ const Login = () => {
         if (data.user.name === 'Manager') {
             return (
             <div className= "welcome-page">
-                <pc className = "welcome-user">Welcome, {data.user.name}</pc>
-                <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
+                <p className = "welcome-user">Welcome, {data.user.name}</p>
                 <Link href="/staff/foodprep/orders" className="login-link2">View Orders</Link>
                 <Link href="/staff/manager/inventory" className="login-link2">View Inventory</Link>
+                <button className= "sign-out" onClick={()=> signOut()}>Sign out</button>
             </div>
             );
         } else {
@@ -34,13 +34,13 @@ const Login = () => {
         return (
             <>
                 <Head >
-    
+
                     <title className={yanone.className}>Staff Login</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <link rel="icon" href="/favicon.ico" />
-                    
+
                 </Head>
-            
+
             <div className="page">
                 <div className="login-links-holder">
                     <link rel="stylesheet"
@@ -48,8 +48,8 @@ const Login = () => {
                     <button onClick={()=> signIn()} className="google-signin">Continue to Staff Login</button>
                 </div>
             </div>
-    
-    
+
+
         </>
         );
     }

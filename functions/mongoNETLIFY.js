@@ -156,13 +156,17 @@ async function readOrders(query){
  * @param {object} JSON object for updates
  * @return nothing, if you want to check if updates went through, use R operation
  */
-async function updateUser(query, updatesToBeMade){ 
+async function updateUser(userID, updatesToBeMade){
     try{
-
-        await _db.collection('Users').updateOne(query, {$set: updatesToBeMade});
+        delete updatesToBeMade.id
+        await _db.collection('Users').updateOne({_id: userID}, {$set: updatesToBeMade}, {
+            upsert: true
+        });
         console.log(`Updated user!`);
 
     } catch(e){
+        console.log("error");
+        console.log(e);
         console.log("ERROR: Could not update user, check if they exist first");
     }
 }
@@ -172,9 +176,9 @@ async function updateUser(query, updatesToBeMade){
  * @param {object} JSON object for updates
  * @return nothing, if you want to check if updates went through, use R operation
  */
-async function updateMenuItem(query, updatesToBeMade){ 
+async function updateMenuItem(query, updates){
     try{
-        await _db.collection('Menu').updateOne(query, {$set: updatesToBeMade});
+        await _db.collection('Menu').updateOne(query, {$set: updates});
         console.log(`Updated menu item!`);
 
     } catch(e){

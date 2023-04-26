@@ -72,8 +72,8 @@ export default function({user}) {
     } else {
         return (
             <div className="confirm-order-holder">
-                <p className="confirm-order-title">{`You will earn ${earnPoints} points if you register an account, which can be used to redeem rewards.`}</p>
-                <h3 className="confirm-order-subtitle">{`You currently have ${user.points} points`}</h3>
+                <p className="confirm-order-title">{`You will earn ${earnPoints} points for this order.`}</p>
+                <p className="confirm-order-subtitle">{`You currently have ${user !== null && (user.points !== undefined && user.points !== null) ? `${user.points}` : "0"} points`}</p>
                 <Link href="/checkout" className="return-button grow">Place order</Link>
             </div>
 

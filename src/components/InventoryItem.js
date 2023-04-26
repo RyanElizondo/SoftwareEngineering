@@ -7,28 +7,23 @@ const priceObjString = (priceObj) => {
 export default function({item, index, setInventory}) {
 
     const handleSetInventory = (e) => {
-        const input = e.target.value;
-        console.log("setting inventory received")
+        //const input = e.target.value //item.inventory;
+        let input = 5;
         try {
-            const inputNum = input
-            if(inputNum < 0 || isNaN(inputNum)) {
+
+            if(input < 0 || isNaN(input)) {
                 setInventory(item.name, 0);
-                //return;
             } else {
-                console.log("line 18")
-                setInventory(item.name, e.target.value);
-                const reqInfo = {...item, inventory: inputNum}
-                //TODO Test this server call and see if Netlify updates MongoDB correctly
-                //make call to server to update menu collection in MongoDB
-                console.log("making a call to netlify/functions/menu")
-                console.log(reqInfo)
-                fetch(`${process.env.BACKEND_URL}/.netlify/functions/menu`,
+                setInventory(item.name, item.inventory); //what value do you want here for item.inventory?
+                const reqInfo = {...item, inventory: input}
+                fetch("http://localhost:9999/.netlify/functions/menu",
                     {
                         method: "PUT",
+                        body: JSON.stringify(reqInfo,null,2),
                         headers: {
                             "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(reqInfo)
+                        }
+                        
                     }
                 ).then(response => response.json())
                     .then(data => {
@@ -39,8 +34,8 @@ export default function({item, index, setInventory}) {
                         // Handle API error
                         console.error(error);
                     });
-            }
-        } catch(e) {
+            
+        }} catch(e) {
             console.log(e)
         }
     }
