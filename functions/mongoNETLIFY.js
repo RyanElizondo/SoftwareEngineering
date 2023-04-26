@@ -371,12 +371,8 @@ async function successfulStripe(stripeClientSecret, orderTotal){
 
     let orderDollars = orderTotal / 100;
     console.log("updating order");
-<<<<<<< HEAD
-    await updateOrder(stripeClientSecret, {paymentStatus: "Paid", total: orderDollars});
-=======
     updateOrder({_id: stripeClientSecret}, {paymentStatus: "Paid", total: orderDollars});
     console.log("Successfully updated order!");
->>>>>>> c31360e8fa889283228447937543cf1860076f0b
 }
 
 /** Once order unsuccessfully passes through STRIPE, order status is updated to Card Declined or whatever we want to make it
