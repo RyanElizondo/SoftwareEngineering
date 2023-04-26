@@ -176,9 +176,9 @@ async function updateUser(userID, updatesToBeMade){
  * @param {object} JSON object for updates
  * @return nothing, if you want to check if updates went through, use R operation
  */
-async function updateMenuItem(menuID, newItem){
+async function updateMenuItem(query, updates){
     try{
-        await _db.collection('Menu').updateOne({_id: new ObjectId(menuID)}, {$set: newItem});
+        await _db.collection('Menu').updateOne(query, {$set: updates});
         console.log(`Updated menu item!`);
 
     } catch(e){
