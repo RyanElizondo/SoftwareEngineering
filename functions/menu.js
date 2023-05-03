@@ -4,9 +4,6 @@
 const { createMenuItem, readMenuItems, updateMenuItem, deleteMenuItem} = require('./mongoNETLIFY')
 const { openMongoConnection } = require('./mongoNETLIFY');
 
-
-
-
 exports.handler = async (event, context) => { //handler function
     openMongoConnection();
     let status = 200;
@@ -14,18 +11,14 @@ exports.handler = async (event, context) => { //handler function
    
     switch(event.httpMethod){
         case 'POST':{ //adds menu item to the menu
-            console.log("Received menu POST method");
             const newItem = JSON.parse(event.body);
-            console.log(newItem);
             const addMenuItem = await createMenuItem(newItem);
+            
             bodyMessage = JSON.stringify(addMenuItem)       
             break;
         }
         case 'GET':{ //get all menu items matching queries 
-            let query = {};
-            if (Object.keys(event.queryStringParameters).length !== 0) {
-                query = event.queryStringParameters;
-            }
+            let query = JSON.parse(event.body);
             const menuArray = await readMenuItems(query);
             
             bodyMessage = JSON.stringify(menuArray, null, 2)

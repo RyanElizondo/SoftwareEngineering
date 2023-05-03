@@ -1,49 +1,51 @@
 const {openMongoConnection, successfulStripe, unsuccessfulStripe, addPoints, removeInventory} = require("./mongoNETLIFY");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-openMongoConnection();
-
 exports.handler = async (event, context) => {
     
-    const body = event.body;
+    openMongoConnection();
+    const bodyObj = JSON.parse(event.body);
+    const clientSecret = bodyObj.data.object.client_secret
+    const amount = bodyObj.data.object.amount;
 
-        try {
+    let status = 200;
+    let bodyMessage;
 
-            const stripeEvent = event;
-            const bodyObj = JSON.parse(body);
-            const clientSecret = bodyObj.data.object.client_secret
-            const amount = bodyObj.data.object.amount;
-            switch(bodyObj.type){
-                case 'payment_intent.succeeded':
+    try {
+                
+        switch(bodyObj.type){
+            case 'payment_intent.succeeded':{
 
-                    console.log("calling successful stripe")
-                    console.log("STRIPE BODY");
-                    console.log(bodyObj)
-                    await successfulStripe(clientSecret,amount); //TODO check if sending valid clientSecret
+                successfulStripe(clientSecret, amount); 
 
-                    //TODO send email to customer that order is received.
-
-                    break;
-                case 'payment_intent.payment_failed':
-                    // unexpected event AKA fail payment
-                    await unsuccessfulStripe(clientSecret);
-
-                    break;
-                default:
-                    break;
+                bodyMessage = JSON.stringify("Payment Successful")
+                break;
             }
+            case 'payment_intent.payment_failed':{
 
-            return {
-                statusCode: 200,
-                body: JSON.stringify({ received: true }),
+                await unsuccessfulStripe(clientSecret);
+                
+                bodyMessage = JSON.stringify("Payment failed")
+                break;
+            }
+            default:{
+                status = 405;
+                bodyMessage = JSON.stringify({ message: 'Method Not Allowed' });
+                break;
             };
-        } catch (err) {
-            console.log(`Stripe webhook failed with ${err}`);
 
-            return {
-                statusCode: 400,
-                body: `Webhook Error: ${err.message}`,
-            };
         }
+        return {
+            statusCode: status,
+            body: bodyMessage
+        };
+    } catch (err) {
+        console.log(`Stripe webhook failed with ${err}`);
+
+        return {
+            statusCode: 400,
+            body: `Webhook Error: ${err.message}`,
+        };
+    }
 
 };

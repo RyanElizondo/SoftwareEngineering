@@ -17,29 +17,24 @@ exports.handler = async (event, context) => { //handler function
             break;
         }
         case 'GET':{ //get customer account data from database using queries 
-            let query = {};
-            if (Object.keys(event.queryStringParameters).length !== 0) {
-                query = event.queryStringParameters; 
-            }
+            let query = JSON.parse(event.body);
             const usersArray = await readUsers(query); 
 
             bodyMessage = JSON.stringify(usersArray, null, 2);
             break;
         }    
         case 'PUT':{ //update customer account data
-            console.log("received PUT in /customer")
             const updates = JSON.parse(event.body);
-            console.log("updates: ")
-            console.log(updates);
-            delete updates.image;
-            await updateUser(updates.id, updates); //TODO check if this is passed a valid id JSON object
+            const id = updates._id;
+
+            updateUser( id, updates); 
 
             bodyMessage= JSON.stringify("User Updated");
             break;
         }       
         case 'DELETE':{ //deletes customer account data
             const customerData = JSON.parse(event.body);
-            deleteUser(customerData.data.object.userID); //TODO check if this is passed a valid id JSON object
+            deleteUser({_id: customerData._id}); 
             bodyMessage= JSON.stringify("User Deleted");
             break;
         }    

@@ -18,17 +18,11 @@ exports.handler = async (event, context) => { //handler function
             const orderData = JSON.parse(event.body);
             const addedOrder = await createOrder(orderData);
             
-            bodyMessage = JSON.stringify(`Customer added with ID: ${addedOrder}`); //TODO check if I can just use the event.body._id instead, so we dont have to await for createOrder
+            bodyMessage = JSON.stringify(`Order added with ID: ${addedOrder}`); 
             break;
         }
         case 'GET':{ //get all orders matching queries 
-            let query = {};
-            if(event.queryStringParameters === '/managerorders/?status=paid'){
-                bodyMessage = getPaidOrders();
-                break; //TODO test if this break works
-            } else if (Object.keys(event.queryStringParameters).length !== 0) {
-                query = event.queryStringParameters;
-            }
+            let query = JSON.parse(event.body);
             const ordersArray = await readOrders(query);
             
             bodyMessage = JSON.stringify(ordersArray, null, 2)
@@ -36,15 +30,18 @@ exports.handler = async (event, context) => { //handler function
         }    
         case 'PUT':{ //update ANY order attribute
             const order = JSON.parse(event.body);
-            const id = order.data.object._id;
-            updateOrder(id, order); //update order status TODO check if id is value JSON object
+            const id = order._id;
+            delete order._id
+            const update = order
+            updateOrder({_id: id}, update); 
       
             bodyMessage = JSON.stringify("Order Updated");
             break;
         }       
         case 'DELETE':{ //delete order
             const order = JSON.parse(event.body);
-            deleteOrder(order.data.object._id); //delete order TODO check if id is value JSON object
+            const id = order._id;
+            deleteOrder({_id: id}); 
     
             bodyMessage = JSON.stringify("Order Deleted");
             break;
